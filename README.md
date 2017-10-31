@@ -1,4 +1,4 @@
-现有云算宝1.0应用主要基于XtoPHP+ThinkPHP5.0框架应用下开发<br>
+XtoPHP主要基于Tp5.0框架应用的企业快速开发框架<br>
 ThinkPHP框架请移步于（http://www.thinkphp.cn），后期我们会重点整理此方面的学习资料，供大家参考<br>
 1、主要XtoPHP框架目录结构<br>
 xtophp<br>
