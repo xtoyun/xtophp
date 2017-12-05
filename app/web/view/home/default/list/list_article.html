@@ -1,0 +1,70 @@
+{extend name="$layout" /}
+
+{block name="content"} 
+	<link rel="stylesheet" href="/res/css/news.css"/>
+    <!--banner-->
+    <div class="banner">
+        <img src="/res/img/news-bg.png"/>
+    </div>
+    <!--nav_list-->
+    <div class="nav_list">
+        <div class="wrapper">
+            <ul>
+            	{php}
+            		$nid=input('nid');//栏目编号
+                    $cateid=input('cateid');
+            	{/php}
+                <li {empty name='cateid'}class="active"{/empty}><a href="?s=/web/article/list&nid={$nid}">全部新闻</a></li>
+                {xto:select dao="\app\web\dao\CategoryDao" id="item" where=""}
+                <li {if condition='$item.cateid==$cateid'}class="active"{/if}><a href="?s=/web/article/list&nid={$nid}&cateid={$item.cateid}">{$item.catename}</a></li>
+                {/xto:select}           
+            </ul>
+        </div>
+    </div>
+    <!--events-->
+    <div class="events" id="product">
+        <div class="wrapper">
+            <div class="events-contain fl">  
+                <ul>
+                	{xto:select dao="\app\web\dao\ArticleDao" id="as" where="a.nid=$nid" limit="12" order="arid desc"}
+                    <li class="fl" >
+                            <a href="?s=/web/article/show&id={$as.arid}&nid={$nid}">
+                                <div class="date fl">
+                                    <img src="/res/img/d1.png"  />
+                                </div>
+                                <dl class='fl' >
+                                    <dt>
+                                    <h3>{$as.title}<span class="fr">+</span></h3>
+                                    </dt>
+                                    <dd>
+                                    	{$as.description}   
+                                    </dd>
+                                </dl>
+                            </a>
+                        </li>
+                        {/xto:select}
+                    <div style="clear: both;"></div>
+                </ul>
+                <nav aria-label="Page navigation">
+                	{$as_pager}
+                </nav>
+            </div>
+           
+             <div class="events-right" >
+                <p><span>最新新闻</span></p>
+                <ul>
+                	{xto:select dao="\app\web\dao\ArticleDao" id="ts" where="" limit="12"}
+                    <li>
+                        <a href="?s=/web/article/show&id={$ts.arid}&nid={$nid}">
+                            <img src="/res/img/d1.png" alt="{$ts.title}"/>
+                            <span>{$ts.title}</span>
+                            <i>6小时前</i>
+                        </a>
+                    </li>
+                    {/xto:select}               
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
+{/block}

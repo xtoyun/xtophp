@@ -1,0 +1,35 @@
+{extend name="$layout" /}
+
+{block name="top"}
+{include file="plugs/nav"}
+{/block}
+
+{block name="content"}
+
+    <button class="btn btn-primary" type="button" onclick="app.show('{:url('plugs/addpay')}','添加支付','60%','60%',true)">添加支付</button>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>名称</th>
+        <th>支付类型</th>
+        
+        <th>备注</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {foreach $list as $key=>&$value}
+    <tr>
+        <td>{$value['payid']}</td>
+        <td>{$value['name']}</td>
+        <td>{$value['paytype']}</td>
+        <td>{$value['remark']}</td>
+        <td class="text-navy"><a href="javascript:void(0)" onclick="app.show('{:url('plugs/addpay')}?id={$value['payid']}&type={$value['paytype']}','添加支付','60%','60%',true)">修改</a></td>
+    </tr> 
+    {/foreach}  
+    </tbody>
+</table>
+<div>{$page}</div>
+</div>
+{/block}

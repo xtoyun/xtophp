@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu>
+ 
+	<item title='文档管理' url='/doc/index/doclist'>
+		<pagelink title='添加文档' url='/doc/index/create' c='index'></pagelink>  
+		<pagelink title='文档列表' url='/doc/index/dlist' c='index'></pagelink>  
+	</item>
+</menu>

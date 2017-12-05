@@ -1,0 +1,41 @@
+{extend name="$layout" /}
+{block name='res'}
+<link rel="stylesheet" href="/res/css/news-dateils.css"/>
+{/block}
+
+{block name="content"}
+<div class="article">
+		<div class="wrapper">
+			{php}
+				$id=input('id');
+			{/php}
+			{xto:find dao="\app\web\dao\ArticleDao" id="item" value="$id"}
+			<div class="article-detail fl">
+				<div class="location">
+					当前位置：<span><a href="#">最新动态</a></span>
+				</div>
+				<h1>{$item.title}</h1>
+				<div class='date'>{$item.createdate}</div>
+				<div class="article-inner">
+					{$item.content}
+				</div>
+			</div>
+			{/xto:find}
+			<div class="slide" >
+				<p><span>最新新闻</span></p>
+				<ul>
+					{xto:select dao='\app\web\dao\ArticleDao' id='item' limit='8'}
+					<li>
+						<a href="?s=web/article&id={$item.arid}">
+							<img src="/res/img/d1.png"/>
+							<span>{$item.title}</span>
+						</a>
+					</li>
+					{/xto:select}
+				</ul>
+			</div>
+			<div style="clear: both;"></div>
+		</div>
+	</div>
+	<div style="clear: both;"></div>
+{/block}

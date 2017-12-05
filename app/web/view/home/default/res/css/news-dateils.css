@@ -1,0 +1,88 @@
+.article{
+	height: auto;
+	border-top: 2px solid #e9e9e9;
+	min-height: 750px;
+	padding-bottom: 100px;
+}
+.article .wrapper{
+	position: relative;
+}
+.article-detail{
+	width: 812px;
+	height: 100%;
+	font-size: 14px;
+	line-height: 28px;
+	color: #333;
+}
+.article-detail img{
+	margin: 20px 0;
+	width: 100%;
+}
+.article-detail .article-inner>div{
+	/*text-indent: 30px;*/
+	margin: 10px 0;
+}
+.article-detail .location{
+	margin-top: 28px;
+	line-height: 53px;
+	font-size: 12px;
+	color: #999;
+}
+.article-detail h1{
+	line-height: 68px;
+	font-size: 28px;
+	color: #333;
+}
+.article-detail .date{
+	line-height: 18px;
+	font-size: 12px;
+	color: #999;
+	margin-bottom: 40px;
+}
+.article-detail .article-inner h3{
+	font-size: 15px;
+	line-height: 50px;
+	color: #666;
+	font-weight: bold;
+}
+.slide{
+	width:270px;
+	height:670px;
+	background:#f9f9f9;
+	padding: 0 20px;
+	position: absolute;
+	right: 0;
+	top:100px;
+}
+.slide p{
+	margin-top: 15px;
+	line-height: 45px;
+	font-size: 18px;
+	border-bottom: 1px solid #ebebeb;
+}
+.slide p span{
+	border-bottom: 2px solid #00AEFF;
+	display: inline-block;
+	line-height: 45px;
+}
+.slide ul li{
+	height: 45px;
+	font-size: 13px;
+	padding: 20px 0;
+	line-height: 25px;
+	border-bottom: 1px solid #efefef;
+}
+.slide ul li img{
+	width: 79px;
+/*	height: 45px;*/
+	float: left;
+	margin-right: 15px;
+}
+.slide ul li span{
+	overflow : hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	color: #333;
+}

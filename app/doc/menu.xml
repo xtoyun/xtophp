@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu>
+	<item title='文档管理' funid='doc_docer'  url='A/index'>
+		<pagelink title='添加文档' funid='doc_docer_create' url='docer/createdoc' c='docer'>
+		</pagelink>
+		<pagelink title='文档列表' funid='doc_docer_list' url='docer/doclist' c='docer'>
+		</pagelink> 
+	</item> 
+</menu>

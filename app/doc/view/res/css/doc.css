@@ -1,0 +1,103 @@
+﻿@charset "utf-8";
+/* CSS Document */
+body { font-size:12px;}
+body, div, form, p, span, ul, ol, li, dl, dt, dd, h1, h2, h3, h4, h5, h6 { margin: 0; padding: 0; }
+ul, ol, li { list-style: none;}
+img, a img { border: 0 none;}
+a{ text-decoration:none; color:#333333;}
+a:hover{ text-decoration:none; color:orange;}
+input, select, button { vertical-align: middle;}
+.clear { clear: both; height:0px;}
+.header{
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height:50px;
+    line-height:50px;
+    text-indent:60px;
+    z-index: 21;
+    background:url(../images/doc_logo.gif) no-repeat 10px center #EFEFEF;
+}
+.footer {
+    background-color: #EFEFEF;
+    bottom: 0;
+    display: block;
+    height: 35px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 21;
+    line-height:35px;
+    text-align:center;
+}
+.left {
+    top: 50px;
+    display: block;
+    left: 0;
+    bottom: 35px;
+    position: absolute;
+    width: 205px;
+    z-index: 16;
+}
+.left .list{
+    height:100%;
+    overflow:auto;
+}
+.left .list li{
+    line-height:30px;
+    text-indent:20px;
+    white-space:nowrap; 
+}
+.left .list li span{
+    padding:0 2px;
+    //border:1px solid #333333;
+    cursor:pointer
+}
+.left .list li ul{
+    padding-left:10px;
+}
+.left .list li.active{
+    font-weight:700;
+}
+.left .list li.active a{
+    font-weight:700;
+	padding:2px 2px;
+	border:1px dotted #666;
+	border-radius:2px;
+	background-color:#C5DEFF;
+}
+.right {
+    bottom: 35px;
+    top: 50px;
+    z-index: 16;
+    left: 205px;
+    position: absolute;
+    right: 0;
+    overflow:auto;
+}
+.right .content{
+line-height:25px;
+}
+.goback{
+	overflow:hidden;
+	display:block;
+	float:right;
+	margin-right:45px;
+	margin-top:5px;
+	width: 36px;
+	height: 36px;
+	vertical-align: middle;
+	background: url(../images/back_out.png) no-repeat;
+}
+.goback:hover{
+	overflow:hidden;
+	display:block;
+	float:right;
+	margin-right:45px;
+	margin-top:5px;
+	width: 36px;
+	height: 36px;
+	vertical-align: middle;
+	background: url(../images/back_hover.png) no-repeat;
+}

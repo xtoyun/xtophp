@@ -1,0 +1,13 @@
+{extend name="$layout" /}
+{block name="title"}
+	{$title}
+{/block}
+
+{block name="content"}
+    {notempty name="datasource"}
+        <div>{$datasource.title}</div>
+    {/notempty}
+{/block}
+{block name="scripts"}
+
+{/block}

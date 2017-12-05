@@ -1,0 +1,17 @@
+<link rel="stylesheet" href="/public/plugins/jquery-tags-input/jquery.tagsinput.min.css"> 
+
+<div class="form-group"><label class="col-sm-2 control-label">{$form['title']}</label>
+    <div class="col-md-2"><input class="js-masked-phone form-control" type="text" id="{$form['name']}" name="{$form['name']}" value="{$form.value}">
+    	{notempty name="form.tips"}
+ 		<div class="help-block">{$form.tips}</div>
+    	{/notempty}
+    </div> 
+</div> 
+<script src="/public/plugins/masked-inputs/jquery.maskedinput.min.js"></script>
+
+<script>
+    $(function () {
+        App.initHelpers(['masked-inputs']);
+    });
+</script>
+    

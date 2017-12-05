@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu>
+	<item title='基础设置' url='/admin/manager/index'>
+		<pagelink title='基本设置' url='/admin/setting/basic' c='setting,index'>
+		</pagelink>
+		<pagelink title='管理员' url='/admin/manager/index' c='manager'>
+			<function url='/admin/api/createmanager' title='添加管理员'></function>
+			<function url='/admin/api/updatemanager' title='编辑管理员'></function>
+			<function url='/admin/api/deletemanager' title='删除管理员'></function>
+		</pagelink>
+		<pagelink title='角色管理' url='/admin/roles/index' c='roles'>
+			<function url='admin_roles_add' title='添加角色'></function>
+			<function url='admin_roles_update' title='添加角色'></function>
+			<function url='admin_roles_delete' title='删除角色'></function>
+		</pagelink>
+		<pagelink title='日志管理'  url='/admin/logs/index' c='logs'></pagelink>
+		<pagelink title='数据库管理' url='/admin/database/index' c='database'></pagelink>
+	</item> 
+	<item title='会员管理' class="si-users" url='/admin/member/index'>
+		<pagelink title='会员信息' url='/admin/member/index' c='member'>
+		</pagelink>
+		<pagelink title='钱包管理' url='/admin/wallet/index' c='wallet'>
+		</pagelink>
+		<pagelink title='奖金管理' url='/admin/splittin/index' c='splittin'>
+		</pagelink>
+		<pagelink title='积分管理' url='/admin/point/index' c='point'>
+		</pagelink>
+	</item>
+	<item title='消息管理' class='si-bag' url='/admin/member/index'>
+		<pagelink title='收件箱' url='/admin/rebox/index' c='rebox'>
+		</pagelink>
+		<pagelink title='发件箱' url='/admin/sendbox/index' c='sendbox'>
+		</pagelink>
+		<pagelink title='发送邮件' url='/admin/message/sender' c='message'>
+		</pagelink> 
+	</item> 
+	<item title='应用管理' class='si-cloud-download' url='/admin/member/index'>
+		<pagelink title='模块管理' url='/admin/module/index' c='module'></pagelink>
+		<pagelink title='插件管理' url='/admin/plugs/setsms' c='plugs'></pagelink>
+	</item>
+</menu>
