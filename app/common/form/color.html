@@ -1,0 +1,17 @@
+
+<link rel="stylesheet" href="/static/js/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+
+<div class="form-group"><label class="col-sm-2 control-label">{$form['title']}</label>
+    <div class="col-md-2"><input class="js-colorpicker form-control" type="text" id="{$form['name']}" name="{$form['name']}" value="{$form.value}">
+    	{notempty name="form.tips"}
+ 		<div class="help-block">{$form.tips}</div>
+    	{/notempty}
+    </div> 
+</div> 
+<script src="/static/js/bootstrap-colorpicker/bootstrap-colorpicker.min.js"></script>
+<script>
+    $(function () {
+        App.initHelpers(['colorpicker']);
+    });
+</script>
+    

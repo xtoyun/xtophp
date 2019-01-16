@@ -1,0 +1,297 @@
+.banner{
+	height: auto;
+	width: 100%;
+	position: relative;
+}
+.banner img{
+	width: 100%;
+	height: 100%;
+}
+.banner .tab_nav{
+	height: 92px;
+	background: #fff;
+	position: absolute;
+	bottom: -45px;
+	box-shadow:2px 2px 5px #eee;
+	z-index: 100;
+}
+.banner .tab_nav li{
+	float: left;
+	line-height: 92px;
+}
+.banner .tab_nav li a{
+	display: inline-block;
+	line-height: 37px;
+	padding: 0 117px;
+	border-right: 1px solid #eee;
+	
+}
+.about{
+	height: 670px;
+	width: 100%;
+	overflow: hidden;
+	text-align: center;
+}
+.about-title{
+	margin-top: 30px;
+	font-size: 14px;
+	color: #c5c5c5;
+	height:100px;
+	border-bottom: 1px dashed #dfdfdf;
+}
+.about-title h3{
+	font-size: 29px;
+	color: #000;
+	font-weight:lighter;
+	line-height: 50px;
+}
+.about-contain{
+	width: 770px;
+	margin: 0 auto;
+	font-size: 14px;
+	line-height: 26px;
+}
+.about-contain h5{
+	font-size: 16px;
+	color: #00aeff;
+	line-height: 95px;
+}
+.about-contain p{
+	text-align: left;
+	text-indent: 30px;
+	margin-bottom: 30px;
+}
+.events{
+	text-align: center;
+	height: 635px;
+	width: 100%;
+	background: url("../img/evenst-banner.png")/*tpa=http://www.we7shop.com/Public/static/index/img/evenst-banner.png*/no-repeat;
+	background-size: cover;
+	overflow: hidden;
+}
+.events .events-contain{
+	margin-top: 66px;
+}
+.events ul li{
+	width: 470px;
+	height: 115px;
+	margin:0 25px 55px 80px;
+}
+.events ul li .date{
+	width: 58px;
+	height: 115px;
+}
+.events ul li .date .month{
+	height: 57px;
+	text-align: center;
+	line-height: 57px;
+	background: #e4e4e4;
+	color: #989898;
+}
+.events ul li .date .day{
+	height: 57px;
+	text-align: center;
+	line-height: 57px;
+	background: #fff;
+	color: #989898;
+	font-size: 26px;
+	font-weight: bold;
+}
+.events ul li dl{
+	text-align: left;
+	width: 390px;
+	font-size: 13px;
+	color: #898888;
+	margin-left: 20px;
+}
+.events ul li dl dt{
+	margin-bottom: 15px;
+}
+.events ul li dl dt h3{
+	font-size: 17px;
+	color: #020202;
+	line-height: 35px;
+}
+.events ul li dl dt h3 span{
+	display:inline-block;
+	width: 19px;
+	height: 19px;
+	background: #9d9d9d;
+	color: #fff;
+	text-align: center;
+	line-height: 19px;
+	margin-top: 8px;
+}
+.events ul li dl dt p{
+	font-size: 13px;
+}
+.events ul li dl dd{
+	line-height: 20px;
+}
+.title{
+	margin-top: 30px;
+	font-size: 14px;
+	color: #c5c5c5;
+	height:95px;
+}
+.title h3{
+	font-size: 29px;
+	color: #000;
+	font-weight:lighter;
+	line-height: 50px;
+}
+.join{
+	height:1600px;
+	width: 100%;
+	text-align: center;
+}
+.join-contain{
+	height:400px;
+	border-bottom: 1px dashed #dfdfdf;
+}
+.join .title{
+	border-bottom: 1px dashed #dfdfdf;
+}
+.join .join-contain{
+	margin-top: 82px;
+}
+.join .job{
+	text-align: left;
+	width: 490px;
+	font-size: 14px;
+	line-height: 25px;
+	margin-left: 105px;
+}
+.join .job dl{
+	margin-bottom: 45px;
+	margin-top: 10px;
+}
+.join .job dt{
+	font-size: 16px;
+	color: #00aeff;
+}
+.join .job  p{
+	height: 42px;
+	line-height: 42px;
+	background:#ecf3f9;
+	padding-left: 20px;
+}
+.join .job  p span{
+	color: #00aeff;
+}
+
+.contacts{
+	height: 595px;
+	width: 100%;
+	overflow: hidden;
+}
+.contacts .title{
+	text-align: center;
+	border-bottom: 1px dashed #dfdfdf;
+}
+.contact-contain{
+	margin-top: 40px;
+}
+.contacts .address {
+	padding-right: 80px;
+}
+.contacts ul{
+	font-size: 13px;
+	line-height:24px;
+	margin-top: 35px;
+}
+.contacts p{
+	font-size: 13px;
+	line-height:24px;
+	margin-top: 35px;
+}
+.report{
+	text-align: center;
+}
+.report-contain{
+	height: 660px;
+	text-align: left;
+	border-bottom: 1px dashed #dfdfdf;
+}
+.report-left{
+	margin: 50px 0;
+	width: 813px;
+	padding-right: 45px;
+	font-size: 13px;
+	line-height: 24px;
+	float: left;
+}
+.report-case{
+	height: 500px;
+	
+}
+.report-case .case{
+	position: relative; 
+}
+.report-case .case a{
+	position: absolute;
+	right: 40px;
+	bottom: 20px;
+}
+.report-contain h2{
+	font-size: 16px;
+	color: #00AEFF;
+	line-height: 30px;
+}
+.report-left p{
+	font-weight: bold;
+}
+.report-contain ul li{
+	text-indent:25px;
+}
+.report-right{
+	font-size: 13px;
+	margin: 50px 0;
+	float: left;
+	width: 235px;
+	height: 450px;
+	background: url("../img/report-r.jpg")/*tpa=http://www.we7shop.com/Public/static/index/img/report-r.jpg*/ no-repeat;
+	padding: 40px;
+	line-height: 27px;
+}
+.report-right a{
+	display: block;
+	width: 230px;
+	height: 47px;
+	color: #fff;
+	text-align: center;
+	margin: 10px auto;
+	line-height: 47px;
+	font-size: 16px;
+	border-radius: 5px;
+}
+.case{
+	width: 309px;
+	height: 300px;
+	box-shadow:0px 0px 25px rgba(0,0,0,0.1);
+	float: left;
+	margin-right:25px;
+	margin-top:75px;
+	text-align: left;
+	padding: 0 33px;
+}
+.case dl dt{
+	font-size: 17px;
+	line-height: 60px;
+	border-bottom: 1px dashed #dfdfdf;
+	color: #56bdf6;
+}
+.case dl dd{
+	margin-top: 25px;
+	font-size: 12px;
+	line-height: 23px;
+}
+#allmap{
+	width:750px;
+	height:290px;
+	float: left;
+}
+.BMap_bubble_content{
+	font-size: 14px;
+	margin-top: 15px;
+}

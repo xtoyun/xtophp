@@ -1,0 +1,29 @@
+{extend name="$layout" /}
+
+{block name="content"}
+<div class="banner">
+<img class='img1' src="/res/img/banner4.png" width="100%" />
+    </div>
+<div class="about" id="about">
+	<div class="wrapper">
+		{php}
+			$nid=input('nid');
+			if(!empty($nid)){
+				$where="nid=".$nid;
+			}
+			$name=input('name');
+			if(!empty($name)){
+				$where="ename='$name'";
+			}
+		{/php}
+		{xto:select dao="\app\web\dao\AboutDao" id="item" where="$where"}
+		<div class="about-title">
+			<h3>{$item.title}</h3>
+		</div>
+		<div class="about-contain">
+			{$item.content|raw}
+		</div>
+		{/xto:select}
+	</div> 
+</div>
+{/block}

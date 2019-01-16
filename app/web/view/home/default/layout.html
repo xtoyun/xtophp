@@ -1,0 +1,109 @@
+{block name='top'}{/block}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>{$title|default=''}{$config.web_name|default=''}</title>
+    <meta name="keywords" content="{$config.web_keywords|default=''}">
+    <meta name="description" content="{$config.web_description|default=''}">
+    <link href="/favicon.ico" rel="shortcut icon" />
+    <link rel="stylesheet" href="/res/css/common.css"/>
+    <link rel="stylesheet" href="/res/css/iconfont.css"/>
+    <link rel="stylesheet" href="/res/css/index.css"/>
+    <script  type="text/javascript"  src="/res/js/jquery-1.9.1.min.js" ></script>
+    {block name='res'}{/block}
+</head>
+<body>
+{include file="default/header"}
+{block name='content'}{/block}
+<div class="footer">
+    <div class="wrapper">
+        <div class="footer-top">
+            <dl class='fl'>
+                <dt>ABOUT US</dt>
+                <dd>
+                    <p><a href="?s=/web/about&name=about">关于我们</a></p> 
+                    <p><a href="?s=/web/about&name=func">特色功能</a></p>
+                </dd>
+            </dl>
+            <dl class='fl'>
+                <dt>NAVIGATION</dt>
+                <dd>
+                    <p><a href="?s=/web/about&name=plug">插件汇总</a></p>
+                    <p><a href="?s=/web/about&name=solve">解决方案</a></p>
+                    <p><a href="?s=/web/about&name=funcList">功能列表</a></p>
+                </dd>
+            </dl>
+            <dl class='fl'>
+                <dt>HELP</dt>
+                <dd>
+                    <p><a href="#">常见问题</a></p>
+                    <p><a href="#">新手上路</a></p>
+                    <p><a href="#">购买须知</a></p>
+                </dd>
+            </dl>
+            <dl class='fl contact'>
+                <dt>CONTACT</dt>
+                <dd>
+                    <p>电话：</p>
+                    <h3>137-1042-9923</h3>
+                    <button><a href="$" target="_blank">咨询客服</a></button>
+                </dd>
+            </dl>
+            <dl class='fl'>
+                <dt>官方微信公众号</dt>
+                <dd> 
+                    <p>扫一扫 关注最新动态</p>
+                </dd>
+            </dl>
+        </div>
+        <div class="link">友情链接：
+            {xto:select dao='\app\web\dao\LinkDao' id='item' where="" limit='10'}
+			<a href="{$item.url|default=''}">{$item.title}</a> 
+            {/xto:select}
+		</div>
+        <div class="footer-edtion">
+            {$config.web_name|default=''}©2016-2018
+        </div>
+    </div>
+</div>
+
+<script  type="text/javascript"  src="/res/js/index.js" ></script>
+</body>
+    <script type="text/javascript" src="/res/js/jquery.SuperSlide.2.1.1.js"></script>
+    <script type="text/javascript" src="/res/js/jquery.cookie.js"></script>
+    <script type="text/javascript">
+        $(".fullscreen").slide({ titCell:".hd ul", mainCell:".bd ul", effect:"leftLoop", vis:"auto", autoPlay:true, autoPage:'<li><a></a></li>', trigger:"click"});
+        $(".case_main").slide({ titCell:".hd ul", mainCell:".bd ul", effect:"leftLoop", vis:"auto", autoPlay:true, autoPage:'<li><a></a></li>', trigger:"click",interTime:'5000',delayTime:'1000'});
+        var loaded = false
+        $(window).scroll(function (){
+            if($(window).scrollTop() >=1400 && !loaded) {
+                var index = 0;
+                var index1 = 0;
+                var index2 = 0;
+                var a = setInterval(function(){
+                    index+=4;
+                    $("#number").text(index);
+                    if(index==1000){
+                        clearInterval(a);
+                    }
+                },1);
+                var b = setInterval(function(){
+                    index1++;
+                    $("#number1").text(index1);
+                    if(index1==50){
+                        clearInterval(b);
+                    }
+
+                },20);
+                var c = setInterval(function(){
+                    index2++;
+                    $("#number2").text(index2);
+                    if(index2==10){
+                        clearInterval(c);
+                    }
+                },100);
+                loaded = true;
+            }});
+    </script>
+</html>

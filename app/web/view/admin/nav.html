@@ -1,0 +1,29 @@
+{php}
+    $nav_dao=\app\web\dao\NavDao::instance();
+    $nav_data=json_encode($nav_dao->get_data());
+    
+{/php}
+<script type="text/javascript" src="/public/libs/jstree/jstree.js"></script>
+<link rel="stylesheet" href="/public/libs/jstree/themes/default/style.css" />
+栏目
+<div id="async_html_1">
+
+</div>
+<script type="text/javascript">
+    $('#async_html_1').jstree({
+        "core": {
+            "data": {$nav_data|raw}
+        },
+        "plugins" : [ 
+            "themes","json_data"
+        ],
+        "themes":{
+            "theme" : "classic",
+            "dots" : true,
+            "icons" : true
+        },
+    }); 
+    $('#async_html_1').on("changed.jstree", function (e, data) {  
+        location.href=data.node.original.link;     
+    }); 
+</script>
