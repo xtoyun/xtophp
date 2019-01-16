@@ -1,7 +1,0 @@
-
-<ul class="nav nav-tabs">
-    <li {if condition="$Request.action=='setpay'"} class="active" {/if}><a href="{:url('plugs/setpay')}">支付设置</a></li>
-    <li {if condition="$Request.action=='setsms'"} class="active" {/if}><a href="{:url('plugs/setsms')}?type={$config.smstype|default=''}">短信设置</a></li>
-    <li {if condition="$Request.action=='setemail'"} class="active" {/if}><a href="{:url('plugs/setemail')}?type={$config.emailtype|default=''}">邮件设置</a></li>
-    <li {if condition="$Request.action=='setoss'"} class="active" {/if}><a href="{:url('plugs/setoss')}?type={$config.osstype|default=''}">远程附件</a></li>
-</ul>  
