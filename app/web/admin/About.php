@@ -7,6 +7,9 @@ use app\web\dao\CategoryDao;
 use app\web\dao\FieldDao;
 
 class About extends BaseController{
+	public function test(){
+		echo "test";
+	}
 	private $dao;
 
 	public function __construct(){
