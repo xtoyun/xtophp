@@ -2,27 +2,29 @@
 namespace app\web\admin;
 
 use app\web\dao\KeywordDao;
+use app\web\model\WebKeyurl;
 
 class Keyword extends BaseController{
-	private $dao;
+	// private $dao;
 
-	public function __construct(){
-		parent::__construct();
-		$this->dao=KeywordDao::instance();
-	}
+	// public function __construct(){
+	// 	parent::__construct();
+	// 	$this->dao=KeywordDao::instance();
+	// }
 
-	public function index(){ 
-		$this->dao->setQuickSearch(input('keyword'),input('field'));
-		$this->dao->setorder('kid','desc');
+	public function index(){
+		$list = WebKeyurl::where(null)->order('kid desc')->paginate(10);
+
 		return $this->template
 				->TableTemplate 
 				->setData('modulename','内容管理')
 				->setTitle('关键字')
-				->setDataSource($this->dao->select())
+				->setDataSource($list)
+				->setPager($list->render())
 				->addColumnButton('delete') 
 				->addNav('','关键字',url('keyword/index')) 
 				->addTopButton('','创建',url('keyword/create'))
-				->addColumnButton('','',url('keyword/edit').'?id=$kid','','fa fa-pencil')
+				->addColumnButton('','edit',url('keyword/edit').'?id=$kid','','fa fa-pencil')
 				->setQuickSearch('name','')
 				->setPid('kid')
 				->setColumns([
@@ -50,9 +52,24 @@ class Keyword extends BaseController{
 				->submit('keyword_create','')
 				->fetch();
 	}
+	public function delete_post(){
+		if (request()->ispost()) {
+			$kid = input('id');
+			$category_item = WebKeyurl::get($kid,'sublist');
+
+			if ($category_item) {
+				$result = $category_item->together('sublist')->delete();
+				if($result){
+					return message('删除成功',true);
+				}
+			}
+		}
+		return message('删除失败',false);
+ }
 
 	public function edit(){
 		$id=input('id'); 
+		$category_item=WebKeyurl::find($id)->toArray();
 		return $this->template
 				->FormTemplate 
 				->setData('modulename','基础设置') 
@@ -63,7 +80,7 @@ class Keyword extends BaseController{
 						['text', 'title', '名称', ''],
 						['text', 'url', '地址', '格式：http://','http://'],
 					])
-				->setDataSource($this->dao->find($id))
+				->setDataSource($category_item)
 				->setPid('kid',$id)
 				->submit('keyword_update','')
 				->fetch();

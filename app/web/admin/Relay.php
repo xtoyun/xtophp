@@ -2,27 +2,22 @@
 namespace app\web\admin;
 
 use app\web\dao\RelayDao;
+use app\web\model\WebRelays;
 
 class Relay extends BaseController{
-	private $dao;
 
-	public function __construct(){
-		parent::__construct();
-		$this->dao=RelayDao::instance();
-	}
+	public function index(){
+		$list = WebRelays::where(null)->order('rid desc')->paginate(5);
 
-	public function index(){ 
-		$this->dao->setQuickSearch(input('relay'),input('field'));
-		$this->dao->setorder('rid','desc');
 		return $this->template
 				->TableTemplate 
 				->setData('modulename','内容管理')
 				->setTitle('放灯片')
-				->setDataSource($this->dao->select())
+				->setDataSource($list)
 				->addColumnButton('delete') 
 				->addNav('','放灯片',url('relay/index')) 
 				->addTopButton('','创建',url('relay/create'))
-				->addColumnButton('','',url('relay/edit').'?id=$rid','','fa fa-pencil')
+				->addColumnButton('','edit',url('relay/edit').'?id=$rid','','fa fa-pencil')
 				->setQuickSearch('name','')
 				->setPid('rid')
 				->setColumns([
@@ -105,9 +100,24 @@ class Relay extends BaseController{
 				->submit('relay_create','')
 				->fetch();
 	}
+	public function delete_post(){
+		if (request()->ispost()) {
+			$rid = input('id');
+			$category_item = WebRelays::get($rid,'sublist');
+
+			if ($category_item) {
+				$result = $category_item->together('sublist')->delete();
+				if($result){
+					return message('删除成功',true);
+				}
+			}
+		}
+		return message('删除失败',false);
+ }
 
 	public function edit(){
 		$id=input('id'); 
+		$category_item = WebRelays::find($id)->toArray();
 		return $this->template
 				->FormTemplate 
 				->setData('modulename','基础设置') 
@@ -118,7 +128,7 @@ class Relay extends BaseController{
 						['text', 'title', '名称', ''],
 						['textarea', 'remark', '备注', '格式：http://',''],
 					])
-				->setDataSource($this->dao->find($id))
+				->setDataSource($category_item)
 				->setPid('rid',$id)
 				->submit('relay_update','')
 				->fetch();

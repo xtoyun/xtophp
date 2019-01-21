@@ -5,17 +5,40 @@ use xto\Util;
 use app\web\dao\AboutDao;
 use app\web\dao\CategoryDao;
 use app\web\dao\FieldDao;
+use app\web\model\WebAbout;
 
 class About extends BaseController{
-	public function test(){
-		echo "test";
-	}
-	private $dao;
+	// private $dao;
 
-	public function __construct(){
-		parent::__construct();
-		$this->dao=AboutDao::instance();
-	}  
+	// public function __construct(){
+	// 	parent::__construct();
+	// 	$this->dao=AboutDao::instance();
+	// }  
+		public function index(){ 
+		$list = WebAbout::where(null)->order('abid desc')->paginate(20); 
+ 
+		return $this->template
+				->TableTemplate 
+				->setData('modulename','内容管理')
+				->setTitle('页面管理')
+				->setDataSource($list)
+				->setPager($list->render())
+				->addColumnButton('delete') 
+				->addNav('','页面管理',url('about/index'))
+				->addTopButton('','创建',url('about/create'))
+				->addColumnButton('','edit',url('about/edit').'?id=$cateid&name=$catename','','fa fa-pencil') 
+				->setQuickSearch('name','')
+				->setPid('abid')
+				->setColumns([
+					['abid', '编号'],
+					['cid', '内容id'],
+                    ['order', '排序'],
+                    ['update_time','更新时间'],
+                    ['button', '操作', 'btn']
+				])
+				->fetch();
+	}
+
 
 	public function edit(){
 		$nid=input('nid'); 

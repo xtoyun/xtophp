@@ -6,25 +6,20 @@ use xto\App;
 use app\web\dao\FieldDao;
 use app\web\dao\ProductDao; 
 use app\web\dao\ProductCategoryDao;
+use app\web\model\WebProduct; 
+use app\web\model\WebProductCategory;
 
 class Product extends BaseController{
-	private $dao;
 
-	public function __construct(){
-		parent::__construct();
-		$this->dao=ProductDao::instance();
-	}
-
-	public function index(){ 
-		$this->dao->map['a.nid']=input('nid');
-		$this->dao->setQuickSearch(input('keyword'),input('field'));
-		$this->dao->setorder('pid','desc');
+	public function index(){
+	$list = WebProduct::where(null)->order('pid desc')->paginate(10); 
 		return $this->template
 				->TableTemplate 
 				->setData('modulename','内容管理')
 				->setTitle('产品管理')
 				->addLeftBlock('nav','选择栏目','nav')
-				->setDataSource($this->dao->selectpage(10))
+				->setDataSource($list)
+				->setPager($list->render())
 				->addColumnButton('delete','删除',url('product/post_delete')) 
 				->addColumnButton('','',url('product/edit').'?id=$pid','','fa fa-pencil')
 				->addNav('','产品列表',url('product/index')) 
@@ -33,8 +28,8 @@ class Product extends BaseController{
 				->setPid('pid')
 				->setColumns([
 					['pid', '编号'],
-					['catename', '类别'],
 					['title', '标题','link','edit?id=$pid'], 
+					['catename', '产品类别'],
 					['version', '版本'],
 					['price', '价格'],
 					['spec', '规格'],
@@ -47,13 +42,13 @@ class Product extends BaseController{
 
 	public function create(){
 		$nid=input('nid');
-		if(empty($nid)){
-			$this->error('请选择栏目');
-			return;
-		}
-		$c_dao=ProductCategoryDao::instance();
+		// if(empty($nid)){
+		// 	$this->error('请选择栏目');
+		// 	return;
+		// }
+		// $c_dao=ProductCategoryDao::instance();
 		$data=[];
-		foreach ($c_dao->select() as $key => $value) {
+		foreach (WebProductCategory::select() as $key => $value) {
 			$data[$value['catename']]=$value['cateid'];
 		}
 		$fields=[ 
@@ -76,21 +71,27 @@ class Product extends BaseController{
 						['text', 'spec', '规格', ''],
 
 					];
-		//合并字段
-		$f_dao=FieldDao::instance();			
-		$fields=array_merge_recursive($fields,$f_dao->get_fields($this->dao->table));
-		//去重
-		$fields=Util::array_unset_tt($fields,1);
+		// //合并字段
+		// $f_dao=FieldDao::instance();			
+		// $fields=array_merge_recursive($fields,$f_dao->get_fields($this->dao->table));
+		// //去重
+		// $fields=Util::array_unset_tt($fields,1);
 		return $this->template
 				->FormTemplate 
 				->setData('modulename','基础设置') 
-				->addLeftBlock('nav','选择栏目','nav')
+				// ->addLeftBlock('nav','选择栏目','nav')
 				->addNav('','创建产品',url('product/create'))
 				->addNav('','产品列表',url('product/index').'?nid='.$nid)
 				->setTitle('添加类别')
-				->addFormItems($fields)
+				// ->addFormItems($fields)
 				->submit(url('product/product_create'))
 				->setPid('nid',$nid)
+				->addFormItems([
+					['text','','产品名称',''],
+					['select','catename','产品类别','选择一个产品类别',$data],
+					['text','','产品介绍'],
+					[],
+					])
 				->fetch();
 	}
 
@@ -139,24 +140,44 @@ class Product extends BaseController{
 
 
 	public function product_create(){
-		$nid=input('nid');
-		if (empty($nid)) {
-			return Util::message('添加异常',false);
-		}
-		if(empty(input('cateid'))){
-			return Util::message('请选择类别',false);
-		}
-		if(empty(input('title'))){
-			return Util::message('标题不能为空',false);
-		}
 		if(request()->ispost()){
-			$data=request()->post();
-			if($this->dao->save($data)){
-				return Util::message('添加成功',true);
+			$catename = input('catename');
+			// $cateid = input('cateid');
+			// $nid = input('nid');
+			// $order = input('order');
+
+
+			$category_item = new WebProduct();
+			$category_item->catename = $catename;
+			// $category_item->cateid = $cateid;
+			// $category_item->nid = $nid;
+			// $category_item->order = $order;
+
+			$result = $category_item->save();
+			if ($result) {
+				return message('OK',true);
 			}
+			return message('none',false);
 		}
-		return Util::message('添加失败',false);
+			
 	}
+		// $nid=input('nid');
+		// if (empty($nid)) {
+		// 	return Util::message('添加异常',false);
+		// }
+		// if(empty(input('cateid'))){
+		// 	return Util::message('请选择类别',false);
+		// }
+		// if(empty(input('title'))){
+		// 	return Util::message('标题不能为空',false);
+		// }
+		// if(request()->ispost()){
+		// 	$data=request()->post();
+		// 	if($this->dao->save($data)){
+		// 		return Util::message('添加成功',true);
+		// 	}
+		// }
+		// return Util::message('添加失败',false);
 
 	public function product_update(){
 		if(empty(input('cateid'))){

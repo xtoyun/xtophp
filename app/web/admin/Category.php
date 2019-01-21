@@ -21,10 +21,9 @@ class Category extends BaseController{
 				->setQuickSearch('name','')
 				->setPid('cateid')
 				->setColumns([
-					['cateid', '编号'],
-					
-					['catename', '名称'],
-					['parent.catename', '上级'],
+					['cateid', '编号'],					
+					['catename', '类别名称'],
+					['parent.catename', '上级类别'],
                     ['order', '排序'],
                     ['button', '操作', 'btn']
 				])

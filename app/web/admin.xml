@@ -2,8 +2,10 @@
 <menu>
 	<item title='内容管理' url='/web/content/init' c='index' class="si-note">
 		<pagelink title='管理内容' url='/web/content/index?id=1' c='content,article,about,index,product,pcategory'></pagelink>  
-		<pagelink title='内容类别' url='/web/category/index' c='category'></pagelink> 
+		<pagelink title='文章类别' url='/web/category/index' c='category'></pagelink>
+		<pagelink title='文章管理' url='/web/article/index' c='article'></pagelink> 
 		<pagelink title='产品类别' url='/web/pcategory/index' c='pcategory'></pagelink>
+		<pagelink title='产品管理' url='/web/product/index' c='product'></pagelink>
 	</item>
 	<item title='应用插件' url='/web/plugins/init' class="si-clock">
 		<pagelink title='关键字' url='/web/keyword/index' c='keyword'>
