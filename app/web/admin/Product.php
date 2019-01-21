@@ -79,7 +79,7 @@ class Product extends BaseController{
 		return $this->template
 				->FormTemplate 
 				->setData('modulename','基础设置') 
-				// ->addLeftBlock('nav','选择栏目','nav')
+				->addLeftBlock('nav','选择栏目','nav')
 				->addNav('','创建产品',url('product/create'))
 				->addNav('','产品列表',url('product/index').'?nid='.$nid)
 				->setTitle('添加类别')

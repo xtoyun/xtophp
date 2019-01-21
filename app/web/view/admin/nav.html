@@ -1,5 +1,6 @@
 {php}
-    $nav_data=\app\web\model\WebNav::selectpage(100); 
+$model=new \app\web\model\WebNav();
+    $nav_data=json_encode($model->get_data()); 
 {/php}
 <script type="text/javascript" src="/static/js/jstree/jstree.js"></script>
 <link rel="stylesheet" href="/static/js/jstree/themes/default/style.css" />
