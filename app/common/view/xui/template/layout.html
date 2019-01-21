@@ -23,7 +23,7 @@
         
     </head>
     <body>
-        <div id="page-container"  {if condition='$setlayout.isview==1'}class="sidebar-l sidebar-o side-scroll header-navbar-fixed"{/if}>
+        <div id="page-container"  {if condition='$setlayout.isview==1'}class="sidebar-l sidebar-o side-scroll header-navbar-fixed"{/if} style="height:100%">
             {if condition='$setlayout.isview==1'}
             <!-- Side Overlay-->
             <aside id="side-overlay">
@@ -108,8 +108,11 @@
                     <!-- Sidebar Content -->
                 </div>
                 <!-- END Sidebar Scroll Container -->
+
             </nav>
             <!-- END Sidebar -->
+
+          
 
             <!-- Header -->
             <header id="header-navbar" class="content-mini content-mini-full">
@@ -152,7 +155,18 @@
             <!-- END Header -->
             {/if}
 
-            <main id="main-container">
+            {notempty name="leftblock"}
+            <div id="main-container" style="margin:1px auto;width:180px;float:left;background-color:#f9f9f9;height:100%">
+                {php}
+                    if(!empty($leftblock['template'])){
+                        include($leftblock['template']);
+                    } 
+                {/php}
+            </div>
+            {/notempty}
+
+            <main id="main-container" style="height:100%">
+                
                 {notempty name="setnav"}
                 {if condition="$setnav.isview==true"}
                 <div class="bg-gray-lighter" style="height: 40px; line-height: 40px;padding-left: 10px">
@@ -165,37 +179,15 @@
                 </div>
                 {/if}
                 {/notempty}
-                {notempty name="leftblock"}
-                <div class="col-sm-5 col-lg-2">
-                    <!-- Collapsible Inbox Navigation (using Bootstrap collapse functionality) -->
-                    <button class="btn btn-block btn-primary visible-xs push" data-toggle="collapse" data-target="#inbox-nav" type="button">Navigation</button>
-                    <div class="collapse navbar-collapse remove-padding" id="inbox-nav">
-                        <!-- Inbox Menu -->
-                        <div class="block">
-                            <div class="block-header bg-gray-lighter">
-                                <h3 class="block-title">{$leftblock.title|default=''}</h3>
-                            </div>
-                            <div class="block-content"> 
-                                {include file="$leftblock.template"}
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-            <div class="col-sm-7 col-lg-10">
-                <div class="block">
-                {/notempty}
-               
                {notempty name='setblock'}
                 <div class="block-content">
                     {block name='content'}{/block}
                 </div>
                {/notempty}
                {empty name='setblock'}
-                    {empty name="leftblock"} 
                 <div class="content">
                     <div class="block">
-                    {/empty} 
                         {notempty name="navs"}
                         <ul class="nav nav-tabs">
                             {notempty name="navs"}
@@ -243,15 +235,9 @@
                         <div class="block-content">
                             {block name='content'}{/block}
                         </div>
-                    {empty name="leftblock"} 
                     </div>
                 </div>
-                    {/empty} 
                 {/empty}
-             {notempty name="leftblock"}    
-            </div>
-            </div>
-            {/notempty}
             </main>
             {if condition='$setlayout.isview==1'}
             <footer id="page-footer" class="content-mini content-mini-full font-s12 bg-gray-lighter clearfix">

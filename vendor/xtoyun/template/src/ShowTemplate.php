@@ -25,12 +25,45 @@ abstract class ShowTemplate  extends Template{
         }  
 	}
 
-    public function render(){
-        $this->setDataSource($this->datasource);
-    } 
+    public function render(){ 
+        //合并数据源
+        $source=$this->datasource;
+        if(!is_array($source)){
+            $source=((array)$source);//转为数据
+        } 
+         $ts=$this->getData('columns'); 
 
-	public function setColumn($name = '', $title = '', $type = '', $default = '', $param = '', $class = ''){
+        if(!is_null($ts)){
+            foreach ($ts as $key => &$item) {
+                if(isset($source[$item['name']])){ 
+                    $item['value']=$source[$item['name']];
+                } 
+                $ts[$key]=$item;
+            } 
+        } 
+        $this->setData('shows',$ts);
+    }
+
+    // private function getdata($source,$columns){ 
+    //     if(!is_array($source)){
+    //         $source=((array)$source);//转为数据
+    //     } 
+    //     $ts=$columns; 
+
+    //     if(!is_null($ts)){
+    //         foreach ($ts as $key => &$item) {
+    //             if(isset($source[$item['name']])){ 
+    //                 $item['value']=$source[$item['name']];
+    //             } 
+    //             $ts[$key]=$item;
+    //         } 
+    //     } 
+    //     return $ts;
+    // }
+
+	private function setColumn($place=1,$name = '', $title = '', $type = '', $default = '', $param = '', $class = ''){
 	 	$column = [
+            'place'   => $place,
             'name'    => $name,
             'title'   => $title,
             'type'    => $type,
@@ -39,19 +72,57 @@ abstract class ShowTemplate  extends Template{
             'class'   => $class
         ];
 
-        $args   = array_slice(func_get_args(), 6);//生成数组为6
+        $args   = array_slice(func_get_args(), 7); 
         $column = array_merge($column, $args);
+ 
+        
         $this->setDataList('columns',$column);
         return $this;
 	}
 
+    private function setListColumn($name = '', $title = '', $type = '', $default = '', $param = '', $class = ''){
+        $column = [
+            'name'    => $name,
+            'title'   => $title,
+            'type'    => $type,
+            'default' => $default,
+            'param'   => $param,
+            'class'   => $class
+        ];
+
+        $args   = array_slice(func_get_args(), 6); 
+        $column = array_merge($column, $args);
+        return $column;
+    }
+
 	public function setColumns($columns = [])
-    {
+    { 
         if (!empty($columns)) {
             foreach ($columns as $column) {
+
                 call_user_func_array([$this, 'setColumn'], $column);
             }
         }
+        return $this;
+    }
+
+    public function setLists($type,$title,$source,$columns = [])
+    {
+        $result_array=[];
+        if (!empty($columns)) {
+            foreach ($columns as $key=>&$column) {
+                $result=call_user_func_array([$this, 'setListColumn'], $column);
+                $result_array[$key]=$result;
+            }
+        } 
+
+        $column = [
+            'type'   => $type,
+            'title'=>$title,
+            'source'    => $source,
+            'columns'   => $result_array
+        ];
+        $this->setDataList('lists',$column);
         return $this;
     }
 
@@ -95,21 +166,7 @@ abstract class ShowTemplate  extends Template{
         }   
         $this->setDataList('navs',$result); 
         return $this;
-    }
-
-    public function setQuickSearch($field = '',$default='',$title='',$class='', $vals = []){
-        $result = [
-                    'field'     => $field,
-                    'title'     => $title,
-                    'default'   => $default,
-                    'class'     => (empty($class)?'':$class),
-                ];
-        if ($vals && is_array($vals)) {
-            $result = array_merge($result, $vals);
-        }  
-        $this->setData('quicksearch',$result);
-        return $this;
-    }
+    } 
 
     public function addTopButton($type = '',$title='',$href='',$class='', $vals = []){
         $result=null;
@@ -137,43 +194,5 @@ abstract class ShowTemplate  extends Template{
         $this->setDataList('topbtn',$result);
         return $this;
     }
-
-    public function addColumnButton($type = '',$title='',$href='',$class='',$icon='', $vals = []){
-        switch ($type) {
-            case 'edit':
-                //$key=url($this->controller.'/detail');
-                $key=strtolower($this->controller.'_'.$this->action.'_edit');
-                $result = [
-                    'title' => '修改',
-                    'icon'  => 'fa fa-pencil',
-                    'class' => 'btn btn-xs btn-default ajax-get confirm',
-                    //'href'  => "$key?id=#id#"
-                    'href'  => "javascript:app.url(#id#,'$key')"
-                ];
-                break;
-            case 'delete':
-                $key=strtolower($this->controller.'_'.$this->action.'_delete');
-                $result = [
-                    'title' => '删除',
-                    'icon'  => 'fa fa-times',
-                    'class' => 'btn btn-xs btn-default ajax-get confirm',
-                    'href'  => "javascript:app.delete(#id#,'$key')"
-                ];
-                break; 
-            default: 
-                $result = [
-                    'title' => $title,
-                    'icon'  => empty($icon)?'fa fa-times':$icon,
-                    'class' => empty($class)?'btn btn-xs btn-default ajax-get confirm':$class,
-                    'href'  => $href
-                ];
-                break;
-        }
-
-        if ($vals && is_array($vals)) {
-            $result = array_merge($result, $vals);
-        } 
-        $this->setDataList('columnbtn',$result);
-        return $this;
-    }
+ 
 }

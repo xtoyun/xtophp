@@ -19,7 +19,7 @@ return [
     // 用户名
     'username'        => 'xtophp',
     // 密码
-    'password'        => '7hKwGOlWwiKiTImx1TP',
+    'password'        => '123456',
     // 端口
     'hostport'        => '3306',
     // 连接dsn
