@@ -30,4 +30,3 @@ define('APP_PATH', __DIR__ . '/app/');
 // 执行应用并响应
 //Container::get('app')->run()->send();
 Container::get('app', [APP_PATH])->run()->send();
-

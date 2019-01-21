@@ -11,10 +11,39 @@ use app\data\membership\Roles;
 class Manager extends BaseController{
  	
  	public function detail(){
- 		dump(request()->route('userid'));
- 		//dump(request());
- 		//$userid=route('userid');
- 		//dump($userid);
+ 		$userid=request()->route('userid');
+ 		$user=Managers::getinfo($userid); 
+ 		$list=Managers::selectpage(20,'','userid desc');//读取数据
+ 		 
+ 		return $this->template 
+ 				->ShowTemplate
+ 				->setTitle('用户管理')
+ 				->setDataSource($user)
+ 				->setColumns([ 
+					[1,'userid', '用户编号','1'],
+	                [1,'username', '用户名','link',url('manager/detail').'/userid/$userid'],
+	                [1,'email', '邮件'],
+	                [1,'description', '描述','bool'],
+	                [1,'createdate', '创建日期'],
+	                [2,'last_login_date', '更新日期'],
+	                [2,'is_approved','审核','bool'],
+	                [2,'is_admin','超级管理员','bool'],
+	                [2,'rolename','角色'],
+	                [2,'button', '操作', 'btn']
+				])
+				// ->setLists('use','用户列表',$list,[ 
+				// 	['userid', '用户编号','1'],
+	   //              ['username', '用户名','link',url('manager/detail').'/userid/$userid'],
+	   //              ['email', '邮件'],
+	   //              ['description', '描述','bool'],
+	   //              ['createdate', '创建日期'],
+	   //              ['last_login_date', '更新日期'],
+	   //              ['is_approved','审核','bool'],
+	   //              ['is_admin','超级管理员','bool'],
+	   //              ['rolename','角色'],
+	   //              ['button', '操作', 'btn']
+				// ])
+				->fetch(); 
  	}
 
 	public function index(){  
@@ -33,6 +62,7 @@ class Manager extends BaseController{
 				->setData('modulename','基础管理')
 				->setTitle('用户管理')
 				->setDataSource($source)
+				//->addLeftBlock('nav','选择栏目','nav')
 				->setPager($source->render()) 
 				->addColumnButton('delete')
 				->addColumnButton('','',url('manager/edit').'?id=$userid','','fa fa-pencil')
