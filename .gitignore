@@ -5,3 +5,8 @@
 *.log
 .env
 .DS_Store
+install.php
+/static/install
+/config/database.php
+index.php
+admin.php

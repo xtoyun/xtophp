@@ -19,8 +19,11 @@ require __DIR__ . '/thinkphp/base.php';
 // 开启系统行为
 define('APP_HOOK', true);
 // 检查是否安装
-if(!is_file('./data/install.lock')){
-    define('BIND_MODULE', 'install');
+// 判断是否安装
+if (!is_file(__DIR__ . '/static/install/install.lock'))
+{
+    header("location:/install.php");
+    exit;
 }
 
 define('APP_PATH', __DIR__ . '/app/');
