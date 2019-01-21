@@ -212,11 +212,7 @@ abstract class IModule{
 
 	//读取菜单处理
 	final private function loadmenu(){
-		// dump(Session::get(App::user_auth()));
-		// dump(App::get_manager_username());
 		$user=Users::getuser(0,App::get_manager_username());//获取当前管理员
-		// dump($user);
-		// die;
 		if(is_null($user)){
 			$this->data['menu']=null;
 			return $this;
@@ -234,22 +230,25 @@ abstract class IModule{
 			foreach ($doc as $key => $value) {
 				$status=false;//控制当前权限
 				//如果是管理员，直接通过
+				$status=true;
 				if($user->is_admin){
 					$status=true;
-				}else if(!$user->is_admin && in_array((string)$value['url'],$funs)){
-					//检查是否有权限访问当地址
-					$status=true;
 				}
+				// else if(!$user->is_admin && in_array((string)$value['url'],$funs)){
+				// 	//检查是否有权限访问当地址
+				// 	$status=true;
+				// }
 				if($status){
 					$ps=array();
 					$isclass=false;
 					foreach ($value->pagelink as $key1 => $value1) {
-						$status=false;
+						$status=true;
 						if($user->is_admin){
 							$status=true;
-						}else if(!$user->is_admin && in_array((string)$value1['url'],$funs)){
-							$status=true;
 						}
+						// else if(!$user->is_admin && in_array((string)$value1['url'],$funs)){
+						// 	$status=true;
+						// }
 						if($status){
 							$value_c=(string)$value1['c'];
 							if(strpos($value_c,$c)!==false){

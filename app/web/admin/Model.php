@@ -19,7 +19,7 @@ class Model extends BaseController{
 				->addColumnButton('delete') 
 				->addNav('','内容模型',url('model/index')) 
 				->addTopButton('','添加模型',url('model/create'))
-				->addColumnButton('','edit',url('model/edit').'?mid=$mid','','fa fa-pencil')
+				->addColumnButton('','修改',url('model/edit').'?mid=$mid','','fa fa-pencil')
 				->setQuickSearch('name','')
 				->setPid('mid')
 				->setColumns([
@@ -32,12 +32,28 @@ class Model extends BaseController{
 				->fetch();
 	}
 
+	public function home_theme_templates(){
+		$theme_name =input('theme');
+		$url=config('home_theme_path').$theme_name;
+
+		$categorys 	=getfiles($url.'/category');
+		$shows 		=getfiles($url.'/show');
+		$lists 		=getfiles($url.'/list');
+		$arr 		=array(
+				'categorys' 	=> $categorys,
+				'lists' 		=> $lists,
+				'shows' 		=> $shows
+			);
+		return json($arr);
+	}
+
 	public function create(){ 
-		$source = new WebModel();
+		$source = get_home_themes();
 		$result =[];
 		foreach ($source as $key => $value) {
 			$result[$value['theme']['name']]=$key;
 		}
+		
 		return $this->template
 				->FormTemplate 
 				->setData('modulename','内容设置') 
@@ -46,14 +62,51 @@ class Model extends BaseController{
 				->setTitle('添加模型')
 				->addFormItems([ 
 						['text', 'name', '模型名称', ''],
-						['select', 'tablename', '数据表', '',''],
-						['text', 'controller', '控制器', '',''],
-						['text', 'description', '描述', ''],
+						['select', 'tablename', '数据表', '',$this->tables()],
+						['select', 'controller', '控制器', '',$this->controllers()],
+						
 						['line', '', '', ''],
-						['web_theme_select', 'default_theme', '可用风格', '',$result] 
+						['web_theme_select', 'default_theme', '可用风格', '',$result],
+						['text', 'description', '描述', ''],
 					])
-				->submit('model_create','')
+				->submit(url('model/create_post'),'')
 				->fetch();
+	}
+
+	public function create_post(){
+		if (request()->ispost()) {
+			$name = input('name');
+			$tablename = input('tablename');
+			$controller = input('controller');
+			$description = input('description');
+		
+			if (empty($name)) {
+				return message('请输入模型名称',false);
+			}
+			if(empty($tablename)){
+				return message('请输入数据表',false);
+			}
+			if (empty($controller)) {
+				return message('请输入控制器',false);
+			}
+
+			$model_item = new WebModel();
+			$model_item->name = $name;
+			$model_item->tablename = $tablename;
+			$model_item->controller = $controller;
+			$model_item->description = $description;
+			$model_item->default_theme = input('default_theme');
+			$model_item->category_template = input('category_template');
+			$model_item->list_template = input('list_template');
+			$model_item->show_template = input('show_template');
+			$model_item->createdate=getdate();
+
+			$result = $model_item->save();
+			if ($result) {
+				return message('保存成功',true);
+			}
+		}
+		return message('保存失败',false);
 	}
 	public function delete_post(){
 		if (request()->ispost()) {
@@ -69,33 +122,51 @@ class Model extends BaseController{
 		}
 	}
 
+	private function tables(){
+		$tables=[
+			'文章表'=>'xto_web_article',
+			'产品表'=>'xto_web_product',
+			'单页表'=>'xto_web_about',
+		];
+		return $tables;
+	}
+
+	private function controllers(){
+		$tables=[
+			'文章控制器'=>'product',
+			'产品控制器'=>'article',
+			'单页控制器'=>'about',
+		];
+		return $tables;
+	}
+
 	public function edit(){
 		$id=input('id'); 
-		$category_item = WebModel::find($id)->toArray();
+		$source=get_home_themes();
 		$result=[];
-		// foreach ($source as $key => $value) {
-		// 	$result[$value['theme']['name']]=$key;
-		// }
+		foreach ($source as $key => $value) {
+			$result[$value['theme']['name']]=$key;
+		}
 
 		$category_template='';
 		$list_template='';
 		$show_template='';
 		$default_theme='';
 
-		// $info=$this->dao->find($id);
-		// if(isset($info['default_theme'])){
-		// 	$default_theme=$info['default_theme'];
-		// }
+		$info=WebModel::find($id)->toArray();
+		if(isset($info['default_theme'])){
+			$default_theme=$info['default_theme'];
+		}
 
-		// if(isset($info['category_template'])){
-		// 	$category_template=$info['category_template'];
-		// }
-		// if(isset($info['list_template'])){
-		// 	$list_template=$info['list_template'];
-		// }
-		// if(isset($info['show_template'])){
-		// 	$show_template=$info['show_template'];
-		// }
+		if(isset($info['category_template'])){
+			$category_template=$info['category_template'];
+		}
+		if(isset($info['list_template'])){
+			$list_template=$info['list_template'];
+		}
+		if(isset($info['show_template'])){
+			$show_template=$info['show_template'];
+		}
 		return $this->template
 				->FormTemplate 
 				->setData('modulename','基础设置') 
@@ -104,16 +175,55 @@ class Model extends BaseController{
 				->setTitle('编辑模型')
 				->addFormItems([
 						['text', 'name', '模型名称', ''],
-						['text', 'tablename', '数据表', '',''],
-						['text', 'controller', '控制器', '',''],
-						['text', 'description', '描述', ''],
+						['select', 'tablename', '数据表', '',$this->tables()],
+						['select', 'controller', '控制器', '',$this->controllers()],
+						
 						['line', '', '', ''],
 						['web_theme_select', 'default_theme', '可用风格', '',$result,$default_theme,
-							$category_template,$list_template,$show_template] 
+							$category_template,$list_template,$show_template],
+							['text', 'description', '描述', ''],
 					])
-				->setDataSource($category_item)
+				->setDataSource($info)
 				->setPid('mid',$id)
-				->submit('model_update','')
+				->submit(url('model/edit_post'),'')
 				->fetch();
+	}
+
+	public function edit_post(){
+		if (request()->ispost()) {
+			$mid = input('id');
+			$name = input('name');
+			$tablename = input('tablename');
+			$controller = input('controller');
+			$description = input('description');
+
+			if (empty($name)) {
+				return message('名称不能为空',false);
+			}
+			if (empty($tablename)) {
+				return message('数据表不能为空',false);
+			}
+			if (empty($controller)) {
+				return message('控制器不能为空',false);
+			}
+
+			$model_item = WebModel::find($mid);
+			if ($model_item) {
+				$model_item->name = $name;
+				$model_item->tablename = $tablename;
+				$model_item->controller = $controller;
+				$model_item->description = $description;
+				$model_item->default_theme = input('default_theme');
+				$model_item->category_template = input('category_template');
+				$model_item->list_template = input('list_template');
+				$model_item->show_template = input('show_template');
+
+				$result = $model_item->force()->save();
+				if ($result) {
+					return message('修改成功',true);
+				}
+			}
+			return message('修改失败',false);
+		} 
 	}
 } 

@@ -40,6 +40,9 @@
     </div>
 </div> 
 </div>
+{php}
+$url=url('model/home_theme_templates');
+{/php}
 <script type="text/javascript"> 
     var {$form.name} = new Vue({
         el: '#{$form.name}',
@@ -57,7 +60,7 @@
                 var _self = this;
                 var data={};
                 data.theme=_self.selected;
-                app.post('home_theme_templates',data,'',function(sender){
+                app.post('{$url}',data,'',function(sender){
                     if(typeof(c)!="undefined"){
                         _self.category_template=c;
                     }
