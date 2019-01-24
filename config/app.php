@@ -109,7 +109,7 @@ return [
     // 是否自动转换URL中的控制器和操作名
     'url_convert'            => true,
     // 默认的访问控制器层
-    'url_controller_layer'   => 'controller',
+    'url_controller_layer'   => 'api',
     // 表单请求类型伪装变量
     'var_method'             => '_method',
     // 表单ajax伪装变量
@@ -149,5 +149,10 @@ return [
     'admins'=>[
         'admin'
     ],
-    'encrystr'=>'4a37f44b13923A5245b2497399d7a93'
+    'encrystr'=>'4a37f44b13923A5245b2497399d7a93',
+    'api'=>[
+        'auth_class'=> \app\api\auth\OauthAuth::class,
+        'api_debug'=>true,
+        'api_auth'=>true,
+    ],
 ];
