@@ -6,16 +6,16 @@ use app\data\Model;
 use think\Db;
 
 class WebAbout extends Model{
-	protected $pk="abid"; 
+	protected $pk='abid'; 
 	
 	public function parent()
     { 
-        return $this->hasOne('WebAbout','abid','parent_abid');
+        return $this->hasOne('WebAbout','abid','abid');
     }
 
     public function sublist()
     { 
-        return $this->hasMany('WebAbout','parent_abid','abid');
+        return $this->hasMany('WebAbout','abid','abid');
     }
 
     public function ArticleCount(){

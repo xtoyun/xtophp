@@ -5,7 +5,7 @@ namespace app\web\model;
 use app\data\Model;
 
 class WebModel extends Model{
-	protected $pk="mid"; 
+	protected $pk='mid'; 
 
 	public function category()
     { 

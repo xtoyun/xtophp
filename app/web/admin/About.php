@@ -8,14 +8,9 @@ use app\web\dao\FieldDao;
 use app\web\model\WebAbout;
 
 class About extends BaseController{
-	// private $dao;
 
-	// public function __construct(){
-	// 	parent::__construct();
-	// 	$this->dao=AboutDao::instance();
-	// }  
 		public function index(){ 
-		$list = WebAbout::where(null)->order('abid desc')->paginate(20); 
+		$list = WebAbout::where(null)->order('abid desc')->paginate(10); 
  
 		return $this->template
 				->TableTemplate 
@@ -26,7 +21,7 @@ class About extends BaseController{
 				->addColumnButton('delete') 
 				->addNav('','页面管理',url('about/index'))
 				->addTopButton('','创建',url('about/create'))
-				->addColumnButton('','edit',url('about/edit').'?id=$cateid&name=$catename','','fa fa-pencil') 
+				->addColumnButton('','修改',url('about/edit').'?id=$cateid&name=$catename','','fa fa-pencil') 
 				->setQuickSearch('name','')
 				->setPid('abid')
 				->setColumns([
@@ -38,46 +33,121 @@ class About extends BaseController{
 				])
 				->fetch();
 	}
+	public function create(){
+		$source = get_home_themes();
+		$result =[];
+		foreach ($source as $key => $value) {
+			$result[$value['theme']['name']]=$key;
+		}
+		
+		return $this->template
+				->FormTemplate 
+				->setData('modulename','内容设置') 
+				->addNav('','添加单页',url('about/create'))
+				->addNav('','页面管理',url('about/index'))
+				->setTitle('添加单页')
+				->addFormItems([ 
+						['text', 'name', '页面名称', ''],
+						['ueditor','content','内容'],
+						// ['select', 'tablename', '数据表', '',$this->tables()],
+						// ['select', 'controller', '控制器', '',$this->controllers()],
+						
+						// ['line', '', '', ''],
+						// ['web_theme_select', 'default_theme', '可用风格', '',$result],in
+						['text','order','排序',''],
+						['text', 'description', '描述', ''],
+					])
+				->submit(url('about/create_post'),'')
+				->fetch();
 
+	}
+	public function create_post(){
+		if (request()->ispost()) {
+			$title = input('title');
+			$content = input('content');
+			$order = input('order');
+			$description = input('description');
+
+			$about_item = new WebAbout();
+			$about_item->title = $title;
+			$about_item->content = $content;
+			$about_item->order = $order;
+			$about_item->description = $description;
+
+			$result = $about_item->save();
+			if ($result) {
+				return message('创建成功',true);
+			}
+			return message('创建失败',false);
+		}
+
+	}
 
 	public function edit(){
-		$nid=input('nid'); 
-		if(empty($nid)){
-			$this->error('请选择栏目');
-		}
+		$abid = input('abid'); 
+		$info = [];
+		// $info = WebAbout::find($abid)->toArray();
+		// if(empty($info)){
+		// 	$this->error('请选择栏目');
+		// }
 		$fields=[
 						['text', 'title', '标题', ''],
 						['ueditor', 'content', '内容', ''],
 						['text', 'order', '排序', ''],
-						['tags', 'keywords', '关键字', ''],
+						['tags', 'key', '关键字', ''],
 						['textarea', 'description', '描述', ''],
 					];
-		//合并字段
-		$f_dao=FieldDao::instance();			
-		$fields=array_merge_recursive($fields,$f_dao->get_fields($this->dao->table));
-		//去重
-		$fields=Util::array_unset_tt($fields,1);
 		return $this->template
 				->FormTemplate 
 				->setData('modulename','基础设置') 
-				->addNav('','编辑',url('about/edit'),'?nid='.$nid)
+				->addNav('','编辑',url('about/edit'),'?nid='.$abid)
 				->setTitle('编辑单页')
 				->addLeftBlock('nav','选择栏目','nav')
 				->addFormItems($fields)
-				->setDataSource($this->dao->findByNav($nid))
-				->setPid('nid',$nid)
+				->setDataSource($info)
+				->setPid('nid',$abid)
 				->submit(url('about/about_update'),'')
 				->fetch();
 	}
-
 	public function about_update(){
-		if(request()->ispost()){
-			$data=request()->post();
-			$this->dao->map['nid']=input('nid');
-			if($this->dao->saveorupdate($data)){
-				return Util::message('更新成功',true);
+			if (request()->ispost()) {
+				$abid = input('id');
+				$title = input('title');
+				$content = input('content');
+				$order = input('order');
+				$key = input('key');
+				$description = input('description');
+				
+				if (empty($title)) {
+					return message('标题不能为空',false);
+				}
+				$about_item = WebAbout::find($abid);
+				$about_item->title = $title;
+				$about_item->content = $content;
+				$about_item->order = $order;
+				$about_item->key = $key;
+				$about_item->description = $description;
+
+				$result = $about_item->save();
+				if ($result) {
+					return message('修改成功',true);
+				}
+				return message('修改失败',false);
+
+			}
+	}
+	public function delete_post(){
+		if (request()->ispost()) {
+			$abid = input('id');
+			$about_item = WebAbout::get($abid,'sublist');
+			if ($about_item) {
+				$result = $about_item->delete();
+				if ($result) {
+					return message('删除成功',true);
+				}
+				return message('删除失败',false);
 			}
 		}
-		return Util::message('更新失败',false);
+
 	}
 }

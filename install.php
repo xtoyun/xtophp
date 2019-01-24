@@ -156,7 +156,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $salt=uniqid();
 
-         $result=include('/config/app.php'); 
+         //$result=include('/config/app.php'); 
 
         $c='4a37f44b13923A5245b2497399d7a93';
         
@@ -164,6 +164,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
         
 
         $pdo->query("INSERT xto_users(username,email,password,salt,is_admin,is_approved,appid) values('{$adminUsername}', '{$adminEmail}','{$newPassword}','{$salt}',1,1,0)");
+        
         $newID = $pdo->lastInsertId();
         $pdo->query("INSERT xto_managers(userid,appid) values({$newID},0)");
 

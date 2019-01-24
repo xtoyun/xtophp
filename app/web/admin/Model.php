@@ -8,7 +8,7 @@ use app\web\model\WebModel;
 class Model extends BaseController{
 
 	public function index(){
-	$list = WebModel::where(null)->order('mid desc')->paginate(5);  
+	$list = WebModel::where(null)->order('mid desc')->paginate(10);  
 
 		return $this->template
 				->TableTemplate 
@@ -24,9 +24,10 @@ class Model extends BaseController{
 				->setPid('mid')
 				->setColumns([
 					['mid', '编号'], 
-					['name', '名称','link',url('field/index').'?mid=$mid'],
+					['name', '模型名称','link',url('field/index').'?mid=$mid'],
 					['tablename', '数据表名'],
 					['description', '描述','',''],
+					['createdate','创建时间'],
                     ['button', '操作', 'btn']
 				])
 				->fetch();
@@ -68,6 +69,7 @@ class Model extends BaseController{
 						['line', '', '', ''],
 						['web_theme_select', 'default_theme', '可用风格', '',$result],
 						['text', 'description', '描述', ''],
+						['date','createdate','创建时间']
 					])
 				->submit(url('model/create_post'),'')
 				->fetch();
@@ -79,6 +81,7 @@ class Model extends BaseController{
 			$tablename = input('tablename');
 			$controller = input('controller');
 			$description = input('description');
+			$createdate = input('createdate');
 		
 			if (empty($name)) {
 				return message('请输入模型名称',false);
@@ -133,15 +136,15 @@ class Model extends BaseController{
 
 	private function controllers(){
 		$tables=[
-			'文章控制器'=>'product',
-			'产品控制器'=>'article',
+			'文章控制器'=>'article',
+			'产品控制器'=>'product',
 			'单页控制器'=>'about',
 		];
 		return $tables;
 	}
 
 	public function edit(){
-		$id=input('id'); 
+		$mid=input('mid'); 
 		$source=get_home_themes();
 		$result=[];
 		foreach ($source as $key => $value) {
@@ -153,7 +156,7 @@ class Model extends BaseController{
 		$show_template='';
 		$default_theme='';
 
-		$info=WebModel::find($id)->toArray();
+		$info=WebModel::find($mid)->toArray();
 		if(isset($info['default_theme'])){
 			$default_theme=$info['default_theme'];
 		}
@@ -170,7 +173,7 @@ class Model extends BaseController{
 		return $this->template
 				->FormTemplate 
 				->setData('modulename','基础设置') 
-				->addNav('','编辑',url('model/edit'),'?id='.$id)
+				->addNav('','编辑',url('model/edit'),'?id='.$mid)
 				->addNav('','内容模型',url('model/index'))
 				->setTitle('编辑模型')
 				->addFormItems([
@@ -184,7 +187,7 @@ class Model extends BaseController{
 							['text', 'description', '描述', ''],
 					])
 				->setDataSource($info)
-				->setPid('mid',$id)
+				->setPid('mid',$mid)
 				->submit(url('model/edit_post'),'')
 				->fetch();
 	}

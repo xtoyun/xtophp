@@ -4,6 +4,7 @@ namespace app\web\admin;
 use xto\Util;
 use app\web\dao\ProductCategoryDao;
 use app\web\model\WebProductCategory;
+use think\Controller;
 
 class Pcategory extends BaseController{
 	// private $dao;
@@ -26,13 +27,13 @@ class Pcategory extends BaseController{
 				->addColumnButton('delete') 
 				->addNav('','类别',url('pcategory/index')) 
 				->addTopButton('','创建',url('pcategory/create'))
-				->addColumnButton('','edit',url('pcategory/edit').'?id=$cateid','','fa fa-pencil')
+				->addColumnButton('','修改',url('pcategory/edit').'?id=$cateid','','fa fa-pencil')
 				->setQuickSearch('name','Search')
 				->setPid('cateid')
 				->setColumns([
 					['cateid', '编号'],
 					['catename', '名称'],
-					['parent.catename', '上级'],
+					['parent.catename', '上级类别'],
                     ['order', '排序'],
                     ['button', '操作', 'btn']
 				])
@@ -117,7 +118,7 @@ class Pcategory extends BaseController{
  		if ($category_item) {
  			$category_item->catename = $catename;
  			$category_item->order = $order;
- 			$result = $category_item->save();
+ 			$result = $category_item->force()->save();
  			if ($result) {
  				return message('保存成功',true);
  			}

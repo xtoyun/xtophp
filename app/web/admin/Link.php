@@ -23,7 +23,7 @@ class Link extends BaseController{
 				->addColumnButton('delete') 
 				->addNav('','友情链接',url('link/index')) 
 				->addTopButton('','创建',url('link/create'))
-				->addColumnButton('','edit',url('link/edit').'?id=$lid','','fa fa-pencil')
+				->addColumnButton('','修改',url('link/edit').'?id=$lid','','fa fa-pencil')
 				->setQuickSearch('name','')
 				->setPid('lid')
 				->setColumns([

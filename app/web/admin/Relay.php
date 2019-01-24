@@ -17,7 +17,7 @@ class Relay extends BaseController{
 				->addColumnButton('delete') 
 				->addNav('','放灯片',url('relay/index')) 
 				->addTopButton('','创建',url('relay/create'))
-				->addColumnButton('','edit',url('relay/edit').'?id=$rid','','fa fa-pencil')
+				->addColumnButton('','修改',url('relay/edit').'?id=$rid','','fa fa-pencil')
 				->setQuickSearch('name','')
 				->setPid('rid')
 				->setColumns([

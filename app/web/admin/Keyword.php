@@ -24,7 +24,7 @@ class Keyword extends BaseController{
 				->addColumnButton('delete') 
 				->addNav('','关键字',url('keyword/index')) 
 				->addTopButton('','创建',url('keyword/create'))
-				->addColumnButton('','edit',url('keyword/edit').'?id=$kid','','fa fa-pencil')
+				->addColumnButton('','修改',url('keyword/edit').'?id=$kid','','fa fa-pencil')
 				->setQuickSearch('name','')
 				->setPid('kid')
 				->setColumns([

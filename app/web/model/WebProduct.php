@@ -21,4 +21,23 @@ class WebProduct extends Model{
     public function ArticleCount(){
     	return Db::view('WebProduct')->where('pid',$this->pid)->count(); 
     }
+
+    private $is_update=true;
+
+    public function Content()
+    { 
+        $result = $this->hasOne('WebContent','cid','cid');
+        //dump($result->toArray());
+        if (empty($result->toArray())) {
+            $this->is_update=false;
+            $result= new WebContent();
+        }
+        return $result;
+    }
+
+    public function updateProduct(){
+        $this->force()->save();
+
+        $this->content()->isupdate($this->is_update)->save();
+    }
 }

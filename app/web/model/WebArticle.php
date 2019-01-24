@@ -6,7 +6,7 @@ use app\data\Model;
 use think\Db;
 
 class WebArticle extends Model{
-	protected $pk="abid"; 
+	protected $pk='arid'; 
 	
 	public function parent()
     { 

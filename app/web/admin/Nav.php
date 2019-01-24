@@ -11,7 +11,7 @@ class Nav extends BaseController{
 		return $this->template
 				->TableTemplate 
 				->setData('modulename','内容管理')
-				->setTitle('栏目')
+				->setTitle('栏目管理')
 				->setDataSource($list)
 				->setPager($list->render())
 				->addColumnButton('delete') 
@@ -23,8 +23,8 @@ class Nav extends BaseController{
 				->setPid('nid')
 				->setColumns([
 					['nid', '编号'],  
-					['title', '名称'],
-					['pid', '上级id'],
+					['title', '栏目名称'],
+					['pid', '上级栏目id'],
 					['is_view', '导航中显示','bool'],
 					['nav_order', '排序'],
 					// ['style', '样式', '',''], 
@@ -166,10 +166,11 @@ class Nav extends BaseController{
 						['text', 'title', '栏目名称', ''],
 						['select', 'pid', '上级栏目', '',$p_nav,'','','','','=作为一级栏目='],
 						['text', 'ename', '栏目英文', ''],
-						['text', 'nav_order', '排序', ''],
-						['text', 'style', '样式', '',''], 
 						['text', 'description', '描述', '',''],
-						['text', 'remark', '备注', '',''],
+						['ueditor','content','内容','',''],
+						['text', 'nav_order', '排序', ''],
+						// ['text', 'style', '样式', '',''], 
+						// ['text', 'remark', '备注', '',''],
 						
  						// ['web_theme_select', 'default_theme', '模板设置', '',$result,''],
  						// ['select', 'type', '默认类型', '',
@@ -277,10 +278,10 @@ class Nav extends BaseController{
   //           });  
 		// ";//增加脚本控制
 
-		// $category_template='';
-		// $list_template='';
-		// $show_template='';
-		// $default_theme='';
+		$category_template='';
+		$list_template='';
+		$show_template='';
+		$default_theme='';
 
 		// $info=$this->dao->find($id);
 		// if(!empty($info['url'])){
@@ -308,11 +309,12 @@ class Nav extends BaseController{
 						['text', 'title', '栏目名称', ''],
 						['select', 'pid', '上级栏目', '',$p_nav,'','','','','=作为一级栏目='],
 						['text', 'ename', '栏目英文', ''],
+						['text', 'description', '描述', '',''],
+						['ueditor','content','内容'],
 						['text', 'url', '地址', ''],
 						['text', 'nav_order', '排序', ''],
-						['text', 'style', '样式', '',''], 
-						['text', 'description', '描述', '',''],
-						['text', 'remark', '备注', '',''], 
+						// ['text', 'style', '样式', '',''], 
+						// ['text', 'remark', '备注', '',''], 
  						// ['web_theme_select', 'default_theme', '模板设置', '',$result,'',
  						// 	$category_template,$list_template,$show_template],
  						// ['select', 'type', '默认类型', '',

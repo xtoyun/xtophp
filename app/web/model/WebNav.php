@@ -5,7 +5,7 @@ namespace app\web\model;
 use app\data\Model;
 
 class WebNav extends Model{
-	protected $pk="nid"; 
+	protected $pk='nid'; 
 
 	public function model()
     { 

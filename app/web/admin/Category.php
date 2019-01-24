@@ -17,7 +17,7 @@ class Category extends BaseController{
 				->addColumnButton('delete') 
 				->addNav('','类别',url('category/index'))  
 				->addTopButton('','创建',url('category/create'))
-				->addColumnButton('','edit',url('category/edit').'?id=$cateid&name=$catename','','fa fa-pencil') 
+				->addColumnButton('','修改',url('category/edit').'?id=$cateid&name=$catename','','fa fa-pencil') 
 				->setQuickSearch('name','')
 				->setPid('cateid')
 				->setColumns([
@@ -44,8 +44,8 @@ class Category extends BaseController{
 				->setTitle('添加类别')
 				->addFormItems([
 						['select', 'parent_cateid', '上级', 'select ',$data],
-						['text', 'catename', '名称', '名称'],
-						['text', 'order', '排序', '排序'],
+						['text', 'catename', '名称', '输入名称'],
+						['text', 'order', '排序', '输入排序'],
 						 
 					])
 				->submit(url('category/create_post'),'','')
@@ -128,10 +128,10 @@ class Category extends BaseController{
 			if ($category_item) {
 				$result=$category_item->together('sublist')->delete();
 				if($result){
-					return message('保存成功',true);
+					return message('删除成功',true);
 				}
 			}
 		}
-		return message('保存失败',false);
+		return message('删除失败',false);
 	}
 }

@@ -137,14 +137,6 @@ class Api extends BaseController{
 			}
 			return message('修改失败',false);
 		}
-		// if(request()->ispost()){
-		// 	$data=request()->post();
-		// 	$dao 	=\app\web\dao\ModelDao::instance();
-		// 	if($dao->update($data)){
-		// 		return Util::message('更新成功',true);
-		// 	}
-		// }
-		// return Util::message('更新失败',false);
 	}
 
 	public function model_index_delete(){
