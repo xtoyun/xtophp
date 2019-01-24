@@ -6,10 +6,12 @@ use think\Request;
 
 class Auth
 {
-    public function accessToken()
+    public function accessToken($data=[])
     {
-        $request = Request();
+        $request = Request(); 
+        $request->param = array_merge($request->get(false),$data);
         $OauthAuth = new OauthAuth();
         return $OauthAuth->accessToken($request);
     }
+ 
 }

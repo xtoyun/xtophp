@@ -27,6 +27,7 @@ class BaseAuth
     public static function auth($auth)
     { 
         $request = Request();
+        
         return $auth->authenticate($request);
     }
 

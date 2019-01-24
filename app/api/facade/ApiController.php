@@ -143,7 +143,13 @@ abstract class ApiController
                 $auth = true;
             }
 
-            if ($auth !== true) throw new UnauthorizedException();
+            if ($auth !== true){ 
+                throw new UnauthorizedException('没有权限');
+                
+                // return;
+            }
+
+             //throw new UnauthorizedException();
             //执行操作
         } else {
             try {
@@ -204,6 +210,7 @@ abstract class ApiController
     private static function _auth()
     {
         $baseAuth = Factory::getInstance(\app\api\auth\BaseAuth::class);
+        
         try {
             return $baseAuth->auth(self::$app['auth']);
         } catch (UnauthorizedException $e) {

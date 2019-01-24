@@ -24,6 +24,7 @@ class WebNav extends Model{
         $list=$this->get_parent_data($pid);
         $info=[];
 
+
         foreach ($list as $key => $value) {
    
             $link=$value['url'];
@@ -32,21 +33,22 @@ class WebNav extends Model{
             }else{
                 $icon='';
             } 
-            switch ($value->model->controller) {
-                case 'article':
-                    $link=url('article/index').'?nid='.$value['nid'];
-                    $icon='/app/web/view/admin/res/images/folder.gif';
-                    break;
-                case 'product':
-                    $link=url('product/index').'?nid='.$value['nid'];
-                    $icon='/app/web/view/admin/res/images/folder.gif';
-                    break;
-                case 'about':
-                    $link=url('about/edit').'?nid='.$value['nid'];
-                    $icon='/app/web/view/admin/res/images/file.gif';
-                    break;
+            if($value->model){
+                switch ($value->model->controller) {
+                    case 'article':
+                        $link=url('article/index').'?nid='.$value['nid'];
+                        $icon='/app/web/view/admin/res/images/folder.gif';
+                        break;
+                    case 'product':
+                        $link=url('product/index').'?nid='.$value['nid'];
+                        $icon='/app/web/view/admin/res/images/folder.gif';
+                        break;
+                    case 'about':
+                        $link=url('about/edit').'?nid='.$value['nid'];
+                        $icon='/app/web/view/admin/res/images/file.gif';
+                        break;
+                }
             }
-            
             $info[]=[
                 'id'        => $value['nid'],
                 'text'      => $value['title'],

@@ -22,8 +22,8 @@
         {/notempty}
         
     </head>
-    <body>
-        <div id="page-container"  {if condition='$setlayout.isview==1'}class="sidebar-l sidebar-o side-scroll header-navbar-fixed"{/if} style="height:100%">
+    <body >
+        <div id="page-container"  {if condition='$setlayout.isview==1'}class="sidebar-l sidebar-o side-scroll header-navbar-fixed"{/if} style="height:100%;overflow:hidden">
             {if condition='$setlayout.isview==1'}
             <!-- Side Overlay-->
             <aside id="side-overlay">
@@ -156,12 +156,14 @@
             {/if}
 
             {notempty name="leftblock"}
-            <div id="main-container" style="margin:1px auto;width:180px;float:left;background-color:#f9f9f9;height:100%">
-                {include file="$leftblock.template" /}
+            <div id="main-container" style="margin:1px auto;width:180px;float:left;background-color:#f9f9f9;height:100%;">
+                <div style="margin:5px;">
+                    {include file="$leftblock.template" /}
+                </div>
             </div>
             {/notempty}
 
-            <main id="main-container" style="height:100%;scroll:no">
+            <main id="main-container" style="height:100%;overflow-y:visible">
                 
                 {notempty name="setnav"}
                 {if condition="$setnav.isview==true"}

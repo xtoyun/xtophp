@@ -1,17 +1,19 @@
 <?
 namespace app\web\admin;
 
-use xto\Util;
-use app\web\dao\ArticleDao;
-use app\web\dao\CategoryDao;
-use app\web\dao\FieldDao;
 use app\web\model\WebArticle;
 use app\web\model\WebArticleCategory;
+use app\web\model\WebContent;
 
 class Article extends BaseController{
 
 	public function index(){
-		$list = WebArticle::where(null)->order('arid desc')->paginate(10);
+		$where=[];
+		if (!empty(input('field'))) {
+			$where=[[input('field'),'like',input('keyword').'%']];
+		}  
+		$where['nid']= input('nid');
+		$list = WebArticle::selectpage(15,$where);//直接用selectpage，里面有相关联的表
 		return $this->template
 				->TableTemplate 
 				->setData('modulename','内容管理')
@@ -20,17 +22,17 @@ class Article extends BaseController{
 				->setDataSource($list)
 				->setPager($list->render())
 				->addColumnButton('delete','删除',url('article/article_delete')) 
-				->addNav('','文章列表',url('article/index').'?arid='.input('arid')) 
-				->addTopButton('','创建',url('article/create').'?arid='.input('arid'))
-				->addColumnButton('','修改',url('article/edit').'?id=$arid'.'&arid='.input('arid'),'','fa fa-pencil')
+				->addNav('','文章列表',url('article/index'),'?nid='.input('nid')) 
+				->addTopButton('','创建',url('article/create').'?nid='.input('nid'))
+				->addColumnButton('','修改',url('article/edit').'?id=$arid&nid='.input('nid'),'','fa fa-pencil')
 				->setQuickSearch('title','')
 				->setPid('arid')
 				->setColumns([
 					['arid', '编号'],
-					['cid', '文章标题','link','?id=$arid'], 
-					['cateid', '类别编号'],
-                    ['catename', '上级栏目名称'],
-					['update_time', '发布时间'], 
+					['title', '文章标题','link','?id=$arid'], 
+					['catename', '类别编号'],
+                    ['author', '作者'],
+					['create_time', '发布时间'], 
                     ['button', '操作', 'btn']
 				])
 				->fetch();
@@ -80,9 +82,10 @@ class Article extends BaseController{
 	public function delete_post(){
 		if (request()->ispost()) {
 			$arid = input('id');
-			$article_item = WebArticle::get($arid,'sublist');
-			if ($article_item) {
-				$result = $article_item->delete();
+			$article = WebArticle::find($arid,'content');
+			if ($article) {
+				$result = $article->together('content')->delete();
+				
 				if ($result) {
 					return message('删除成功',true);
 				}
@@ -93,7 +96,8 @@ class Article extends BaseController{
 
 	public function edit(){
 		$arid=input('id'); 
-		$article_item = WebArticle::find($arid)->toArray();
+		$article_item = WebArticle::getinfo($arid);
+
 		$data=[];
 		foreach (WebArticleCategory::select() as $key => $value) {
 			$data[$value['catename']]=$value['cateid'];
@@ -128,87 +132,36 @@ class Article extends BaseController{
 
 	public function article_create(){
 		if(request()->ispost()){
-			$cateid = input('cateid');
-			$catename = input('catename');
-			$title = input('title');
-			$img = input('img');
-			$content = input('content');
-			$order = input('order');
-			$keywords = input('keywords');
-			$author = input('author');
-			$description = input('description');
-			$update_time = input('update_time');
-
-			if (empty($cateid)) {
-				return message('请选择文章类别',false);
-			}
-
-			if (empty($title)) {
-				return message('文章标题不能为空',false);
-			}
-			if (empty($content)) {
-				return message('文章内容不能为空',false);
-			}
-
-			$category_item = new WebArticle();
-			$category_item->cateid = $cateid;
-			$category_item->catename = $catename;
-			$category_item->title = $title;
-			$category_item->img = $img;
-			$category_item->content = $content;
-			$category_item->order = $order;
-			$category_item->keywords = $keywords;
-			$category_item->author = $author;
-			$category_item->description = $description;
-			$category_item->update_time = $update_time;
-
-			$result = $category_item->save();
+			$data=$_POST;
+			$validate = new \app\web\validate\Article;
+			if (!$validate->check($data)) {
+				return message($validate->getError(),false);
+	        }
+	        $article = new WebArticle();
+	        $result = $article->save($data);
 			if ($result) {
 				return message('文章创建成功',true);
 			}
-			return message('文章创建失败',false);
+			return message('文章创建失败',false); 
 		}
 	}
 
 	public function article_update(){
 		if (request()->ispost()) {
-			$arid = input('id');
-			$cateid = input('cateid');
-			$title = input('title');
-			$img = input('img');
-			$content = input('content');
-			$order = input('order');
-			$keywords = input('keywords');
-			$author = input('author');
-			$description = input('description');
-
-		if (empty($cateid)) {
-			return message('请选择类别',false);
-		}
-		if (empty($title)) {
-			return message('请输入标题',false);
-		}
-		if (empty($content)) {
-			return message('请输入内容',false);
-		}
-
-			$article_item = WebArticle::find($arid);
-			$article_item->cateid = $cateid;
-			$article_item->title = $title;
-			$article_item->img = $img;
-			$article_item->content = $content;
-			$article_item->order = $order;
-			$article_item->keywords = $keywords;
-			$article_item->author = $author;
-			$article_item->description = $description;
-
-			$result = $article_item->save();
-		if ($result) {
-			return message('修改成功',true);
+			$data=$_POST;
+			$arid = input('arid'); 
+			$validate = new \app\web\validate\Article;
+			if (!$validate->check($data)) {
+				return message($validate->getError(),false);
+	        }
+			$article = WebArticle::find($arid); 
+			$result = $article->allowField(true)->save($data);
+			if ($result) {
+				return message('修改成功',true);
+			}
 		}
 		return message('修改失败',false);
 	}
-}
 	public function article_delete(){
 		if(request()->ispost()){
 			$id 	=input('id'); 

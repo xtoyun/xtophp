@@ -138,6 +138,11 @@ abstract class OAuth implements AuthContract
         //先行验证是否有传参
         $this->access_token = $request->param('access_token', null);
 
+        //是不是本地服务器直接读取session
+        if (empty($this->access_token)) {
+            $this->access_token=\think\facade\Session::get('access_token');
+        } 
+
 
         if ($this->access_token) return $this;
  

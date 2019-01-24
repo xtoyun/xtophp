@@ -55,7 +55,7 @@ class OauthAuth extends OAuth
         }
     }
     /**
-     * 获取用户信息后 验证权限
+     * 获取用户信息后 验证权限 
      * @return mixed
      */
     public function certification()

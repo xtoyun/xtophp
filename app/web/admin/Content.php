@@ -10,7 +10,7 @@ use app\web\model\WebArticle;
 class Content extends BaseController{
 
 	public function index(){
-		$list = WebContent::where(null)->order('cid desc')->paginate(10);
+		$list = WebContent::where(null)->order('cid desc')->paginate();
 		return $this->template
 				->TableTemplate  
 				->addLeftBlock('nav','选择栏目','nav')
@@ -20,17 +20,17 @@ class Content extends BaseController{
 				->setTitle('最新内容')
 				->setDataSource($list)
 				->setPager($list->render())
-				->addTopButton('','创建',url('content/create').'?cid='.input('cid'))
-				->addColumnButton('delete','删除',url('content/delete_post'))
-				->addColumnButton('','修改',url('content/edit').'?id=$arid'.'&arid='.input('arid'),'','fa fa-pencil')
+				//->addTopButton('','创建',url('content/create').'?cid='.input('cid'))
+				//->addColumnButton('delete','删除',url('content/delete_post'))
+				//->addColumnButton('','修改',url('content/edit').'?id=$arid'.'&arid='.input('arid'),'','fa fa-pencil')
 				->setQuickSearch('title','')
 				->setPid('cid')
 				->setColumns([
 					['cid', '内容编号'], 
 					['title', '内容标题','link',url('article/index').'?id=$arid'], 
 					['author', '作者'], 
-					['createdate', '添加时间'],
-					['button','操作','btn']
+					['create_time', '添加时间'],
+					//['button','操作','btn']
 				])
 				->fetch();
 	}

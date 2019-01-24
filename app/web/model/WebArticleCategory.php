@@ -10,7 +10,7 @@ class WebArticleCategory extends Model{
 	
 	public function parent()
     { 
-        return $this->hasOne('WebArticleCategory','cateid','parent_cateid');
+        return $this->belongsTo('WebArticleCategory','cateid','parent_cateid');
     }
 
     public function sublist()
