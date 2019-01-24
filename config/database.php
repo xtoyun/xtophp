@@ -15,9 +15,9 @@ return [
     // 服务器地址
     'hostname'        => 'localhost',
     // 数据库名
-    'database'        => 'test1',
+    'database'        => 'xtophp',
     // 用户名
-    'username'        => 'test1',
+    'username'        => 'xtophp',
     // 密码
     'password'        => '123456', 
     // 端口
