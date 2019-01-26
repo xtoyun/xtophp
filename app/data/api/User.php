@@ -44,9 +44,9 @@ class User extends Base
      * @readme /doc/md/method.md
      */
     public function index()
-    {
+    { 
         //dump(input('limit'));
-        return $this->sendSuccess('api');
+        return $this->sendSuccess($this->user);
     }
     /**
      * @title 创建用户
@@ -72,16 +72,12 @@ class User extends Base
      * @return \think\Response
      */
     public function read($id)
-    {
-        $user=Users::find($id); 
-        unset($user['password']);
-        unset($user['salt']);
-        unset($user['secret']);
-        unset($user['token']);
-        unset($user['password_format']);
-        unset($user['password_question']);
-        unset($user['password_answer']);
-        return $this->sendSuccess($user);
+    { 
+        return $this->sendSuccess($this->user);
+    }
+
+    public function sign(){
+        return $this->sendSuccess($this->user);
     }
 
     public function create(){

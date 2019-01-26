@@ -1,12 +1,4 @@
 <?php
-// +----------------------------------------------------------------------
-// | When work is a pleasure, life is a joy!
-// +----------------------------------------------------------------------
-// |  User: ShouKun Liu  |  Email:24147287@qq.com  | Time:2017/3/15 9:26
-// +----------------------------------------------------------------------
-// | TITLE: this to do?
-// +----------------------------------------------------------------------
-
 
 namespace app\api\auth;
 
@@ -16,6 +8,7 @@ use app\api\exception\UnauthorizedException;
 use app\api\facade\Send;
 use think\Exception;
 use think\Request;
+use think\facade\Session; 
 
 abstract class OAuth implements AuthContract
 {
@@ -118,6 +111,7 @@ abstract class OAuth implements AuthContract
             $authorization = explode(':', base64_decode($authorization));
             $username = $authorization[0];//$_SERVER['PHP_AUTH_USER']
             $secret = $authorization[1];//$_SERVER['PHP_AUTH_PW']
+
             $this->client_id = $username;
             $this->secret = $secret;
         } catch (Exception $e) {
@@ -132,27 +126,25 @@ abstract class OAuth implements AuthContract
      * @return string
      * @throws UnauthorizedException
      */
-    private function getAccessToken()
+    public function getAccessToken()
     {
         $request = Request();
         //先行验证是否有传参
         $this->access_token = $request->param('access_token', null);
 
-        //是不是本地服务器直接读取session
-        if (empty($this->access_token)) {
-            $this->access_token=\think\facade\Session::get('access_token');
-        } 
-
 
         if ($this->access_token) return $this;
  
         $authorization = $request->header('authorization');
+        $session_token=Session::get('access_token');
 
-        if (strpos($authorization, 'Bearer ') !== false) {
-            $authorization = trim(str_replace("Bearer ", "", $authorization));
+        if (strpos($authorization, 'token ') !== false) {
+            $authorization = trim(str_replace("token ", "", $authorization));
             $this->access_token = $authorization;
+        }if($session_token){
+            $this->access_token = $session_token;
         } else {
-            throw new  UnauthorizedException('Bearer', 'Invalid authentication credentials.');
+            throw new  UnauthorizedException('token', 'Invalid authentication credentials.');
           }
 
         return $this;

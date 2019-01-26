@@ -1,11 +1,5 @@
 <?php
-// +----------------------------------------------------------------------
-// | When work is a pleasure, life is a joy!
-// +----------------------------------------------------------------------
-// | User: ShouKun Liu  |  Email:24147287@qq.com  | Time:2017/3/26 10:01
-// +----------------------------------------------------------------------
-// | TITLE: 简单的Oauth客户端模式
-// +----------------------------------------------------------------------
+
 namespace app\api\auth;
 use app\api\auth\OAuth;
 use app\api\exception\UnauthorizedException;
@@ -95,7 +89,7 @@ class OauthAuth extends OAuth
         if ($user) {
             return [
                   'client_id' => $client_id,//app_id
-                  'secret' => $user->secret,
+                  'secret' => $user->password,
                   'name' => $user->username 
             ];
         } 
@@ -155,7 +149,9 @@ class OauthAuth extends OAuth
      */
     public function getUser()
     {
+        $this->getAccessToken();
         $info = $this->getAccessTokenInfo($this->access_token);
+
         if ($info) {
             $this->client_id = $info['client']['client_id'];
             $this->user = $info['client'];

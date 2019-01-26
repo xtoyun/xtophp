@@ -396,12 +396,12 @@ class TemplateController extends Controller{
      * @access public
      * @return 直接输入错误提示
      */
-    public function checkfun($funid){ 
-        if(!Users::checkfun($funid)){
-            $this->error("权限不够");
-            return;
-        }
-    } 
+    // public function checkfun($funid){ 
+    //     if(!Users::checkfun($funid)){
+    //         $this->error("权限不够");
+    //         return;
+    //     }
+    // } 
 
     /**
      * 获取当前模板类

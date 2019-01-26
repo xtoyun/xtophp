@@ -13,11 +13,11 @@ namespace xto\template;
 
 use think\Cache;
 use think\Request;
-use app\data\membership\Users;
-use xto\membership\core\UserHelper;
-use app\data\model\Config;
-use app\data\App;
-use think\facade\Session; 
+// use app\data\membership\Users;
+// use xto\membership\core\UserHelper;
+// use app\data\model\Config;
+// use app\data\App;
+// use think\facade\Session; 
 
 abstract class IModule{
 	private $data=[];
@@ -212,11 +212,11 @@ abstract class IModule{
 
 	//读取菜单处理
 	final private function loadmenu(){
-		$user=Users::getuser(0,App::get_manager_username());//获取当前管理员
-		if(is_null($user)){
-			$this->data['menu']=null;
-			return $this;
-		}
+		// $user=Users::getuser(0,App::get_manager_username());//获取当前管理员
+		// if(is_null($user)){
+		// 	$this->data['menu']=null;
+		// 	return $this;
+		// }
 		//$funs=UserHelper::getUserFunctions($user->userid);
 
 		if(file_exists($this->menuPath())){
@@ -228,12 +228,12 @@ abstract class IModule{
 
 			$menus=[]; 
 			foreach ($doc as $key => $value) {
-				$status=false;//控制当前权限
+				//$status=false;//控制当前权限
 				//如果是管理员，直接通过
 				$status=true;
-				if($user->is_admin){
-					$status=true;
-				}
+				// if($user->is_admin){
+				// 	$status=true;
+				// }
 				// else if(!$user->is_admin && in_array((string)$value['url'],$funs)){
 				// 	//检查是否有权限访问当地址
 				// 	$status=true;
@@ -243,9 +243,9 @@ abstract class IModule{
 					$isclass=false;
 					foreach ($value->pagelink as $key1 => $value1) {
 						$status=true;
-						if($user->is_admin){
-							$status=true;
-						}
+						// if($user->is_admin){
+						// 	$status=true;
+						// }
 						// else if(!$user->is_admin && in_array((string)$value1['url'],$funs)){
 						// 	$status=true;
 						// }
@@ -284,8 +284,7 @@ abstract class IModule{
 		}
 		if (!empty($menus)) {
 			$this->data['menu']=$menus; 
-		}
-		
+		} 
 		return $this;
 	}
 

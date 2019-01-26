@@ -7,6 +7,7 @@ use app\data\model\Logs;
 
 use app\data\App;
 use app\data\membership\Users;
+use app\api\auth\OauthAuth;
 
 class Login extends \app\data\Controller  {
 	protected $param;
@@ -18,6 +19,7 @@ class Login extends \app\data\Controller  {
     }
 
 	public function index(){  
+
 		$url=input('url');
 		if (empty($url)) {
 			$url=url('/admin/index');
@@ -45,9 +47,19 @@ class Login extends \app\data\Controller  {
 		} 
 		$result=$user->validateUser($password);
 		if ($result->success) {
-            Session::set(App::manager_auth(),$username);
+            $userid=$user->userid;
+            $password=$user->password; 
+  
+            $header_result=uheader(Request()->host()."/accesstoken?client_id=$userid&secret=$password");
+            $result_token=json_decode($header_result); 
+            if ($result_token) { 
+                Session::set('access_token',$result_token->access_token);
+                //uheader(Request()->host()."/accesstoken",'get',['authorization', 'token '.$result_token->access_token]); 
+            }
+
+            //Session::set(App::manager_auth(),$username);
 			Logs::write($username."用户于登录成功".$result->msg);
-		}
+		} 
 		return $result; 
 	}
 

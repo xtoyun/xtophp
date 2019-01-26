@@ -1,11 +1,5 @@
 <?php
-// +----------------------------------------------------------------------
-// | When work is a pleasure, life is a joy!
-// +----------------------------------------------------------------------
-// |  User: ShouKun Liu  |  Email:24147287@qq.com  | Time:2017/3/9 11:39
-// +----------------------------------------------------------------------
-// | TITLE: API基础
-// +----------------------------------------------------------------------
+ 
 namespace app\api\facade;
 
 use think\Config;
@@ -78,6 +72,8 @@ abstract class ApiController
 
     ];
 
+     public $user;
+
     /**
      * ApiController constructor.
      * @param Request|null $request
@@ -138,10 +134,8 @@ abstract class ApiController
         if (self::_getConfig('api_debug')) {
 
             if (self::_getConfig('api_auth') && $this->apiAuth) {
-                $auth = self::_auth();
-            } else {
-                $auth = true;
-            }
+                $auth = $this->_auth(); 
+            } 
 
             if ($auth !== true){ 
                 throw new UnauthorizedException('没有权限');
@@ -160,7 +154,7 @@ abstract class ApiController
                  */
                 //认证
 
-                $auth = (self::_getConfig('api_auth') && $this->apiAuth) ? self::_auth() : true;
+                $auth = (self::_getConfig('api_auth') && $this->apiAuth) ? $this->_auth() : true;
 
                 if ($auth !== true) throw new UnauthorizedException('Unauthorized');
 
@@ -207,11 +201,12 @@ abstract class ApiController
      * 授权验证 
      * @throws AuthException
      */
-    private static function _auth()
+    private function _auth()
     {
         $baseAuth = Factory::getInstance(\app\api\auth\BaseAuth::class);
-        
+
         try {
+            $this->user=$baseAuth->getuser(self::$app['auth']);
             return $baseAuth->auth(self::$app['auth']);
         } catch (UnauthorizedException $e) {
             throw  new  UnauthorizedException($e->authenticate, $e->getMessage());
@@ -220,6 +215,8 @@ abstract class ApiController
         }
 
     }
+
+   
 
     /**
      * 获取配置信息

@@ -1,12 +1,4 @@
 <?php
-// +----------------------------------------------------------------------
-// | When work is a pleasure, life is a joy!
-// +----------------------------------------------------------------------
-// |  User: ShouKun Liu  |  Email:24147287@qq.com  | Time:2017/3/9 15:10
-// +----------------------------------------------------------------------
-// | TITLE: this to do?
-// +----------------------------------------------------------------------
-
 
 namespace app\api\auth;
 
@@ -28,8 +20,13 @@ class BaseAuth
     { 
         $request = Request();
         
-        return $auth->authenticate($request);
+        $result= $auth->authenticate($request); 
+        return $result;
     }
 
+    public static function getuser($auth)
+    { 
+        return $auth->getuser();
+    }
 
 }

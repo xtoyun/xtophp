@@ -12,7 +12,8 @@ class BaseController extends \app\data\Controller
 
 	public function __construct(){ 
 		parent::__construct();
-		$this->user=Users::getuser(0,Session::get(App::manager_auth()));
+ 
+		$this->user=Users::getuser($this->auth->client_id);
 	 
 		if(is_null($this->user) || empty($this->user->manager)){
 			$this->redirect("/admin.php/admin/login");

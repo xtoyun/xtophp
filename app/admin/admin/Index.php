@@ -1,14 +1,14 @@
 <?
 namespace app\admin\admin;
 
-use think\Session;
+use think\facade\Session; 
 use think\Request;
 use app\data\App;
 use app\admin\Module;
 use \xto\module\IModule;
 
 class Index extends BaseController{
-	public function index(){
+	public function index(){ 
 		return $this->setblock(true)->setnav(false)->view("index/index");
 	}
 
