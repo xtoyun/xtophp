@@ -32,5 +32,5 @@ return [
     'taglib_begin' => '{',
     // 标签库标签结束标记
     'taglib_end'   => '}',
-    'taglib_pre_load'=>'app\common\lib\Xto'
+    'taglib_pre_load'=>'app\data\taglib\Xt'
 ];

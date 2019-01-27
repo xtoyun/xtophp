@@ -9,6 +9,7 @@ use \xto\module\IModule;
 
 class Index extends BaseController{
 	public function index(){ 
+ 
 		return $this->setblock(true)->setnav(false)->view("index/index");
 	}
 

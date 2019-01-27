@@ -5,19 +5,19 @@ use app\web\dao\NavDao;
 use app\web\dao\KeywordDao;
 use app\web\dao\LinkDao;
 
-class BaseController extends \xto\template\BaseController 
+class BaseController extends \think\Controller 
 {  
 	protected $nav;
 
 	public function __construct(){
 		parent::__construct(); 
-		$this->assign('theme',$this->theme);
+		$this->assign('theme',$this->getTheme());
 	}
 
 	public function fetch($template = '', $vars = [], $replace = [], $config = []){
-		$replace=array_merge($replace,['"/res'=>'"/app/web/view/home/'.$this->theme.'/res']);
-		$replace=array_merge($replace,['(/res'=>'(/app/web/view/home/'.$this->theme.'/res']);
-		$template=$this->theme.'/'.(empty($template)?$this->c.'/'.$this->a:$template);
+		$replace=array_merge($replace,['"/res'=>'"/app/web/view/home/'.$this->getTheme().'/res']);
+		$replace=array_merge($replace,['(/res'=>'(/app/web/view/home/'.$this->getTheme().'/res']);
+		$template=$this->getTheme().'/'.(empty($template)?$this->c.'/'.request()->action():$template);
 		return parent::fetch($template,$vars,$replace,$config);
 	}
 
@@ -36,4 +36,5 @@ class BaseController extends \xto\template\BaseController
 	public function getlayout(){
         return APP_PATH."web/view/home/$this->theme/layout.html";  
     }
+
 }

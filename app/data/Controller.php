@@ -15,6 +15,11 @@ class Controller extends \xto\template\TemplateController{
 	private function _init(){
 		 $class = Factory::getInstance(config('api')['auth_class']);
 		 $baseAuth = Factory::getInstance(\app\api\auth\BaseAuth::class);
-		 $this->auth=(object)$baseAuth->getuser($class);
+		 $result=$baseAuth->getuser($class);
+		 if ($result) {
+		 	$this->auth=(object)$baseAuth->getuser($class);
+		 }else{
+		 	$this->auth=false;
+		 }
 	}
 }

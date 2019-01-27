@@ -12,13 +12,14 @@ class BaseController extends \app\data\Controller
 
 	public function __construct(){ 
 		parent::__construct();
- 
-		$this->user=Users::getuser($this->auth->client_id);
-	 
-		if(is_null($this->user) || empty($this->user->manager)){
+ 		if ($this->auth) {
+ 			$this->user=Users::getuser($this->auth->client_id);
+ 		}
+
+ 		if(is_null($this->user) || empty($this->user->manager) || !$this->auth){
 			$this->redirect("/admin.php/admin/login");
-		}else{   
-			$this->assign('user',$this->user); 
 		}
+ 		
+ 		$this->assign('user',$this->user); 
 	}
 }

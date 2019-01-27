@@ -5,6 +5,6 @@ use think\facade\Session;
 
 class Index extends BaseController{
 	public function _empty(){ 
-		return $this->fetch($this->a);
+		return $this->fetch(request()->action());
 	}
 }
