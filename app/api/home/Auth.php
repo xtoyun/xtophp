@@ -12,5 +12,4 @@ class Auth
         $OauthAuth = new OauthAuth();
         return $OauthAuth->accessToken($request);
     }
- 
 }

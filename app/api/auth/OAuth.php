@@ -103,6 +103,7 @@ abstract class OAuth implements AuthContract
         $this->client_id = $request->param('client_id', null);
         $this->secret = $request->param('secret', null);
 
+
         if ($this->client_id && $this->secret) return $this;
         //没有再获取
         try {
@@ -114,6 +115,7 @@ abstract class OAuth implements AuthContract
 
             $this->client_id = $username;
             $this->secret = $secret;
+
         } catch (Exception $e) {
             throw new UnauthorizedException();
         }
@@ -145,7 +147,7 @@ abstract class OAuth implements AuthContract
             $this->access_token = $session_token;
         } else {
             throw new  UnauthorizedException('token', 'Invalid authentication credentials.');
-          }
+        }
 
         return $this;
 

@@ -23,7 +23,7 @@ class OauthAuth extends OAuth
             return $this->sendError(401, $e->getMessage(), 401, [], $e->getHeaders(),['WWW-Authenticate' => 'Basic']);
         } catch (Exception $e) {
             return $this->sendError(500, $e->getMessage(), 500);
-        } 
+        }  
         //校验信息
         if ($this->getClientInfo($this->client_id)->checkSecret()) {
             //通过下放令牌

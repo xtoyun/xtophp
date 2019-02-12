@@ -7,9 +7,10 @@ use app\data\model\Logs;
 
 use app\data\App;
 use app\data\membership\Users;
-use app\api\auth\OauthAuth;
+use app\api\auth\OauthAuth; 
+use think\Request;
 
-class Login extends \app\data\Controller  {
+class Login extends \think\Controller  {
 	protected $param;
 
     public function __construct()
@@ -29,9 +30,22 @@ class Login extends \app\data\Controller  {
 	}
 
 	public function logout(){
-		Session::delete(App::manager_auth());
+		Session::set('access_token','');
 		$this->redirect("/admin.php/admin/login");
 	}
+
+    public function auth(){
+
+        $request=request();
+        $OauthAuth = new OauthAuth();
+        $result_token=$OauthAuth->accessToken($request);
+ 
+        if ($result_token) { 
+            Session::set('access_token',$result_token->getData()['access_token']);
+            return message('登录成功',true);
+        }
+        return message('登录失败',false);
+    }
 
 	public function login(){
 		//Session::clear();
@@ -49,16 +63,8 @@ class Login extends \app\data\Controller  {
 		if ($result->success) {
             $userid=$user->userid;
             $password=$user->password; 
-  
-            $header_result=uheader(Request()->host()."/accesstoken?client_id=$userid&secret=$password");
-            $result_token=json_decode($header_result); 
-            if ($result_token) { 
-                Session::set('access_token',$result_token->access_token);
-                //uheader(Request()->host()."/accesstoken",'get',['authorization', 'token '.$result_token->access_token]); 
-            }
-
-            //Session::set(App::manager_auth(),$username);
-			Logs::write($username."用户于登录成功".$result->msg);
+            Logs::write($username."用户于登录成功".$result->msg);
+            $this->redirect("/admin.php/admin/login/auth?client_id=$userid&secret=$password");	
 		} 
 		return $result; 
 	}
