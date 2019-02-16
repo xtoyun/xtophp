@@ -65,13 +65,13 @@ abstract class Connection
         // 数据库类型
         'type'            => '',
         // 服务器地址
-        'hostname'        => '',
+        'hostname'        => 'localhost',
         // 数据库名
-        'database'        => '',
+        'database'        => 'ybcms',
         // 用户名
-        'username'        => '',
+        'username'        => 'admin',
         // 密码
-        'password'        => '',
+        'password'        => '123456',
         // 端口
         'hostport'        => '',
         // 连接dsn

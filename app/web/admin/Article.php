@@ -20,10 +20,10 @@ class Article extends BaseController{
 				->setTitle('文章管理')
 				->addLeftBlock('nav','选择栏目','nav')
 				->setDataSource($list)
-				->setPager($list->render())
-				->addColumnButton('delete','删除',url('article/article_delete')) 
+				->setPager($list->render()) 
 				->addNav('','文章列表',url('article/index'),'?nid='.input('nid')) 
 				->addTopButton('','创建',url('article/create').'?nid='.input('nid'))
+				->addColumnButton('delete','删除',url('article/article_delete'))
 				->addColumnButton('','修改',url('article/edit').'?id=$arid&nid='.input('nid'),'','fa fa-pencil')
 				->setQuickSearch('title','')
 				->setPid('arid')
@@ -164,7 +164,7 @@ class Article extends BaseController{
 	}
 	public function article_delete(){
 		if(request()->ispost()){
-			$id 	=input('id'); 
+			$id = input('id'); 
 			if($this->dao->delete($id)){
 				return Util::message('删除成功',true);
 			}
