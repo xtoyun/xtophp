@@ -19,14 +19,16 @@ class BaseAuth
     public static function auth($auth)
     { 
         $request = Request();
-        
         $result= $auth->authenticate($request); 
         return $result;
     }
 
     public static function getuser($auth)
     { 
-        return $auth->getuser();
+        if (!empty($auth)) {
+           return $auth->getuser();
+        }
+        
     }
 
 }

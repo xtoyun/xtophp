@@ -39,7 +39,7 @@ class Login extends \think\Controller  {
         $request=request();
         $OauthAuth = new OauthAuth();
         $result_token=$OauthAuth->accessToken($request);
- 
+         
         if ($result_token) { 
             Session::set('access_token',$result_token->getData()['access_token']);
             return message('登录成功',true);
