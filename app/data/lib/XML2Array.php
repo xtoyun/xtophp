@@ -1,6 +1,6 @@
 <?php
 
-namespace xto\template; 
+namespace app\data\lib; 
 
 /**
  * XML2Array: A class to convert XML to an array in PHP

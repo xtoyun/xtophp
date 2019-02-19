@@ -1,7 +1,8 @@
 <?
 namespace app\admin;
+use app\data\IModule;
 
-class Module extends \xto\template\IModule{
+class Module extends IModule{
 
 	public function modulePath(){
 		return APP_PATH.'admin';

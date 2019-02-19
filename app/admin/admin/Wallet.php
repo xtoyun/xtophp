@@ -3,6 +3,7 @@ namespace app\admin\admin;
 
 use app\data\model\Wallets as WalletsModel;
 use app\data\membership\Members; 
+use app\data\membership\Users;
 
 class Wallet extends BaseController{
 	 
@@ -63,11 +64,11 @@ class Wallet extends BaseController{
 			$username 	=input('username');
 			$amount 	=input('amount');
  
-			$user=Members::getuser(0,$username,false);
-			if (!empty($user) && $user->userrole==UserRole::Member) { 
+			$user=Users::getuser(0,$username,'',false);
+			if (!empty($user)) { 
 				if(WalletsModel::usein($user->userid,$amount,0,'后台添加')){
 					//清理缓存
-					Members::clearUserCache($user);
+					$user->clearCache();
 					return message('添加成功',true);
 				} 
 			}

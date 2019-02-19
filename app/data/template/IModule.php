@@ -9,7 +9,7 @@
  * ============================================================================
  * $Author: xtoyun $ 
 */
-namespace xto\template;
+namespace app\data\template;
 
 use think\Cache;
 use think\Request;
@@ -169,6 +169,7 @@ abstract class IModule{
 	}
 
 	public function getMenus(){
+ 
 		$this->loadmenu(); 
 		if(isset($this->data['menu'])){
 			return $this->data['menu'];
@@ -212,6 +213,7 @@ abstract class IModule{
 
 	//读取菜单处理
 	final private function loadmenu(){
+
 		// $user=Users::getuser(0,App::get_manager_username());//获取当前管理员
 		// if(is_null($user)){
 		// 	$this->data['menu']=null;

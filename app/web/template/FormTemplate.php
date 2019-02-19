@@ -1,9 +1,8 @@
 <?php
 namespace app\web\template;
 
-use xto\data\service\ManagerService;
 
-class FormTemplate  extends \xto\template\FormTemplate{
+class FormTemplate  extends \app\data\template\FormTemplate{
 	public function addWeb_theme_select($name = '', $title = '', $tips = '', $options = [], $default = '', $category_template = '', $list_template = '', $show_template='')
     {
         $type = 'web_theme_select';

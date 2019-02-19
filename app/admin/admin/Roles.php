@@ -3,6 +3,7 @@ namespace app\admin\admin;
 
  
 use app\data\membership\Roles as RolesModel;
+use app\data\membership\Usersinroles;
  
 
 class Roles extends BaseController{
@@ -110,7 +111,7 @@ class Roles extends BaseController{
  
 	public function allot(){
 		$id=input('id'); 
-		$role=RolesModel::find($id); 
+		$role=RolesModel::find($id);  
 		$this->assign('role',$role);
 		$this->assign('ms',$this->modules($role));
 		return $this->setnav(true)
@@ -119,8 +120,29 @@ class Roles extends BaseController{
 				->fetch('roles/allot');
 	}
 
+	public function allot_post(){
+		if(request()->ispost()){
+			$ids 	=input("ids");
+			$roleid =input("roleid");
+			$arr=array_unique(explode(',',$ids)); 
+	 
+			$model=new Usersinroles();
+			$model->roleid=$roleid;
+
+
+			if($model->addFuns($arr)){
+				return message('添加成功',true);
+			}
+			return message('添加失败',false);
+		}
+	}
+
 	public function modules($role){
-		$fs=$role->functions->toArray();
+		$fs=[];
+		$role_funs=$role->functions->toArray();
+		foreach ($role_funs as $key => $value) {
+			$fs[$key]=$value['funid'];
+		}
 		$arr=$this->module->modules();
 
 		$info=array();

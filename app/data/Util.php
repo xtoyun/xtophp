@@ -9,7 +9,7 @@
  * ============================================================================
  * $Author: xtoyun $ 
 */
-namespace xto\template;
+namespace app\data;
  
 use think\Request;
 

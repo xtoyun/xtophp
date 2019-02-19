@@ -32,8 +32,8 @@ if (!function_exists('message')) {
 		
 	}
 } 
-if (!function_exists('getdate')) {
-    function getdate(){
+if (!function_exists('fdate')) {
+    function fdate(){
         return date("Y-m-d H:i:s");
     }
 }

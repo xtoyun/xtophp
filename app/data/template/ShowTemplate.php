@@ -9,8 +9,7 @@
  * ============================================================================
  * $Author: xtoyun $ 
 */
-namespace xto\template; 
-use xto\Util;
+namespace app\data\template;  
 
 abstract class ShowTemplate  extends Template{
 

@@ -50,48 +50,22 @@ class Members extends Model {
 		return self::update($data);
 	}
 
-	// static function getuser($userid,$username='',$iscache=true){
-	// 	return Users::getUser($userid,$username,$iscache);
-	// }
-
-	// static function createUser($data){
- 
-	// 	return Users::createUser($data);
-	// }
-
-	// static function updateUser($data){
-	// 	return Users::updateUser($data);
-	// }
-
-	// static function deleteUser($userid){
-	// 	return Users::deleteUser($userid);
-	// }
-
-	// static function changeLoginPassword($userid,$password){
-	// 	return UserHelper::changeLoginPassword($userid,$password);
-	// }
-
-	// static function changeSafePassword($userid,$password){
-	// 	return UserHelper::changeSafePassword($userid,$password);
-	// }
-
-	// static function deleteUserRoles($userid){
-	// 	return UserHelper::deleteUserRoles($userid);
-	// }
-
-	// static function addUserToRole($userid,$roleid){
-	// 	return RoleHelper::addUserToRole($userid,$roleid);
-	// }
-
-	// static function getfuns($roleid){
-	// 	return RoleHelper::getRoleFunctions($roleid);
-	// }
-
-	// static function createRole($role){
-	// 	return RoleHelper::createRole($role);
-	// }
-
-	// static function clearUserCache($user){
-	// 	return Users::clearUserCache($user);
-	// }
+	public function createMember($data=null){
+		$pwd=$this->trade_password;
+		if(!empty($this->trade_password_format)){
+			switch ($this->trade_password_format) {
+				case 'md5':
+					$pwd=md5($this->trade_password.config('encrystr'));
+				default:
+					$this->trade_password_format='md5';
+					$pwd=md5($this->trade_password.config('encrystr'));
+					break;
+					
+			} 
+		} 
+		$this->trade_password=$pwd;
+		if($this->save($data)){
+			return true;
+		}
+	} 
 }

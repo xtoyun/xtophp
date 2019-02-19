@@ -4,9 +4,6 @@ namespace app\admin\admin;
 use app\data\membership\Users;
 use app\data\membership\Managers;
 use app\data\membership\Roles;
-// use xto\membership\context\Manager as ManagerInfo;
-// use xto\membership\core\UserCreateStatus;
-
 
 class Manager extends BaseController{
  	
@@ -31,24 +28,10 @@ class Manager extends BaseController{
 	                [2,'rolename','角色'],
 	                [2,'button', '操作', 'btn']
 				])
-				// ->setLists('use','用户列表',$list,[ 
-				// 	['userid', '用户编号','1'],
-	   //              ['username', '用户名','link',url('manager/detail').'/userid/$userid'],
-	   //              ['email', '邮件'],
-	   //              ['description', '描述','bool'],
-	   //              ['createdate', '创建日期'],
-	   //              ['last_login_date', '更新日期'],
-	   //              ['is_approved','审核','bool'],
-	   //              ['is_admin','超级管理员','bool'],
-	   //              ['rolename','角色'],
-	   //              ['button', '操作', 'btn']
-				// ])
 				->fetch(); 
  	}
 
-	public function index(){  
-		//$this->dao->setQuickSearch(input('keyword'),input('field'));
-		//$source=$this->dao->selectpage(10);//读取数据
+	public function index(){ 
 		$where=[];
 		if (!empty(input('field'))) {
 			$where=[
@@ -86,7 +69,7 @@ class Manager extends BaseController{
 	}
 
 	public function create(){ 
-		$roles=\xto\membership\core\RoleHelper::getRoles();
+		$roles=Roles::where(null)->select();
 		foreach ($roles as $key => $value) {
 			$result[$value['name']]=$value['roleid'];
 		}
@@ -152,7 +135,7 @@ class Manager extends BaseController{
 			if($user->is_admin || $user->username=='admin'){//保留一些不能删除，不然重新安装很麻烦
 				return message('超级管理员不能删除',false);
 			}
-			if(Managers::deleteUser($id)){
+			if($user->deleteUser($id)){
 				return message('删除成功',true);
 			}
 			return message('删除失败',false);
@@ -173,24 +156,24 @@ class Manager extends BaseController{
 				}
 			} 
 
-			$user=new ManagerInfo();
+			$user=new Users();
 			$user->username 	= $username;
 			$user->password 	= $password;
 			$user->email 		= $email;
 			$user->description 	= $nickname;
 			$user->is_approved	= true;
 			$user->is_admin 	= $is_admin;
-			$user->funrole 		= $roleid; 
-
-			$result=Managers::createUser($user);
-			switch ($result) {
-				case UserCreateStatus::Created:
-					return message('保存成功'.$email,true);
-				case UserCreateStatus::DuplicateUsername:
-					return message('无效用户名',false);
-				default:
-					return message('保存失败'.$result,false);
-			}
+			$user->funrole 		= $roleid;
+			$user->userrole 	= $roleid;
+			$result=$user->createuser();
+			
+			if($result->success){
+				$manager=new Managers();
+				$manager->userid=$user->userid;
+				$manager->description='管理员';
+				$manager->save();
+				return message('保存成功',true);
+			} 
 		}
 	}
 
@@ -223,11 +206,9 @@ class Manager extends BaseController{
 				} 
 				$user->funrole 		= $roleid;
 				if($user->force()->save()){
- 
 					foreach ($user->roles as $role) { 
 						$role->delete();
 					} 
-					
 					$user->addRoles([$roleid]);
 					if (!empty($password)) {
 						$user->changeLoginPassword($password);

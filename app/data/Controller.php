@@ -2,13 +2,14 @@
 namespace app\data;
 
 use app\api\facade\Factory;
+use app\data\template\TemplateController;
 
-class Controller extends \xto\template\TemplateController{
+class Controller extends TemplateController{
 	//权限
 	public $auth;
 
 	public function __construct(){ 
-		parent::__construct();
+		parent::__construct(); 
 		$this->_init();  
 	}
 
@@ -25,6 +26,5 @@ class Controller extends \xto\template\TemplateController{
 		 }else{
 		 	$this->auth=false;
 		 }
-		 
 	}
 }

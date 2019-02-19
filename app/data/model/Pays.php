@@ -1,9 +1,9 @@
 <?
 namespace app\data\model;
 
-use app\common\lib\Util;
-use xto\membership\App;
-use xto\membership\context\Users;
+use app\data\Model;
+use app\data\App;
+use app\data\membership\Users;
 
 class Pays extends Model{  
 	protected $pk="payid";  

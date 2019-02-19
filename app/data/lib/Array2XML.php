@@ -1,6 +1,6 @@
 <?php
 
-namespace xto\template;
+namespace app\data\lib;
 
 /**
  * Array2XML: A class to convert array in PHP to XML

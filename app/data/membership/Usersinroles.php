@@ -17,8 +17,9 @@ class Usersinroles extends Model {
     public function addFuns($funs=[]){
     	$count=0;
     	$roleid=$this->roleid;
+        Rolefunction::where("roleid=$roleid")->delete();
     	foreach ($funs as $key => $value) {
-    		if(!Rolefunction::where("roleid=$roleid and funid='$value'")->find()){
+    		//if(!Rolefunction::where("roleid=$roleid and funid='$value'")->find()){
 	    		$ad=new Rolefunction();
 	    		$ad->roleid=$roleid;
 	    		$ad->funid=$value;
@@ -26,7 +27,7 @@ class Usersinroles extends Model {
 	    		if($ad->save()){
 	    			$count++;
 	    		}
-	    	}
+	    	//}
     	}
     	return $count;
     }

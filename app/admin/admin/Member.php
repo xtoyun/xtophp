@@ -1,7 +1,8 @@
 <?
 namespace app\admin\admin;
 
-use app\data\membership\Members as MembersModel; 
+use app\data\membership\Members; 
+use app\data\membership\Users;
 
 class Member extends BaseController{
 	 
@@ -13,7 +14,7 @@ class Member extends BaseController{
 				[input('field'),'like',input('keyword').'%'],
 			];
 		}   
-		$result=MembersModel::selectpage(20,$where,'userid desc');//读取数据
+		$result=Members::selectpage(20,$where,'userid desc');//读取数据
 		return $this->template
 				->TableTemplate 
 				->setData('modulename','基础管理')
@@ -85,7 +86,7 @@ class Member extends BaseController{
 
 	public function edit(){
 		$id=input('id');
-		$user=MembersModel::getinfo($id);
+		$user=Members::getuser($id);
 		return $this->template
 				->FormTemplate 
 				->setData('modulename','基础设置') 
@@ -121,15 +122,15 @@ class Member extends BaseController{
 
 	public function create_post(){
 		if(request()->ispost()){  
-			$user=new MemberInfo();
+			$user=new Users();
 			$username=input('username');
 			$tusername=input('tuser');
 			$loginpwd=input('loginpwd');
 			$safepwd=input('safepwd');
 			$nickname=input('nickname');
 			$email=input('email');
-			if(!empty($username)){
-				$tuser=MembersModel::getuser(0,$tusername,false);
+			if(!empty($tusername)){
+				$tuser=Users::getuser(0,$tusername,false);
 				if(!empty($tuser) && $tuser->userrole==UserRole::Member){
 					$user->refer_userid=$tuser->userid;
 					$user->refer_username=$tuser->username;
@@ -137,74 +138,73 @@ class Member extends BaseController{
 			}
 			
 			$user->username 	= $username;
-			$user->password 	= $loginpwd;
-			$user->trade_password=$safepwd;
+			$user->password 	= $loginpwd; 
 			$user->email 		= $email; 
 			$user->is_approved	= true;
 			$user->nickname 	=$nickname;
+			$result=$user->createuser(); 
+			if($result->success){
+				$member=new Members();
+				$member->trade_password=$safepwd;
+				$member->userid=$user->userid; 
+				$member->createMember();
+				return message('保存成功',true);
+			} 
 
-			$result=MembersModel::createUser($user);
-			switch ($result) {
-				case UserCreateStatus::Created:
-					 
-					return message('保存成功'.$email,true);
-				case UserCreateStatus::DuplicateUsername:
-					return message('用户名已经重复',false);
-				default:
-					return message('保存失败'.$result,false);
-			}
+			return message($result->msg,false);
 		}
 	}
 
 	public function edit_post(){
 		if(request()->ispost()){  
 			$userid 		=input('userid');
+
 			$loginpwd 	=input('loginpwd');
 			$safepwd 	=input('safepwd');
 
-			$user=MembersModel::getuser($userid,'',false);
+			$user=Users::getuser($userid,'','',false);
+			 
 			if (!empty($user)) {
 				$user->email 			= input('email');
-				$user->nickname 		= input('nickname');
-				$user->realname 		= input('realname');
-				$user->identify_card 	= input('identify_card');
-				$user->address 			= input('address');
-				$user->zipcode 			= input('zipcode');
-				$user->phone 			= input('phone');
-				$user->mobile 			= input('mobile');
-				$user->qq 				= input('qq');
-				$user->wangwang 		= input('wangwang');
-				$user->wechat 			= input('wechat');
-				$user->alipay 			= input('alipay'); 
+				if($user->save()){  
+					 
+				}
 				if(!empty($loginpwd)){
-					$user->password =$loginpwd;
-				}else{
-					$user->password ='';
-				}
-				if(!empty($safepwd)){
-					$user->trade_password =$safepwd;
-				}else{
-					$user->trade_password ='';
-				}
-				if(MembersModel::updateUser($user)){
-					$re=false;
-					if(!empty($loginpwd)){
-						$re=$user->changeLoginPassword($loginpwd);//修改密码
-					} 
-					if(!empty($safepwd)){
-						$re=$user->changeSafePassword($safepwd);//修改密码
-					} 
-					return message('修改成功'.$re,true);
-				}
+					$user->changeLoginPassword($loginpwd);//修改密码
+				} 
 			} 
-			return message('修改失败',false);
+
+			$member=Members::find($userid);
+			if ($member) {
+				$member->nickname 		= input('nickname');
+				$member->realname 		= input('realname');
+				$member->identify_card 	= input('identify_card');
+				$member->address 			= input('address');
+				$member->zipcode 			= input('zipcode');
+				$member->phone 			= input('phone');
+				$member->mobile 			= input('mobile');
+				$member->qq 				= input('qq');
+				$member->wangwang 		= input('wangwang');
+				$member->wechat 			= input('wechat');
+				$member->alipay 			= input('alipay'); 
+				$result=$member->save();
+				if(!empty($safepwd)){
+					$member->changeSafePassword($safepwd);//修改密码
+				}
+			}  
+			if ($result) {
+				return message('修改成功',true);
+			}else{
+				return message('修改失败',false);
+			}
 		}
 	}
 
 	public function delete_post(){
 		if(request()->ispost()){ 
 			$id=input("id");  
-			if(MembersModel::deleteUser($id)){
+			$user=Users::find($id);
+			if($user->deleteUser()){
 				return message('删除成功',true);
 			}
 			return message('删除失败',false);

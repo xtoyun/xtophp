@@ -17,13 +17,13 @@ class Points extends Model{
 		$data=[
 			'userid' 	=> $user->userid,
 			'username'	=> $user->username,
-			'tradedate'	=> getdate(),
+			'tradedate'	=> fdate(),
 			'tradetype' => $tradetype,
 			'income' 	=> $income, 
 			'expenses' 	=> $expenses,
 			'appid' 	=> appid(),
 			'remark' 	=> $remark,
-			'balance' 	=> $user->points+(float)$income-(float)$expenses
+			'balance' 	=> $user->member->points+(float)$income-(float)$expenses
 			]; 
 		return self::create($data);
 	}

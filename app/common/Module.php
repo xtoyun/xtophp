@@ -1,7 +1,7 @@
 <?
 namespace app\common;
 
-class Module extends \xto\template\IModule{
+class Module extends \app\data\IModule{
 	public function modulePath(){
 		return APP_PATH.'common';
 	}

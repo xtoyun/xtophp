@@ -1,9 +1,9 @@
 {extend name="$layout"}
 {block name="content"}  
-<script type="text/javascript" src="/public/libs/jstree/jstree.js"></script>
-<script type="text/javascript" src="/public/libs/jstree/jstree.checkbox.js"></script>
-<script type="text/javascript" src="/public/libs/jstree/jstree.changed.js"></script>
-<link rel="stylesheet" href="/public/libs/jstree/themes/default/style.css" /> 
+<script type="text/javascript" src="/static/js/jstree/jstree.js"></script>
+<script type="text/javascript" src="/static/js/jstree/jstree.checkbox.js"></script>
+<script type="text/javascript" src="/static/js/jstree/jstree.changed.js"></script>
+<link rel="stylesheet" href="/static/js/jstree/themes/default/style.css" /> 
  
 <form class="form-horizontal" onsubmit="return save(this);" id="ajaxForm" action="" method="post" >
     <div class="form-group">
@@ -47,7 +47,7 @@
             } 
         });
         $("#ids").attr('value',str); 
-        return app.submit(sender,'allot');
+        return app.submit(sender,'{:url('roles/allot_post')}');
     }
 </script>
 {/block}

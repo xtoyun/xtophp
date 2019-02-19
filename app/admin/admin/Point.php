@@ -3,6 +3,7 @@ namespace app\admin\admin;
 
 use app\data\model\Points;
 use app\data\membership\Members; 
+use app\data\membership\Users;
 
 class Point extends BaseController{
 	 
@@ -52,6 +53,7 @@ class Point extends BaseController{
 				->addFormItems([
 						['text', 'username', '用户名', '用户名称',input('username')],
 		                ['text', 'amount', '金额', '',100], 
+		                ['text', 'remark', '备注', ''], 
 					])
 				->submit(url('point/create_post'),'',url('point/index'))
 				->fetch();
@@ -61,12 +63,13 @@ class Point extends BaseController{
 		if(request()->ispost()){   
 			$username 	=input('username');
 			$amount 	=input('amount');
+			$remark 	=input('remark');
  
-			$user=Members::getuser(0,$username,false);
-			if (!empty($user) && $user->userrole==UserRole::Member) { 
-				if(Points::usein($user->userid,$amount,0,'后台添加')){
+			$user=Users::getuser(0,$username,'',false);
+			if (!empty($user)) { 
+				if(Points::usein($user->userid,$amount,0,$remark)){
 					//清理缓存
-					Members::clearUserCache($user);
+					$user->clearCache();
 					return message('添加成功',true);
 				} 
 			}

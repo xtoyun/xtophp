@@ -9,7 +9,7 @@
  * ============================================================================
  * $Author: xtoyun $ 
 */
-namespace xto\template;
+namespace app\data\template;
 
 abstract class TemplateContainer{
 
@@ -23,15 +23,6 @@ abstract class TemplateContainer{
      * @return string
      */
 	abstract function getTemplateVirtualPath();
-
-    /**
-     * View层layout
-     * @access public
-     * @return string
-     */
-    //public function getViewLayout(){
-    //    return $this->root."/application/common/view/$this->theme/admin/layout.html";
-    //}
 
     public function getTheme(){
         return 'xui';
@@ -49,7 +40,7 @@ abstract class TemplateContainer{
 	public function getTableTemplate(){
 		$url=str_replace('/','\\',$this->TemplateVirtualPath.'/TableTemplate');
 		$r = new \ReflectionClass($url);
-        if($r->implementsInterface('\xto\template\iTemplate')){
+        if($r->implementsInterface('\app\data\template\ITemplate')){
         	return new $url($this);
         }
         return null;
@@ -63,7 +54,7 @@ abstract class TemplateContainer{
 	public function getFormTemplate(){
 		$url=str_replace('/','\\',$this->TemplateVirtualPath.'/FormTemplate');
 		$r = new \ReflectionClass($url);
-        if($r->implementsInterface('\xto\template\iTemplate')){
+        if($r->implementsInterface('\app\data\template\ITemplate')){
         	return new $url($this);
         }
         return null;
@@ -77,7 +68,7 @@ abstract class TemplateContainer{
     public function getShowTemplate(){
         $url=str_replace('/','\\',$this->TemplateVirtualPath.'/ShowTemplate');
         $r = new \ReflectionClass($url);
-        if($r->implementsInterface('\xto\template\iTemplate')){
+        if($r->implementsInterface('\app\data\template\ITemplate')){
             return new $url($this);
         }
         return null;

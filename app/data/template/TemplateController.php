@@ -9,14 +9,12 @@
  * ============================================================================
  * $Author: xtoyun $ 
 */
-namespace xto\template;
+namespace app\data\template;
 
 
-//use xto\App;
-use xto\membership\context\Context;
-use xto\membership\context\Users;
-use xto\template\IModule;
-use xto\template\Template;
+//use xto\App; 
+use app\data\template\IModule;
+use app\data\template\Template;
 use think\Controller;
 use think\Request;
 
@@ -40,6 +38,7 @@ class TemplateController extends Controller{
 
     public function __construct(){
         parent::__construct();
+
         $request=$this->request;
 
         //$this->cdao=ConfigDao::instance();//读取配置数据类
@@ -417,7 +416,7 @@ class TemplateController extends Controller{
         $url=str_replace("/", "\\", "/app/$m/template/FormTemplate");
 
         $r = new \ReflectionClass($url);
-        if($r->implementsInterface('\xto\template\iTemplate')){
+        if($r->implementsInterface('\app\data\template\ITemplate')){
             return new $url($this);
         }
         //return $this;
@@ -429,7 +428,7 @@ class TemplateController extends Controller{
 
         $r = new \ReflectionClass($url);
 
-        if($r->implementsInterface('\xto\template\iTemplate')){
+        if($r->implementsInterface('\app\data\template\ITemplate')){
 
             return $this->template=new $url($this);
         }
@@ -439,7 +438,7 @@ class TemplateController extends Controller{
         $m=Request()->module();
         $url=str_replace("/", "\\", "/app/$m/template/ShowTemplate");
         $r = new \ReflectionClass($url);
-        if($r->implementsInterface('\xto\template\iTemplate')){
+        if($r->implementsInterface('\app\data\template\ITemplate')){
             return $this->template=new $url($this);
         }
     }
