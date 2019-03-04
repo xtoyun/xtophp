@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu>
-	<item title='基础设置' url='/admin/manager/index'>
+	<item title='基础设置' url='/admin/basic/index'>
 		<pagelink title='基本设置' url='/admin/setting/basic' c='setting,index'>
 		</pagelink>
 		<pagelink title='管理员' url='/admin/manager/index' c='manager'>
-			<function url='/admin/api/createmanager' title='添加管理员'></function>
-			<function url='/admin/api/updatemanager' title='编辑管理员'></function>
-			<function url='/admin/api/deletemanager' title='删除管理员'></function>
+			<function url='/admin/manager/create' title='添加管理员'></function>
+			<function url='/admin/manager/edit' title='编辑管理员'></function>
+			<function url='/admin/manager/delete_post' title='删除管理员'></function>
 		</pagelink>
 		<pagelink title='角色管理' url='/admin/roles/index' c='roles'>
-			<function url='admin_roles_add' title='添加角色'></function>
-			<function url='admin_roles_update' title='添加角色'></function>
-			<function url='admin_roles_delete' title='删除角色'></function>
+			<function url='/admin/roles/create' title='添加角色'></function>
+			<function url='/admin/roles/edit' title='添加角色'></function>
+			<function url='/admin/roles/delete_post' title='删除角色'></function>
+			<function url='/admin/roles/allot' title='角色功能分配'></function>
 		</pagelink>
 		<pagelink title='日志管理'  url='/admin/logs/index' c='logs'></pagelink>
 		<pagelink title='数据库管理' url='/admin/database/index' c='database'></pagelink>

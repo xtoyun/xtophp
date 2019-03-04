@@ -218,71 +218,72 @@ abstract class IModule{
 		} 
 
 		$funs=[];
-		foreach ($user->functions() as $key => $value) {
-			$funs[$key]=$value['funid'];
-		} 
+		if ($user) {
+			foreach ($user->functions() as $key => $value) {
+				$funs[$key]=$value['funid'];
+			}  
+			if(file_exists($this->menuPath())){
 
-		if(file_exists($this->menuPath())){
+				$xml=simplexml_load_file($this->menuPath());
 
-			$xml=simplexml_load_file($this->menuPath());
+				$doc= $xml[0];//所有菜单
+				$c=strtolower(request()->controller());
 
-			$doc= $xml[0];//所有菜单
-			$c=strtolower(request()->controller());
-
-			$menus=[]; 
-			foreach ($doc as $key => $value) { 
-				//如果是管理员，直接通过
-				$status=false;
-				if($user->is_admin){
-					$status=true;
-				}
-				else if(!$user->is_admin && in_array((string)$value['url'],$funs)){
-					//检查是否有权限访问当地址
-					$status=true;
-				}
-				if($status){
-					$ps=array();
-					$isclass=false;
-					foreach ($value->pagelink as $key1 => $value1) {
-						$status=false;
-						if($user->is_admin){
-							$status=true;
-						}
-						else if(!$user->is_admin && in_array((string)$value1['url'],$funs)){
-							$status=true;
-						}
-						if($status){
-							$value_c=(string)$value1['c'];
-							if(strpos($value_c,$c)!==false){
-								$isclass=true;
+				$menus=[]; 
+				foreach ($doc as $key => $value) { 
+					//如果是管理员，直接通过
+					$status=false;
+					if($user->is_admin){
+						$status=true;
+					}
+					else if(!$user->is_admin && in_array((string)$value['url'],$funs)){
+						//检查是否有权限访问当地址
+						$status=true;
+					}
+					if($status){
+						$ps=array();
+						$isclass=false;
+						foreach ($value->pagelink as $key1 => $value1) {
+							$status=false;
+							if($user->is_admin){
+								$status=true;
 							}
-							$fu=array();
-							foreach ($value1->function as $key2 => $value2) {
-								$fu[]=[
-									'title'=>(string)$value2['title'],
-									'url'=>(string)$value2['url']
-									];
+							else if(!$user->is_admin && in_array((string)$value1['url'],$funs)){
+								$status=true;
 							}
-							$ps[]=[
-								'title'=>(string)$value1['title'],
-								'class'=>(string)$value1['class'],
-								'current'=>strpos($value_c,$c)!==false?'active':'',
-								'url'=>(string)$value1['url'],
-								'link'=>url((string)$value1['url']),
-								'function'=>$fu
-							];
-						}
-					} 
-					$menus[]=[ 
-					'title'=>(string)$value['title'],
-					'class'=>(string)$value['class'],
-					'url'=>(string)$value['url'],
-					'link'=>url((string)$value['url']),
-					'current'=>$isclass?'active':'',
-					'pagelink'=>$ps]; 
+							if($status){
+								$value_c=(string)$value1['c'];
+								if(strpos($value_c,$c)!==false){
+									$isclass=true;
+								}
+								$fu=array();
+								foreach ($value1->function as $key2 => $value2) {
+									$fu[]=[
+										'title'=>(string)$value2['title'],
+										'url'=>(string)$value2['url']
+										];
+								}
+								$ps[]=[
+									'title'=>(string)$value1['title'],
+									'class'=>(string)$value1['class'],
+									'current'=>strpos($value_c,$c)!==false?'active':'',
+									'url'=>(string)$value1['url'],
+									'link'=>url((string)$value1['url']),
+									'function'=>$fu
+								];
+							}
+						} 
+						$menus[]=[ 
+						'title'=>(string)$value['title'],
+						'class'=>(string)$value['class'],
+						'url'=>(string)$value['url'],
+						'link'=>url((string)$value['url']),
+						'current'=>$isclass?'active':'',
+						'pagelink'=>$ps]; 
+					}
 				}
+
 			}
-
 		}
 		if (!empty($menus)) {
 			$this->data['menu']=$menus; 

@@ -19,8 +19,7 @@ class Login extends \think\Controller  {
         $this->param = $this->request->param();
     }
 
-	public function index(){  
-
+	public function index(){   
 		$url=input('url');
 		if (empty($url)) {
 			$url=url('/admin/index');
@@ -63,7 +62,7 @@ class Login extends \think\Controller  {
 		if ($result->success) {
             $userid=$user->userid;
             $password=$user->password; 
-            Logs::write($username."用户于登录成功".$result->msg);
+            Logs::write($username."用户于登录成功".$result->msg,$username);
             $this->redirect("/admin.php/admin/login/auth?client_id=$userid&secret=$password");	
 		} 
 		return $result; 

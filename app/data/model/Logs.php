@@ -7,14 +7,15 @@ use app\data\membership\Users;
 
 class Logs extends Model{ 
 	protected $pk="logid";  
-	static function write($description){ 
+	static function write($description,$username=''){ 
+ 
 		$data=[
 			'ip' 			=> getip(),
 			'description'	=> $description,
 			'createdate'	=> getdate(),
 			'url'			=> request()->url(true), 
-			'appid'			=> App::appid(),
-			'username'		=> App::get_manager_username()
+			'appid'			=> appid(),
+			'username'		=> $username
 			];
 		return self::create($data);  
 	}
