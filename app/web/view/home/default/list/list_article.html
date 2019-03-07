@@ -1,6 +1,6 @@
 {extend name="$layout" /}
 
-{block name="content"} 
+{block name="content"}    
 	<link rel="stylesheet" href="/res/css/news.css"/>
     <!--banner-->
     <div class="banner">
@@ -14,10 +14,10 @@
             		$nid=input('nid');//栏目编号
                     $cateid=input('cateid');
             	{/php}
-                <li {empty name='cateid'}class="active"{/empty}><a href="?s=/web/article/list&nid={$nid}">全部新闻</a></li>
-                {xto:select dao="\app\web\dao\CategoryDao" id="item" where=""}
-                <li {if condition='$item.cateid==$cateid'}class="active"{/if}><a href="/web/article/list.html?nid={$nid}&cateid={$item.cateid}">{$item.catename}</a></li>
-                {/xto:select}           
+                <li {empty name='cateid'}class="active"{/empty}><a href="/web/article/list?nid={$nid}">全部新闻</a></li>
+                {xt:select model="WebArticleCategory" id="item" where=""}
+                <li {if condition='$item.cateid==$cateid'}class="active"{/if}><a href="/web/article/list?nid={$nid}&cateid={$item.cateid}">{$item.catename}</a></li>
+                {/xt:select}           
             </ul>
         </div>
     </div>
@@ -26,7 +26,17 @@
         <div class="wrapper">
             <div class="events-contain fl">  
                 <ul>
-                	{xto:select dao="\app\web\dao\ArticleDao" id="as" where="a.nid=$nid" limit="12" order="arid desc"}
+                    {php}
+                        $where="1=1";
+                        if(!empty($nid)){
+                            $where.=" and nid=$nid";
+                        }
+                        if(!empty($cateid)){
+                            $where.=" and WebArticle.cateid=$cateid";
+                        }
+                        
+                    {/php}
+                	{xt:select model="WebArticle" id="as" where="$where" limit="12" order="arid desc"}
                     <li class="fl" >
                             <a href="/web/article/show.html?id={$as.arid}&nid={$nid}">
                                 <div class="date fl">
@@ -42,7 +52,7 @@
                                 </dl>
                             </a>
                         </li>
-                        {/xto:select}
+                        {/xt:select}
                     <div style="clear: both;"></div>
                 </ul>
                 <nav aria-label="Page navigation">
@@ -53,7 +63,7 @@
              <div class="events-right" >
                 <p><span>最新新闻</span></p>
                 <ul>
-                	{xto:select dao="\app\web\dao\ArticleDao" id="ts" where="" limit="12"}
+                	{xt:select model="WebArticle" id="ts" where="" limit="12"}
                     <li>
                         <a href="/web/article/show.html?id={$ts.arid}&nid={$nid}">
                             <img src="/res/img/d1.png" alt="{$ts.title}"/>
@@ -61,7 +71,7 @@
                             <i>6小时前</i>
                         </a>
                     </li>
-                    {/xto:select}               
+                    {/xt:select}               
                 </ul>
             </div>
         </div>

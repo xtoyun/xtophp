@@ -24,18 +24,18 @@ class Xt extends TagLib{
         $where  =!isset($tag['where'])?null:$tag['where']; 
         $order  =!isset($tag['order'])?null:$tag['order']; 
         $limit  =!isset($tag['limit'])?10:$tag['limit'];   
-        $name  =!isset($tag['name'])?'__LIST__':$tag['name'];      
+        $name  =!isset($tag['name'])?'__LIST__':$tag['name'];       
 
         $id = $tag['id']; // name是必填项，这里不做判断了
         $parse = '<?php ';
-        $parse .= '$'."$name"."=\app\\$module\model\\$model::where('$where')->order('$order')->limit($limit)->paginate($limit);"; //
+        $parse .= '$'."$name"."=\app\\$module\model\\$model::selectpage($limit,\"$where\",\"$order\");"; //
         $parse .= '$'.$id.'_pager=str_replace("?page", $_SERVER["REQUEST_URI"]."&page",$'.$name.'->render());'; // 这里是模拟数据
         $parse .= ' ?>';
         $parse .= '{volist name="'.$name.'" id="' . $id . '"}';
         $parse .= $content;
         $parse .= '{/volist}';                      
         return $parse;
-    } 
+    }  
 
     public function tagFind($tag, $content)
     { 

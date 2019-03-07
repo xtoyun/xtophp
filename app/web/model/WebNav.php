@@ -23,8 +23,6 @@ class WebNav extends Model{
     public function get_data($pid=0,$issub=false){ 
         $list=$this->get_parent_data($pid);
         $info=[];
-
-
         foreach ($list as $key => $value) {
    
             $link=$value['url'];

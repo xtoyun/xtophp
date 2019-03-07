@@ -1,9 +1,8 @@
 <?
 namespace app\web\home;
 
-use app\web\dao\ModelDao;
-use app\web\dao\ArticleDao;
-use app\web\dao\NavDao;
+use app\web\model\WebArticle;
+use app\web\model\WebNav;
 
 class Article extends BaseController{
 	public function _empty(){
@@ -13,9 +12,8 @@ class Article extends BaseController{
 		$action 	=$this->a;//自定义类型
 		$controller =strtolower($this->c);//自定义类型
 		//文章编号存在，则读取相应的栏目ID
-		if(!empty($rid)){
-			$rdao=ArticleDao::instance();
-			$info=$rdao->find((int)$rid);
+		if(!empty($rid)){ 
+			$info=WebArticle::find((int)$rid);
 			if (!empty($info)) {
 				$this->assign('article',$info);
 				$nid=$info['nid'];//栏目编号

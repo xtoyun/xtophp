@@ -11,7 +11,8 @@ class BaseController extends \app\data\Controller
 	protected $user; 
 
 	public function __construct(){ 
-		parent::__construct();  
+		parent::__construct(); 
+		$this->_init(); 
  		if ($this->auth && !empty($this->auth->client_id)) {
  			$this->user=Users::getuser($this->auth->client_id);
  		} 

@@ -17,6 +17,7 @@ abstract class Model extends \think\Model{
 	static function selectpage($pagesize,$where=null,$order=null,$field='*'){
 		return self::where($where)->order($order)->field($field)->paginate($pagesize);
 	}
+ 
 
     public function save($data = [], $where = [], $sequence = NULL){
     	if (!isset($data['appid']) || is_null($data['appid'])) {

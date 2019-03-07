@@ -16,7 +16,7 @@ class Config extends Model {
 		return null;
 	}
 
-	static function configs($iscache=true){
+	static function getconfigs($iscache=true){
 		if ($iscache) {
 			$c=Cache::get(self::$cache_name);
 			if ($c) {

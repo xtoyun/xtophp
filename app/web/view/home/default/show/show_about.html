@@ -16,14 +16,14 @@
 				$where="ename='$name'";
 			}
 		{/php}
-		{xto:select dao="\app\web\dao\AboutDao" id="item" where="$where"}
+		{xt:select model="WebAbout" id="item" where="$where"}
 		<div class="about-title">
 			<h3>{$item.title}</h3>
 		</div>
 		<div class="about-contain">
 			{$item.content|raw}
 		</div>
-		{/xto:select}
+		{/xt:select}
 	</div> 
 </div>
 {/block}

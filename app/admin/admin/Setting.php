@@ -7,11 +7,11 @@ class Setting extends BaseController
 {
 	public function _empty()
 	{ 
-		$c=ConfigModel::configs(false);
+		$c=ConfigModel::getconfigs(false);
 
 	    $action = request()->action();
 	 
-		$data=$this->module->getconfig($action);
+		$data=$this->module->getconfig($action);           
 		
 		if(!empty($data)){
 			$result= $this->template
@@ -25,7 +25,7 @@ class Setting extends BaseController
 				->submit(url('setting/config_post'),'');
 			return $result->fetch();
 		}
-	} 
+	}  
 
 	public function config_post(){
 		if(request()->ispost()){  

@@ -3,6 +3,7 @@ namespace app\data;
 
 use app\api\facade\Factory;
 use app\data\template\TemplateController;
+use app\data\model\Config;
 
 class Controller extends TemplateController{
 	//权限
@@ -10,10 +11,10 @@ class Controller extends TemplateController{
 
 	public function __construct(){ 
 		parent::__construct(); 
-		$this->_init();  
+		$this->assign('config',Config::getconfigs()); 
 	}
 
-	private function _init(){
+	protected function _init(){
 		 $class = Factory::getInstance(config('api')['auth_class']);
 		 $baseAuth = Factory::getInstance(\app\api\auth\BaseAuth::class);
 		 
@@ -27,4 +28,6 @@ class Controller extends TemplateController{
 		 	$this->auth=false;
 		 }
 	}
+
+
 }

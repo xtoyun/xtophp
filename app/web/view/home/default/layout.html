@@ -58,9 +58,9 @@
             </dl>
         </div>
         <div class="link">友情链接：
-            {xto:select dao='\app\web\dao\LinkDao' id='item' where="" limit='10'}
+            {xt:select model="WebLink" id='item' where="" limit='10'}
 			<a href="{$item.url|default=''}">{$item.title}</a> 
-            {/xto:select}
+            {/xt:select}
 		</div>
         <div class="footer-edtion">
             {$config.web_name|default=''}©2016-2018

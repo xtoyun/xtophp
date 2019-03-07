@@ -5,7 +5,7 @@ use app\web\dao\NavDao;
 use app\web\dao\KeywordDao;
 use app\web\dao\LinkDao;
 
-class BaseController extends \think\Controller 
+class BaseController extends \app\data\Controller 
 {  
 	protected $nav;
 
