@@ -1,8 +1,7 @@
 <?php
-use xto\template\XML2Array;
+use app\data\lib\XML2Array;
 
 if (!function_exists('get_home_themes')) {
-
     function get_home_themes(){
         $thems=[];
         $dir=config('home_theme_path');
@@ -24,7 +23,6 @@ if (!function_exists('get_home_themes')) {
 } 
 
 if (!function_exists('get_home_themes')) {
-
     function get_home_themes(){
         $thems=[];
         $dir=config('home_theme_path');

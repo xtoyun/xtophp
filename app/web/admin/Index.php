@@ -1,11 +1,9 @@
 <?
 namespace app\web\admin;
 
-class Index extends BaseController{
+ 
+class Index extends \think\Controller{
 	public function index(){ 
-		return $this
-				->setblock(false)
-				->setnav(false)
-				->fetch('index/index');
-	}
+ 		$this->redirect("/admin.php/admin/login");
+	} 
 }

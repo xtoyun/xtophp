@@ -1,23 +1,22 @@
 <?
 namespace app\web\home;
+ 
+use app\data\model\Config;
 
-use app\web\dao\NavDao;
-use app\web\dao\KeywordDao;
-use app\web\dao\LinkDao;
-
-class BaseController extends \app\data\Controller 
+class BaseController extends \think\Controller
 {  
 	protected $nav;
+	public $config;
 
 	public function __construct(){
-		parent::__construct(); 
-		$this->assign('theme',$this->getTheme());
+		parent::__construct();  
+		$this->config=Config::getconfigs();
+		$this->assign('config',$this->config);  
+		$this->assign('layout',APP_PATH.'web/view/home/'.$this->getTheme().'/layout.html');//指定母版页面 
 	}
 
-	public function fetch($template = '', $vars = [], $replace = [], $config = []){
-		$replace=array_merge($replace,['"/res'=>'"/app/web/view/home/'.$this->getTheme().'/res']);
-		$replace=array_merge($replace,['(/res'=>'(/app/web/view/home/'.$this->getTheme().'/res']);
-		$template=$this->getTheme().'/'.(empty($template)?$this->c.'/'.request()->action():$template);
+	public function fetch($template = '', $vars = [], $replace = [], $config = []){ 
+		$template=$this->getTheme().'/'.(empty($template)?$this->c.'/'.request()->action():$template); 
 		return parent::fetch($template,$vars,$replace,$config);
 	}
 
@@ -28,13 +27,15 @@ class BaseController extends \app\data\Controller
 		}
 		$theme=(empty($theme)?'default':$theme);
 
- 		//$theme='xto';
+ 		$theme=config('theme');
 		return $theme;
 	}
 
-	//框架内容
-	public function getlayout(){
-        return APP_PATH."web/view/home/$this->theme/layout.html";  
-    }
+	public function action(){  
+		return request()->action();
+	}
 
+	public function controller(){  
+		return request()->controller();
+	}
 }

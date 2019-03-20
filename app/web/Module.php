@@ -7,7 +7,7 @@ class Module extends \app\data\IModule{
 	}
 
 	public function getName(){
-		return '有站';
+		return 'CMS';
 	}
 
 	public function getDescription(){
@@ -31,6 +31,6 @@ class Module extends \app\data\IModule{
 	}
 
 	public function getIsShow(){
-		return true;
+		return false;
 	}
 }

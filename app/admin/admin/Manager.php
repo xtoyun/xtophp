@@ -206,7 +206,7 @@ class Manager extends BaseController{
 				} 
 				$user->funrole 		= $roleid;
 				if($user->force()->save()){
-					foreach ($user->roles as $role) { 
+					foreach ($user->usersinroles as $role) { 
 						$role->delete();
 					} 
 					$user->addRoles([$roleid]);

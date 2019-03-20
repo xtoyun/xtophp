@@ -1,6 +1,6 @@
 {extend name="$layout" /}
 {block name='content'}
-    {xt:select model="WebRelays" id="ts" where="title='首页顶部'"}
+    {xt:select model="Relays" id="ts" where="title='首页顶部'" module="data"}
     <div class="banner fullscreen">
         <div class="bd"><!-- 轮播图图片 -->         
             <ul> 
@@ -73,7 +73,7 @@
                 <div class="va show">
                     <div class="adv-slide fl">
                         <dl>
-                            <dt><img src="/res/img/ad_01.png" alt="完善基础功能"/ ></dt>
+                            <dt><img src="__STATIC__/img/ad_01.png" alt="完善基础功能"/ ></dt>
                             <dd>
                                 <h4>完善基础功能</h4>
                                 <p>XtoPHP为您提供完善的56项基本功能设置，可满足互联网电子商务需要的所有基础功能服务。</p>
@@ -82,7 +82,7 @@
                     </div>
                     <div class="adv-slide fl">
                         <dl>
-                            <dt><img src="/res/img/ad_02.png" alt="独创插件模式"/></dt>
+                            <dt><img src="__STATIC__/img/ad_02.png" alt="独创插件模式"/></dt>
                             <dd>
                                 <h4>独创插件模式</h4>
                                 <p>您无需购买XtoPHP的全部插件，您可任意选择搭配插件进行购买，助力您实现商城经营利益的最大化。</p>
@@ -91,7 +91,7 @@
                     </div>
                     <div class="adv-slide fl">
                         <dl>
-                            <dt><img src="/res/img/ad_03.png" alt="数据全掌握"/></dt>
+                            <dt><img src="__STATIC__/img/ad_03.png" alt="数据全掌握"/></dt>
                             <dd>
                                 <h4>数据全掌握</h4>
                                 <p>您无需为您的商城信息安全而担心，因为您的商城不受平台牵制，数据保密性高，仅商城管理员才能查看数据流量。</p>
@@ -100,7 +100,7 @@
                     </div>
                     <div class="adv-slide fl">
                         <dl>
-                            <dt><img src="/res/img/ad_04.png" alt="专为微信打造"/></dt>
+                            <dt><img src="__STATIC__/img/ad_04.png" alt="专为微信打造"/></dt>
                             <dd>
                                 <h4>专为微信打造</h4>
                                 <p>因为专心只做微信商城平台开发，所以我们更了解行业需求，更专业值得信赖。</p>
@@ -114,7 +114,7 @@
                 <div class="va">
                     <div class="adv-slide fl">
                         <dl>
-                            <dt><img src="/res/img/ad_05.png" alt="专业服务指导"/></dt>
+                            <dt><img src="__STATIC__/img/ad_05.png" alt="专业服务指导"/></dt>
                             <dd>
                                 <h4>专业服务指导</h4>
                                 <p>XtoPHP为您提供在线客服、咨询服务电话、交流论坛等多种信息交流途径，方便及时为您解决各种操作和技术问题。</p>
@@ -123,7 +123,7 @@
                     </div>
                     <div class="adv-slide fl">
                         <dl>
-                            <dt><img src="/res/img/ad_06.png" alt="全局规划"/></dt>
+                            <dt><img src="__STATIC__/img/ad_06.png" alt="全局规划"/></dt>
                             <dd>
                                 <h4>全局规划</h4>
                                 <p>XtoPHP具有对互联网电子商务发展的整体规划，在业界享有有口皆碑的服务。</p>
@@ -132,7 +132,7 @@
                     </div>
                     <div class="adv-slide fl">
                         <dl>
-                            <dt><img src="/res/img/ad_07.png" alt="更新升级"/></dt>
+                            <dt><img src="__STATIC__/img/ad_07.png" alt="更新升级"/></dt>
                             <dd>
                                 <h4>更新升级</h4>
                                 <p>XtoPHP技术团队不断更新升级服务版本，为您提供更好的系统操作体验。</p>
@@ -141,7 +141,7 @@
                     </div>
                     <div class="adv-slide fl">
                         <dl>
-                            <dt><img src="/res/img/ad_08.png"/></dt>
+                            <dt><img src="__STATIC__/img/ad_08.png"/></dt>
                             <dd>
                                 <h4>强有力的技术支持
                                 </h4>
@@ -191,18 +191,18 @@
             </div>
             <div class="value-contain">
                 <div class="value-slide">
-                    <img class='fl' src="/res/img/value01.png" alt="核心价值"/>
+                    <img class='fl' src="__STATIC__/img/value01.png" alt="核心价值"/>
                     <dl class='fr'>
-                        <dt><img src="/res/img/value1-num.png" alt="零成本"/></dt>
+                        <dt><img src="__STATIC__/img/value1-num.png" alt="零成本"/></dt>
                         <dd>
                             零成本将客户变成您的商城宣传员，为您的商城创造多条宣传销售渠道，实现商城裂变式病毒营销。
                         </dd>
                     </dl>
                 </div>
                 <div class="value-slide">
-                    <img class='fr' src="/res/img/value2.png" alt="核心价值"/>
+                    <img class='fr' src="__STATIC__/img/value2.png" alt="核心价值"/>
                     <dl class='fl value2'>
-                        <dt><img src="/res/img/value2-num.png" alt="微信用户"/></dt>
+                        <dt><img src="__STATIC__/img/value2-num.png" alt="微信用户"/></dt>
                         <dd>
                             微信活跃用户数量突破9.27亿，25%的微信用户每天打开微信超过30次，通过朋友圈分享能迅速传播商城信息，带动商城的关注度。
                         </dd>
@@ -210,9 +210,9 @@
                 </div>
 
                 <div class="value-slide">
-                    <img class='fl' src="/res/img/value3.png" alt="核心价值"/>
+                    <img class='fl' src="__STATIC__/img/value3.png" alt="核心价值"/>
                     <dl class='fr'>
-                        <dt><img src="/res/img/value3-num.png" alt="后台"/></dt>
+                        <dt><img src="__STATIC__/img/value3-num.png" alt="后台"/></dt>
                         <dd>
                             XtoPHP后台可为您展示全面的会员、分销信息，您的分销管理信息一目了然，有利于您对商城的整体管理的把控。
                         </dd>
@@ -234,54 +234,54 @@
                         <li>
                             <div class="case_img img1">
                                 <div></div>
-                                <img src="/res/img/anli/code1.jpg"/>
+                                <img src="__STATIC__/img/anli/code1.jpg"/>
                             </div>
                             <div class="case_img img2">
                                 <div></div>
-                                <img src="/res/img/anli/code2.jpg"/>
+                                <img src="__STATIC__/img/anli/code2.jpg"/>
                             </div>
                             <div class="case_img img3">
                                 <div></div>
-                                <img src="/res/img/anli/code3.jpg"/>
+                                <img src="__STATIC__/img/anli/code3.jpg"/>
                             </div>
                             <div class="case_img img11">
                                 <div></div>
-                                <img src="/res/img/anli/code11.jpg"/>
+                                <img src="__STATIC__/img/anli/code11.jpg"/>
                             </div>
                             <div class="case_img img5">
                                 <div></div>
-                                <img src="/res/img/anli/code5.jpg"/>
+                                <img src="__STATIC__/img/anli/code5.jpg"/>
                             </div>
                             <div class="case_img img6">
                                 <div></div>
-                                <img src="/res/img/anli/code6.jpg"/>
+                                <img src="__STATIC__/img/anli/code6.jpg"/>
                             </div>
                         </li>
                         <li>
                             <div class="case_img img7">
                                 <div></div>
-                                <img src="/res/img/anli/code7.jpg"/>
+                                <img src="__STATIC__/img/anli/code7.jpg"/>
                             </div>
                             <div class="case_img img8">
                                 <div></div>
-                                <img src="/res/img/anli/code8.jpg"/>
+                                <img src="__STATIC__/img/anli/code8.jpg"/>
                             </div>
                             <div class="case_img img9">
                                 <div></div>
-                                <img src="/res/img/anli/code9.jpg"/>
+                                <img src="__STATIC__/img/anli/code9.jpg"/>
                             </div>
                             <div class="case_img img10">
                                 <div></div>
-                                <img src="/res/img/anli/code10.jpg"/>
+                                <img src="__STATIC__/img/anli/code10.jpg"/>
                             </div>
                             <div class="case_img img4">
                                 <div></div>
-                                <img src="/res/img/anli/code4.jpg"/>
+                                <img src="__STATIC__/img/anli/code4.jpg"/>
                            </div>
 
                             <div class="case_img img12">
                                 <div></div>
-                                <img src="/res/img/anli/code12.jpg"/>
+                                <img src="__STATIC__/img/anli/code12.jpg"/>
                             </div>
                         </li>
                     </ul>
@@ -308,7 +308,7 @@
                     <p><a href="/web/article/list?catename=最新动态"  class="hoverBlue">最新动态</a></p>
                     <div class="new-news">
                         <ul class=""> 
-                            {xt:select model='WebArticle' id='item' where="catename='最新动态'" limit='10' order='arid desc'}
+                            {xt:select model='Article' id='item' where="catename='最新动态'" limit='10' order='arid desc' module="data"}
                             <li class='swiper-slide' style="list-style: disc;">
                                     <a href="/web/article/show?id={$item.arid}" target="_blank"  class="hoverBlue">
                                         {$item.title|default=''}
@@ -322,7 +322,7 @@
                     <p><a href="/web/article/list?catename=功能发布"  class="hoverBlue">功能发布</a></p>
                     <div class="product-news">
                         <ul class=""> 
-                            {xt:select model='WebArticle' id='item' where="catename='功能发布'" limit='10' order='arid desc'}
+                            {xt:select model='Article' module="data" id='item' where="catename='功能发布'" limit='10' order='arid desc'}
                             <li class='swiper-slide' style="list-style: disc;">
                                     <a href="/web/article/show?id={$item.arid}" target="_blank"  class="hoverBlue">
                                         {$item.title|default=''}
@@ -336,7 +336,7 @@
                     <p><a href="/web/article/list?catename=更新日志"  class="hoverBlue">更新日志</a></p>
                     <div class="product-news">
                         <ul class=""> 
-                            {xt:select model='WebArticle' id='item' where="catename='更新日志'" limit='10' order='arid desc'}
+                            {xt:select model='Article' module="data" id='item' where="catename='更新日志'" limit='10' order='arid desc'}
                             <li class='swiper-slide' style="list-style: disc;">
                                 <a href="/web/article/show?id={$item.arid}" target="_blank"  class="hoverBlue">
                                     {$item.title|default=''}

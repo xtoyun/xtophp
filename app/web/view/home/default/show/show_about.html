@@ -2,7 +2,7 @@
 
 {block name="content"}
 <div class="banner">
-<img class='img1' src="/res/img/banner4.png" width="100%" />
+<img class='img1' src="__STATIC__/img/banner4.png" width="100%" />
     </div>
 <div class="about" id="about">
 	<div class="wrapper">
@@ -16,7 +16,7 @@
 				$where="ename='$name'";
 			}
 		{/php}
-		{xt:select model="WebAbout" id="item" where="$where"}
+		{xt:select model="About" module="data" id="item" where="$where"}
 		<div class="about-title">
 			<h3>{$item.title}</h3>
 		</div>

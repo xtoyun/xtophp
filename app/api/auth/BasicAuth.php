@@ -7,7 +7,7 @@ class BasicAuth extends Basic
 {
     public static function auth($auth)
     {
-        $request = Request();
+        $request = Request(); 
         return $auth->authenticate($request);
     }
 
@@ -21,7 +21,7 @@ class BasicAuth extends Basic
      * @return bool
      */
     public function certification(Request $request)
-    {
+    { 
         return ($this->username == 'test' && $this->password == 'test') ? true : false;
     }
     /**

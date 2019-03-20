@@ -1,7 +1,7 @@
 <div class="header">
     <div class="wrapper">
         <div class='logo fl'>
-            <img style="margin-top: 4px;" src="{$config.web_logo|default='/res/img/logo.png'}" alt="logo">
+            <img style="margin-top: 4px;" src="{$config.web_logo|default='__STATIC__/img/logo.png'}" alt="logo">
         </div>
         <div class='nav fl'>
             <ul class='nav_ul'>
@@ -12,7 +12,7 @@
                     }
                 {/php}
                 <li class="{$current_class|default=''}"><a href="/" target="_self">首页</a></li>
-                {xt:select model="WebNav" name="list" order="nav_order asc" id="vo" limit="999"}
+                {xt:select model="Nav" module="data" name="list" order="nav_order asc" id="vo" limit="999"}
                  
                     {if condition='$vo.pid==0 && $vo.is_view==1'}
                         {php} 
@@ -27,8 +27,8 @@
                                 $class=$class.' active';
                             }  
                             $c='';
-                            if($vo->model){
-                                $c=$vo->model->controller;
+                            if($vo->cmodel){
+                                $c=$vo->cmodel->controller;
                             } 
                             $a=$vo->type;
                             $nid=$vo->nid;
@@ -44,8 +44,8 @@
                                 {if condition='$sub.pid==$vo.nid && $sub.is_view==1'}
                                 {php} 
                                     $c='';
-                                    if($sub->model){
-                                        $c=$sub->model->controller;
+                                    if($sub->cmodel){
+                                        $c=$sub->cmodel->controller;
                                     }
                                     $a=$sub->type;
                                     $nid=$sub->nid;

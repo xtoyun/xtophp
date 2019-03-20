@@ -1,22 +1,35 @@
-
-<li class="open">
-    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-wrench"></i><span class="sidebar-mini-hide">基础设置</span></a>
-    <ul>
-    	                                        <li>
-            <a href="/admin.php/admin/setting/basic" class="">基本设置</a>
-        </li>
-                                                <li>
-            <a href="/admin.php/admin/manager/index" class="active">管理员</a>
-        </li>
-                                                <li>
-            <a href="/admin.php/admin/roles/index" class="">角色管理</a>
-        </li>
-                                                <li>
-            <a href="/admin.php/admin/logs/index" class="">日志管理</a>
-        </li>
-                                                <li>
-            <a href="/admin.php/admin/database/index" class="">数据库管理</a>
-        </li>
-          
-    </ul>
-</li>
+{php} 
+$list=\app\data\model\Nav::where(null)->select();
+function getlink($value_f){  
+    $link='';
+    if($value_f->cmodel){
+        switch ($value_f->cmodel->controller) {
+            case 'article':
+                $link=url('article/index').'?nid='.$value_f['nid'];
+                break;
+            case 'product':
+                $link=url('product/index').'?nid='.$value_f['nid'];
+                break;
+            case 'about':
+                $link=url('about/edit').'?nid='.$value_f['nid'];
+                break;
+        }
+    } 
+    return $link;
+}
+{/php}
+<ul>
+{volist name="list" id="item"}
+    {if condition="$item.pid==0"}
+    <li><a href="{php}echo getlink($item){/php}">{$item.title}</a>
+        <ul>
+            {volist name="list" id="sitem"}
+            {if condition="$sitem.pid==$item.nid"}
+            <li><a href="{php}echo getlink($sitem){/php}">{$sitem.title}</a></li>
+            {/if}
+            {/volist} 
+        </ul>
+    </li>
+    {/if}
+{/volist} 
+</ul>

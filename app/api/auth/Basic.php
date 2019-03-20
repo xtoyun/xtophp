@@ -41,12 +41,15 @@ abstract class Basic implements AuthContract
     public function getClient(Request $request)
     {
         $authorization = $request->header('authorization');
+
         $authorization = str_replace("Basic ", "", $authorization);
         $authorization = explode(':', base64_decode($authorization));
+
         $username = $authorization[0];//$_SERVER['PHP_AUTH_USER']
         $password = $authorization[1];//$_SERVER['PHP_AUTH_PW']
         $this->username = $username;
         $this->password = $password;
+  
         return $this;
 
     }

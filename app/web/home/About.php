@@ -9,7 +9,7 @@ class About extends BaseController{
 		$action ='';
 		$rid 	=input('id');//获取文章编号
 		$title 	=input('title');//获取文章编号
-		$action 	=$this->a;//自定义类型
+		$action 	=$this->action();//自定义类型
 
 		//文章编号存在，则读取相应的栏目ID
 		$about=array();

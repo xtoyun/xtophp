@@ -155,4 +155,5 @@ return [
         'api_debug'=>true,
         'api_auth'=>true,
     ],
+    'home_theme_path'=>APP_PATH.'web/view/home/'
 ];

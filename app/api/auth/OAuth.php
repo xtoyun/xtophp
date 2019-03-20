@@ -144,7 +144,8 @@ abstract class OAuth implements AuthContract
         if (strpos($authorization, 'token ') !== false) {
             $authorization = trim(str_replace("token ", "", $authorization));
             $this->access_token = $authorization;
-        }if($session_token){
+        }
+        if($session_token){
             $this->access_token = $session_token;
         } else {
             //throw new  UnauthorizedException('token', 'Invalid authentication credentials.');

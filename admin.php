@@ -25,6 +25,8 @@ ini_set('display_errors', '1');
 // 定义应用目录
 define('APP_PATH', __DIR__ . '/app/');
 
+define('APP_ROOT', __DIR__ . '/');
+
 if (!is_file(__DIR__ . '/static/install/install.lock'))
 {
     header("location:/install.php");

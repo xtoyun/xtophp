@@ -6,8 +6,7 @@ use app\data\membership\Users;
 use think\facade\Session; 
 
 class BaseController extends \app\data\Controller
-{ 
-	protected $config;
+{  
 	protected $user; 
 
 	public function __construct(){ 

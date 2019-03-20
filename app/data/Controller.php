@@ -8,11 +8,13 @@ use app\data\model\Config;
 class Controller extends TemplateController{
 	//权限
 	public $auth;
+	public $config;
 
 	public function __construct(){ 
 		parent::__construct(); 
-		$this->assign('config',Config::getconfigs()); 
-	}
+		$this->config=Config::getconfigs();
+		$this->assign('config',$this->config); 
+	} 
 
 	protected function _init(){
 		 $class = Factory::getInstance(config('api')['auth_class']);

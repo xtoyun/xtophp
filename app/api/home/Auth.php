@@ -9,7 +9,7 @@ class Auth
     public function accessToken()
     {
         $request = Request();  
-        $OauthAuth = new OauthAuth();
+        $OauthAuth = new OauthAuth(); 
         return $OauthAuth->accessToken($request);
     }
 }

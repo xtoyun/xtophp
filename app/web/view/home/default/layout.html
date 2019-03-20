@@ -7,10 +7,10 @@
     <meta name="keywords" content="{$config.web_keywords|default=''}">
     <meta name="description" content="{$config.web_description|default=''}">
     <link href="/favicon.ico" rel="shortcut icon" />
-    <link rel="stylesheet" href="/res/css/common.css"/>
-    <link rel="stylesheet" href="/res/css/iconfont.css"/>
-    <link rel="stylesheet" href="/res/css/index.css"/>
-    <script  type="text/javascript"  src="/res/js/jquery-1.9.1.min.js" ></script>
+    <link rel="stylesheet" href="__STATIC__/css/common.css"/>
+    <link rel="stylesheet" href="__STATIC__/css/iconfont.css"/>
+    <link rel="stylesheet" href="__STATIC__/css/index.css"/>
+    <script  type="text/javascript"  src="__STATIC__/js/jquery-1.9.1.min.js" ></script>
     {block name='res'}{/block}
 </head>
 <body>
@@ -58,7 +58,7 @@
             </dl>
         </div>
         <div class="link">友情链接：
-            {xt:select model="WebLink" id='item' where="" limit='10'}
+            {xt:select model="Link" module="data" id='item' where="" limit='10'}
 			<a href="{$item.url|default=''}">{$item.title}</a> 
             {/xt:select}
 		</div>
@@ -68,10 +68,10 @@
     </div>
 </div>
 
-<script  type="text/javascript"  src="/res/js/index.js" ></script>
+<script  type="text/javascript"  src="__STATIC__/js/index.js" ></script>
 </body>
-    <script type="text/javascript" src="/res/js/jquery.SuperSlide.2.1.1.js"></script>
-    <script type="text/javascript" src="/res/js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/jquery.SuperSlide.2.1.1.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/jquery.cookie.js"></script>
     <script type="text/javascript">
         $(".fullscreen").slide({ titCell:".hd ul", mainCell:".bd ul", effect:"leftLoop", vis:"auto", autoPlay:true, autoPage:'<li><a></a></li>', trigger:"click"});
         $(".case_main").slide({ titCell:".hd ul", mainCell:".bd ul", effect:"leftLoop", vis:"auto", autoPlay:true, autoPage:'<li><a></a></li>', trigger:"click",interTime:'5000',delayTime:'1000'});

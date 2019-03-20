@@ -6,3 +6,5 @@
 .DS_Store
 /config/database.php
 /static/install/install.lock
+/static/web
+/app/web/view/home/xt
