@@ -1,0 +1,47 @@
+{extend name="$layout" /}
+
+{block name="content"} 
+  <script type="text/javascript" src="/static/js/jstree/jstree.js"></script>
+  <link rel="stylesheet" href="/static/js/jstree/themes/default/style.css" />
+    <div>
+        <table>
+            <tr>
+                <td><input id="c" type="text" value="" class="form-control" placeholder="请输入用户编号" style="width:200px"></td>
+                <td><button class="btn btn-primary" type="button" id="search">开始查询</button></td>
+            </tr>
+        </table> 
+    </div> 
+    <script type="text/javascript">
+        $(window).load(function() { 
+            $("#search").click(function(){   //比如说：
+                var c=$("#c").val();
+                location.href="?username="+c;
+            });
+        });
+    </script>
+        {$username}推荐图
+        <div id="async_html_1">
+        
+
+        </div>
+        <script type="text/javascript">
+            $('#async_html_1').jstree({
+                "core": {
+                    "data": {
+                        "url": function (node) {
+                            var url = node.id === '#' ?
+                        '{:url('upteam/refer_data')}?userid={$userid}' :
+                        '{:url('upteam/refer_data')}?userid=' + node.id; 
+                            return url;
+                        },
+                        "data": function (node) { 
+                            if (node.id != "#") {
+                                return { "sid": node.id };
+                            }
+
+                        }
+                    }
+                }
+            }); 
+        </script>
+{/block}

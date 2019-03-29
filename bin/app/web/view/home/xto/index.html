@@ -1,0 +1,420 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>首页 | Laravel-admin</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <meta name="csrf-token" content="BKWTuqlV8oWW9AOaYIrVFb0gP7ixzbqzey0xLj1j">
+
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+
+    <link type="text/css" rel="stylesheet" href="https://laravel-admin.org/css/app.css?id=8af0e58e7e6f22dfc54f">
+</head>
+<body>
+<div id="app">
+    <!-- navbar-->
+    <header class="header w-100 position-sticky">
+        <div class="container">
+
+            <nav class="navbar navbar-expand-lg w-100">
+                <a class="navbar-brand mr-0" href="/">
+                    <img src="/images/logo.png" height="45px" alt="logo" class="visible-xs visible-sm">
+                </a>
+
+                <span class="logo-text font-weight-bold">
+                    Laravel-admin
+                </span>
+
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="https://laravel-admin.org/posts">文章</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/docs/zh">文档</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://laravel-admin.org/extensions">扩展</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://discuss.laravel-admin.org">讨论</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com/z-song/laravel-admin"
+                               target="_blank">GITHUB</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://demo.laravel-admin.org" target="_blank">DEMO</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://laravel-admin.org/donate">打赏</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://laravel-admin.org/sponsor">赞助</a>
+                        </li>
+                    </ul>
+                    <div class="my-2 my-lg-0">
+                                                    <a class="nav-link" href="https://laravel-admin.org/login/github"><i
+                                        class="fa fa-github"></i>&nbsp;&nbsp;登录</a>
+                        
+                                            </div>
+                </div>
+            </nav>
+
+        </div>
+    </header>
+
+    <section class="content">
+
+        
+    <!-- *** SIGNUP MODAL END ***-->
+    <section class="text-intro no-padding-bottom text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>在十分钟内构建一个功能齐全的管理后台</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="banner-start text-center d-inline-flex">
+                        <span class="banner-start-command d-inline-block font-weight-light">composer require encore/laravel-admin</span>
+                        <a class="banner-start-link text-white d-inline-block" href="/docs"><i class="fa fa-arrow-right"></i></a>
+                    </div>
+
+                    <div class="text-center banner-share d-block">
+                        <iframe src="https://ghbtns.com/github-btn.html?user=z-song&repo=laravel-admin&type=star&count=true"
+                                frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
+                        <iframe src="https://ghbtns.com/github-btn.html?user=z-song&repo=laravel-admin&type=fork&count=true"
+                                frameborder="0" scrolling="0" width="105px" height="20px"></iframe>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="row intro-feature-wrap">
+
+            <div class="col-md-6 col-sm-12 intro-feature">
+                <div class="intro-feature-icon"><i class="fa fa-pencil"></i></div>
+                <h3 class="intro-feature-title">内置权限管理</h3>
+                <p class="intro-feature-desc">内置基于RBAC的权限系统，并且方便和路由、菜单绑定。</p>
+            </div>
+
+            <div class="col-md-6 col-sm-12 intro-feature">
+                <div class="intro-feature-icon"><i class="fa fa-cogs"></i></div>
+                <h3 class="intro-feature-title">丰富的扩展支持</h3>
+                <p class="intro-feature-desc">支持超过40+的扩展，安装方便，开箱即用。</p>
+            </div>
+
+            <div class="col-md-6 col-sm-12 intro-feature">
+                <div class="intro-feature-icon"><i class="fa fa-server"></i></div>
+                <h3 class="intro-feature-title">简洁的API</h3>
+                <p class="intro-feature-desc">借助Laravel的优雅，通过富有表达力的代码构建CURD页面。</p>
+            </div>
+
+            <div class="col-md-6 col-sm-12 intro-feature">
+                <div class="intro-feature-icon"><i class="fa fa-terminal"></i></div>
+                <h3 class="intro-feature-title">极速创建数据表格&表单</h3>
+                <p class="intro-feature-desc">通过内置命令快速一键生成控制器及数据表格 & 表单代码，将工作量减到最少。</p>
+            </div>
+
+            <div class="col-md-6 col-sm-12 intro-feature">
+                <div class="intro-feature-icon"><i class="fa fa-file-code-o"></i></div>
+                <h3 class="intro-feature-title">丰富的表单组件</h3>
+                <p class="intro-feature-desc">支持超过40中表单组件，覆盖几乎所有的使用场景，并且支持自定义扩展其它任何组件以满足你的需求。</p>
+            </div>
+
+            <div class="col-md-6 col-sm-12 intro-feature">
+                <div class="intro-feature-icon"><i class="fa fa-upload"></i></div>
+                <h3 class="intro-feature-title">支持所有的OSS平台</h3>
+                <p class="intro-feature-desc">只要安装相应的OSS平台上传驱动和并完成配置，即可打通OSS上传功能。</p>
+            </div>
+
+            <div class="col-md-6 col-sm-12 intro-feature">
+                <div class="intro-feature-icon"><i class="fa fa-image"></i></div>
+                <h3 class="intro-feature-title">丰富的图片处理操作</h3>
+                <p class="intro-feature-desc">借助<code>intervention/image</code>的强大功能，可以对上传的图片进行裁剪、缩放、加水印、翻转等几十种操作。
+                </p>
+            </div>
+
+            <div class="col-md-6 col-sm-12 intro-feature">
+                <div class="intro-feature-icon"><i class="fa fa-random"></i></div>
+                <h3 class="intro-feature-title">数据模型关系支持</h3>
+                <p class="intro-feature-desc">支持<code>Eloquent</code>做种数据关系，满足多种场景。</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container text-center mt-5 mb-3">
+        <h2>扩展插件</h2>
+    </div>
+
+    <div class="extensions pt-3 pb-3" style="width: 100%;border-top: 1px solid #f1f1f1;background-color: #fafafa;">
+
+        <div class="container">
+
+            <div class="row text-right">
+                <div class="col float-right">
+                    <a class="btn btn-secondary btn-sm" href="https://laravel-admin.org/extensions">更多</a>
+                </div>
+            </div>
+
+            <div class="row extension-list">
+                                    <div class="col-md-3 col-sm-12">
+                        <div class="card extension">
+                            <a href="https://github.com/laravel-admin-extensions/wangEditor" target="_blank" class="card-link">
+                                <img class="card-img-top" src="https://laravel-admin.org/storage/2018/11/03/f0zNcwISy8WHRZSoISE9AMhVaFVt4l6e1KwpZz8j.jpeg" alt="wangEditor富文本编辑器">
+                            </a>
+                            <div class="card-body extension-basic">
+                                <h6 class="card-text">wangEditor富文本编辑器</h6>
+                                <p class="extension-desc mb-0">基于wangEditor的富文本编辑器</p>
+                            </div>
+
+                            <div class="card-body extension-info pt-0">
+                                <span class="extension-author">
+                                    <i class="fa fa-user"></i>&nbsp;&nbsp;laravel-admin
+                                </span>
+
+                                <span class="extension-price">
+                                                                            <a href="https://github.com/laravel-admin-extensions/wangEditor" target="_blank"><i class="fa fa-github"></i>&nbsp;Github</a>
+                                                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                                    <div class="col-md-3 col-sm-12">
+                        <div class="card extension">
+                            <a href="https://github.com/laravel-admin-extensions/env-manager" target="_blank" class="card-link">
+                                <img class="card-img-top" src="https://laravel-admin.org/storage/2018/11/03/iH9YBDmcIhpmDfEORMzx7NoscWLAA8VlVeSlpvBt.jpeg" alt="Env 文件管理">
+                            </a>
+                            <div class="card-body extension-basic">
+                                <h6 class="card-text">Env 文件管理</h6>
+                                <p class="extension-desc mb-0">.Env文件的web管理界面</p>
+                            </div>
+
+                            <div class="card-body extension-info pt-0">
+                                <span class="extension-author">
+                                    <i class="fa fa-user"></i>&nbsp;&nbsp;jxlwqq
+                                </span>
+
+                                <span class="extension-price">
+                                                                            <a href="https://github.com/laravel-admin-extensions/env-manager" target="_blank"><i class="fa fa-github"></i>&nbsp;Github</a>
+                                                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                                    <div class="col-md-3 col-sm-12">
+                        <div class="card extension">
+                            <a href="https://github.com/laravel-admin-extensions/media-manager" target="_blank" class="card-link">
+                                <img class="card-img-top" src="https://laravel-admin.org/storage/2018/11/02/b2qJu3WFf3VnOk51ClIHzOqMCMrUZqlXdnJHDOaO.jpeg" alt="Media manager">
+                            </a>
+                            <div class="card-body extension-basic">
+                                <h6 class="card-text">Media manager</h6>
+                                <p class="extension-desc mb-0">本地文件管理</p>
+                            </div>
+
+                            <div class="card-body extension-info pt-0">
+                                <span class="extension-author">
+                                    <i class="fa fa-user"></i>&nbsp;&nbsp;laravel-admin
+                                </span>
+
+                                <span class="extension-price">
+                                                                            <a href="https://github.com/laravel-admin-extensions/media-manager" target="_blank"><i class="fa fa-github"></i>&nbsp;Github</a>
+                                                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                                    <div class="col-md-3 col-sm-12">
+                        <div class="card extension">
+                            <a href="https://laravel-admin.org/extensions/56" target="_blank" class="card-link">
+                                <img class="card-img-top" src="https://laravel-admin.org/storage/2019/01/08/urO3r7uXHmGpqSC7k8nrURqhcQrAS69hyxpYNQ7Y.jpeg" alt="数据库结构对比">
+                            </a>
+                            <div class="card-body extension-basic">
+                                <h6 class="card-text">数据库结构对比</h6>
+                                <p class="extension-desc mb-0">用来对比两个Mysql数据库的表结构差异</p>
+                            </div>
+
+                            <div class="card-body extension-info pt-0">
+                                <span class="extension-author">
+                                    <i class="fa fa-user"></i>&nbsp;&nbsp;laravel-admin
+                                </span>
+
+                                <span class="extension-price">
+                                                                            <small class="text-danger">￥30</small>
+                                                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                                    <div class="col-md-3 col-sm-12">
+                        <div class="card extension">
+                            <a href="https://github.com/laravel-admin-extensions/redis-manager" target="_blank" class="card-link">
+                                <img class="card-img-top" src="https://laravel-admin.org/storage/2018/11/03/lSEiFxoOO1Toft0kbCm8wd3CD6ZZ4f1qLt9hRddX.jpeg" alt="Redis管理器">
+                            </a>
+                            <div class="card-body extension-basic">
+                                <h6 class="card-text">Redis管理器</h6>
+                                <p class="extension-desc mb-0">一个友好的Redis WEB管理工具</p>
+                            </div>
+
+                            <div class="card-body extension-info pt-0">
+                                <span class="extension-author">
+                                    <i class="fa fa-user"></i>&nbsp;&nbsp;laravel-admin
+                                </span>
+
+                                <span class="extension-price">
+                                                                            <a href="https://github.com/laravel-admin-extensions/redis-manager" target="_blank"><i class="fa fa-github"></i>&nbsp;Github</a>
+                                                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                                    <div class="col-md-3 col-sm-12">
+                        <div class="card extension">
+                            <a href="https://github.com/laravel-admin-extensions/chartjs" target="_blank" class="card-link">
+                                <img class="card-img-top" src="https://laravel-admin.org/storage/2018/11/03/8sq5rHDHv78Eezc9dYLR2I6GTCy0d7AicvY9m0Yl.jpeg" alt="chartjs">
+                            </a>
+                            <div class="card-body extension-basic">
+                                <h6 class="card-text">chartjs</h6>
+                                <p class="extension-desc mb-0">基于chartjs的图表工具</p>
+                            </div>
+
+                            <div class="card-body extension-info pt-0">
+                                <span class="extension-author">
+                                    <i class="fa fa-user"></i>&nbsp;&nbsp;laravel-admin
+                                </span>
+
+                                <span class="extension-price">
+                                                                            <a href="https://github.com/laravel-admin-extensions/chartjs" target="_blank"><i class="fa fa-github"></i>&nbsp;Github</a>
+                                                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                                    <div class="col-md-3 col-sm-12">
+                        <div class="card extension">
+                            <a href="https://laravel-admin.org/extensions/14" target="_blank" class="card-link">
+                                <img class="card-img-top" src="https://laravel-admin.org/storage/2018/11/03/jBPUiAFxB1xYj9MWagFHhVswfzGUyclljtgwtmOk.jpeg" alt="多后台扩展">
+                            </a>
+                            <div class="card-body extension-basic">
+                                <h6 class="card-text">多后台扩展</h6>
+                                <p class="extension-desc mb-0">在一套代码中安装多个laravel-admin后台</p>
+                            </div>
+
+                            <div class="card-body extension-info pt-0">
+                                <span class="extension-author">
+                                    <i class="fa fa-user"></i>&nbsp;&nbsp;laravel-admin
+                                </span>
+
+                                <span class="extension-price">
+                                                                            <small class="text-danger">￥100</small>
+                                                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                                    <div class="col-md-3 col-sm-12">
+                        <div class="card extension">
+                            <a href="https://github.com/laravel-admin-extensions/reporter" target="_blank" class="card-link">
+                                <img class="card-img-top" src="https://laravel-admin.org/storage/2018/11/03/3o7y8zQUsfsulHKGP5st8nZTI6A0119PK6EveYNT.jpeg" alt="异常报告&amp;记录">
+                            </a>
+                            <div class="card-body extension-basic">
+                                <h6 class="card-text">异常报告&amp;记录</h6>
+                                <p class="extension-desc mb-0">将应用的异常记录在数据库库中，并且提供一个web查看界面</p>
+                            </div>
+
+                            <div class="card-body extension-info pt-0">
+                                <span class="extension-author">
+                                    <i class="fa fa-user"></i>&nbsp;&nbsp;laravel-admin
+                                </span>
+
+                                <span class="extension-price">
+                                                                            <a href="https://github.com/laravel-admin-extensions/reporter" target="_blank"><i class="fa fa-github"></i>&nbsp;Github</a>
+                                                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                            </div>
+
+        </div>
+
+    </div>
+
+    <div class="container text-center" style="background-color: #fafafa;">
+        <a href="https://laravel-admin.org/sponsor" class="intro-get-started-link d-inline-block position-relative mb-5">成为赞助商</a>
+    </div>
+
+
+    </section>
+
+    <footer class="footer text-center position-absolute w-100">
+
+        <div class="main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-4 text-left logo">
+                        <img src="/images/logo.png" height="45px" alt="logo" class="float-left">
+                        <span class="logo-text">
+                            Laravel-admin
+                        </span>
+
+                        <div>用最少的时间构建出功能完善的管理后台</div>
+
+                        <div class="links">
+                            <a href="mailto:zosong@126.com"><i class="fa fa-envelope fa-fw"></i></a>
+                            &nbsp;
+                            <a href="https://laravel-admin.org/contact"><i class="fa fa-wechat fa-fw"></i></a>
+                            &nbsp;
+                            <a href="https://github.com/z-song" target="_blank"><i class="fa fa-github fa-fw"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-8 row">
+                            <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col links">
+                            <div class="title">QQ群</div>
+                            <a>278455482(已满)</a>
+                            <br>
+                            <a>635881319(已满)</a>
+                            <br>
+                            <a>533701919(已满)</a>
+                            <br>
+                            <a>821831984(新开)</a>
+                            <br>
+                        </div>
+                        <div class="col links">
+                            <div class="title">友情链接<a href="https://laravel-admin.org/contact">(互换)</a></div>
+                            <a href="https://implode.io" target="_blank">implode.io</a>
+                            <br>
+                            <a href="https://laravelacademy.org/" target="_blank">Laravel学院</a>
+                            <br>
+                            <a href="https://www.php-z.com/" target="_blank">PHP-Z</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="copyright">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col text-left">
+                        Built by <a href="https://zsong.me">@song</a> with&nbsp;<i class="fa fa-heart"></i>
+                    </div>
+
+                    <div class="col text-right">
+                        &copy;2018 laravel-admin.org
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+<script src="https://laravel-admin.org/js/app.js?id=3847e92901f1eb1b613a"></script>
+</body>
+</html>

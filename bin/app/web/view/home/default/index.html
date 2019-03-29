@@ -1,0 +1,352 @@
+{extend name="$layout" /}
+{block name='content'}
+    {xt:select model="Relays" id="ts" where="title='首页顶部'" module="data"}
+    <div class="banner fullscreen">
+        <div class="bd"><!-- 轮播图图片 -->         
+            <ul> 
+                {volist name="$ts->items" id="ss"}
+                <li><a href="{$ss.link}" target="_self"><img src="{$ss.img}"/></a></li>
+                {/volist}
+            </ul>
+        </div>
+        <div class="hd"><!-- 底部小圆点 -->
+            <ul class="">
+               	{volist name="$ts->items" id="ss"}
+                <li></li>
+                {/volist}
+            </ul>
+            <div class="bullet-bg"></div>
+        </div>
+    </div>
+    {/xt:select} 
+    <div class="about">
+        <div class="wrapper">
+            <div class="about-title title">
+                <h3>关于我们</h3>
+                <p>全面的移动开发<span>解决方案</span>，从XtoPHP开始</p>
+            </div>
+            <div class="about-contain">
+                <div class="about-slide about-slide1 fl active">
+                    <dl>
+                        <dt></dt>
+                        <dd>
+                            <h4>什么是XtoPHP？</h4>
+                            <p>XtoPHP专注于移动端企业快速开发管理系统，帮助开发者挣钱，客户省钱</p>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="about-slide about-slide2 fl">
+                    <dl>
+                        <dt></dt>
+                        <dd>
+                            <h4>XtoPHP能做什么？</h4>
+                            <p>XtoPHP专注于一站式的移动开发解决方案，行业模块化定制开发，开发好的模块可以卖钱</p>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="about-slide about-slide3 fl">
+                    <dl>
+                        <dt></dt>
+                        <dd>
+                            <h4>为什么选择XtoPHP？</h4>
+                            <p>XtoPHP将微信公众号、小程序接口、强大会员卡券底层接口技术整合，拿来即用，让您更加专注行业开发挣钱</p>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--********************advantage*************************-->
+
+    <div class="advantage">
+        <div class="wrapper">
+            <div class="advantage-title title">
+                <h3>我们的优势</h3>
+                <p>选择XtoPHP，就是选择了一个贴心的商城合作伙伴</p>
+            </div>
+            <div class="adv-contain-top">
+                <div class="adv-tab">
+                    <div class="tab-system adv_tabs active fl">系统优势</div>
+                    <div class="tab-serve fl adv_tabs">服务优势</div>
+                </div>
+                <div class="va show">
+                    <div class="adv-slide fl">
+                        <dl>
+                            <dt><img src="__STATIC__/img/ad_01.png" alt="完善基础功能"/ ></dt>
+                            <dd>
+                                <h4>完善基础功能</h4>
+                                <p>XtoPHP为您提供完善的56项基本功能设置，可满足互联网电子商务需要的所有基础功能服务。</p>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="adv-slide fl">
+                        <dl>
+                            <dt><img src="__STATIC__/img/ad_02.png" alt="独创插件模式"/></dt>
+                            <dd>
+                                <h4>独创插件模式</h4>
+                                <p>您无需购买XtoPHP的全部插件，您可任意选择搭配插件进行购买，助力您实现商城经营利益的最大化。</p>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="adv-slide fl">
+                        <dl>
+                            <dt><img src="__STATIC__/img/ad_03.png" alt="数据全掌握"/></dt>
+                            <dd>
+                                <h4>数据全掌握</h4>
+                                <p>您无需为您的商城信息安全而担心，因为您的商城不受平台牵制，数据保密性高，仅商城管理员才能查看数据流量。</p>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="adv-slide fl">
+                        <dl>
+                            <dt><img src="__STATIC__/img/ad_04.png" alt="专为微信打造"/></dt>
+                            <dd>
+                                <h4>专为微信打造</h4>
+                                <p>因为专心只做微信商城平台开发，所以我们更了解行业需求，更专业值得信赖。</p>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+
+
+
+                <div class="va">
+                    <div class="adv-slide fl">
+                        <dl>
+                            <dt><img src="__STATIC__/img/ad_05.png" alt="专业服务指导"/></dt>
+                            <dd>
+                                <h4>专业服务指导</h4>
+                                <p>XtoPHP为您提供在线客服、咨询服务电话、交流论坛等多种信息交流途径，方便及时为您解决各种操作和技术问题。</p>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="adv-slide fl">
+                        <dl>
+                            <dt><img src="__STATIC__/img/ad_06.png" alt="全局规划"/></dt>
+                            <dd>
+                                <h4>全局规划</h4>
+                                <p>XtoPHP具有对互联网电子商务发展的整体规划，在业界享有有口皆碑的服务。</p>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="adv-slide fl">
+                        <dl>
+                            <dt><img src="__STATIC__/img/ad_07.png" alt="更新升级"/></dt>
+                            <dd>
+                                <h4>更新升级</h4>
+                                <p>XtoPHP技术团队不断更新升级服务版本，为您提供更好的系统操作体验。</p>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="adv-slide fl">
+                        <dl>
+                            <dt><img src="__STATIC__/img/ad_08.png"/></dt>
+                            <dd>
+                                <h4>强有力的技术支持
+                                </h4>
+                                <p>XtoPHP专注互联网电子商务，掌握行业前沿技术，强大的技术团队将为您提供最优质的服务支持。</p>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="adv-contain-bottom">
+                <div class="user-slide fl">
+                    <dl>
+                        <dt><span id="number">1000</span> <span class="add">+</span></dt>
+                        <dd>
+                            <h4>运营商使用</h4>
+                            <p>XtoPHP为您搭建完善的互联网电子商务平台，助力您的每一次发展。</p>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="user-slide fl">
+                    <dl>
+                        <dt><span id="number1">50</span> <span class="add">+</span></dt>
+                        <dd>
+                            <h4>应用功能</h4>
+                            <p>丰富的应用功能插件，满足您多样化的业务需求。</p>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="user-slide fl">
+                    <dl>
+                        <dt><span id="number2">10</span> <span class="add">+</span>万</dt>
+                        <dd>
+                            <h4>用户的选择</h4>
+                            <p>全网超过10万用户选择XtoPHP，您的信赖是我们不断向前的动力源泉。</p>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="value">
+        <div class="wrapper">
+            <div class="value-title title">
+                <h3>微分销核心价值</h3>
+                <p>分裂式营销，让您<span>迅速累计</span>粉丝，实现业绩增长</p>
+            </div>
+            <div class="value-contain">
+                <div class="value-slide">
+                    <img class='fl' src="__STATIC__/img/value01.png" alt="核心价值"/>
+                    <dl class='fr'>
+                        <dt><img src="__STATIC__/img/value1-num.png" alt="零成本"/></dt>
+                        <dd>
+                            零成本将客户变成您的商城宣传员，为您的商城创造多条宣传销售渠道，实现商城裂变式病毒营销。
+                        </dd>
+                    </dl>
+                </div>
+                <div class="value-slide">
+                    <img class='fr' src="__STATIC__/img/value2.png" alt="核心价值"/>
+                    <dl class='fl value2'>
+                        <dt><img src="__STATIC__/img/value2-num.png" alt="微信用户"/></dt>
+                        <dd>
+                            微信活跃用户数量突破9.27亿，25%的微信用户每天打开微信超过30次，通过朋友圈分享能迅速传播商城信息，带动商城的关注度。
+                        </dd>
+                    </dl>
+                </div>
+
+                <div class="value-slide">
+                    <img class='fl' src="__STATIC__/img/value3.png" alt="核心价值"/>
+                    <dl class='fr'>
+                        <dt><img src="__STATIC__/img/value3-num.png" alt="后台"/></dt>
+                        <dd>
+                            XtoPHP后台可为您展示全面的会员、分销信息，您的分销管理信息一目了然，有利于您对商城的整体管理的把控。
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="case">
+        <div class="wrapper">
+            <div class="case-title title">
+                <h3>客户案例</h3>
+                <p>雄韬软件，用心<span>积累点滴</span> 创造行业精品！</p>
+            </div>
+            <div class="case_main">
+                <div class="bd">
+                    <ul>
+                        <li>
+                            <div class="case_img img1">
+                                <div></div>
+                                <img src="__STATIC__/img/anli/code1.jpg"/>
+                            </div>
+                            <div class="case_img img2">
+                                <div></div>
+                                <img src="__STATIC__/img/anli/code2.jpg"/>
+                            </div>
+                            <div class="case_img img3">
+                                <div></div>
+                                <img src="__STATIC__/img/anli/code3.jpg"/>
+                            </div>
+                            <div class="case_img img11">
+                                <div></div>
+                                <img src="__STATIC__/img/anli/code11.jpg"/>
+                            </div>
+                            <div class="case_img img5">
+                                <div></div>
+                                <img src="__STATIC__/img/anli/code5.jpg"/>
+                            </div>
+                            <div class="case_img img6">
+                                <div></div>
+                                <img src="__STATIC__/img/anli/code6.jpg"/>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="case_img img7">
+                                <div></div>
+                                <img src="__STATIC__/img/anli/code7.jpg"/>
+                            </div>
+                            <div class="case_img img8">
+                                <div></div>
+                                <img src="__STATIC__/img/anli/code8.jpg"/>
+                            </div>
+                            <div class="case_img img9">
+                                <div></div>
+                                <img src="__STATIC__/img/anli/code9.jpg"/>
+                            </div>
+                            <div class="case_img img10">
+                                <div></div>
+                                <img src="__STATIC__/img/anli/code10.jpg"/>
+                            </div>
+                            <div class="case_img img4">
+                                <div></div>
+                                <img src="__STATIC__/img/anli/code4.jpg"/>
+                           </div>
+
+                            <div class="case_img img12">
+                                <div></div>
+                                <img src="__STATIC__/img/anli/code12.jpg"/>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="hd">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+   <div class="news">
+        <div class="wrapper">
+            <div class="news-title title">
+                <h3>行业资讯</h3>
+                <p>雄韬软件，用心<span>积累点滴</span> 创造行业精品！</p>
+            </div>
+            <div class="news-contain">
+                <div class="news1 fl">
+                    <p><a href="/web/article/list?catename=最新动态"  class="hoverBlue">最新动态</a></p>
+                    <div class="new-news">
+                        <ul class=""> 
+                            {xt:select model='Article' id='item' where="catename='最新动态'" limit='10' order='arid desc' module="data"}
+                            <li class='swiper-slide' style="list-style: disc;">
+                                    <a href="/web/article/show?id={$item.arid}" target="_blank"  class="hoverBlue">
+                                        {$item.title|default=''}
+                                     </a>
+                                </li>
+                            {/xt:select}                       
+                        </ul>
+                    </div>
+                </div>
+                <div class="news2 fl">
+                    <p><a href="/web/article/list?catename=功能发布"  class="hoverBlue">功能发布</a></p>
+                    <div class="product-news">
+                        <ul class=""> 
+                            {xt:select model='Article' module="data" id='item' where="catename='功能发布'" limit='10' order='arid desc'}
+                            <li class='swiper-slide' style="list-style: disc;">
+                                    <a href="/web/article/show?id={$item.arid}" target="_blank"  class="hoverBlue">
+                                        {$item.title|default=''}
+                                     </a>
+                                </li>
+                            {/xt:select}                         
+                            </ul>
+                    </div>
+                </div>
+                <div class="news2 fl">
+                    <p><a href="/web/article/list?catename=更新日志"  class="hoverBlue">更新日志</a></p>
+                    <div class="product-news">
+                        <ul class=""> 
+                            {xt:select model='Article' module="data" id='item' where="catename='更新日志'" limit='10' order='arid desc'}
+                            <li class='swiper-slide' style="list-style: disc;">
+                                <a href="/web/article/show?id={$item.arid}" target="_blank"  class="hoverBlue">
+                                    {$item.title|default=''}
+                                 </a>
+                            </li>
+                            {/xt:select}                         
+                        </ul>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+{/block}

@@ -1,0 +1,35 @@
+{php} 
+$list=\app\data\model\Nav::where(null)->select();
+function getlink($value_f){  
+    $link='';
+    if($value_f->cmodel){
+        switch ($value_f->cmodel->controller) {
+            case 'article':
+                $link=url('article/index').'?nid='.$value_f['nid'];
+                break;
+            case 'product':
+                $link=url('product/index').'?nid='.$value_f['nid'];
+                break;
+            case 'about':
+                $link=url('about/edit').'?nid='.$value_f['nid'];
+                break;
+        }
+    } 
+    return $link;
+}
+{/php}
+<ul>
+{volist name="list" id="item"}
+    {if condition="$item.pid==0"}
+    <li><a href="{php}echo getlink($item){/php}">{$item.title}</a>
+        <ul>
+            {volist name="list" id="sitem"}
+            {if condition="$sitem.pid==$item.nid"}
+            <li><a href="{php}echo getlink($sitem){/php}">{$sitem.title}</a></li>
+            {/if}
+            {/volist} 
+        </ul>
+    </li>
+    {/if}
+{/volist} 
+</ul>

@@ -1,0 +1,68 @@
+<div class="header">
+    <div class="wrapper">
+        <div class='logo fl'>
+            <img style="margin-top: 4px;" src="{$config.web_logo|default='__STATIC__/img/logo.png'}" alt="logo">
+        </div>
+        <div class='nav fl'>
+            <ul class='nav_ul'>
+                {php}
+                    $nid=input('nid');
+                    if(empty($nid)){
+                        $current_class="active";
+                    }
+                {/php}
+                <li class="{$current_class|default=''}"><a href="/" target="_self">首页</a></li>
+                {xt:select model="Nav" module="data" name="list" order="nav_order asc" id="vo" limit="999"}
+                 
+                    {if condition='$vo.pid==0 && $vo.is_view==1'}
+                        {php} 
+                            $class='';
+                            foreach($list as $item){
+                                if($item['pid']==$vo['nid']){
+                                    $class='dropdown';
+                                    break;
+                                }
+                            }
+                            if($nid==$vo['nid']){
+                                $class=$class.' active';
+                            }  
+                            $c='';
+                            if($vo->cmodel){
+                                $c=$vo->cmodel->controller;
+                            } 
+                            $a=$vo->type;
+                            $nid=$vo->nid;
+                            $link="/web/$c/$a?nid=$nid";
+                            if(!empty($vo->url)){
+                                $link=$vo->url;
+                            }
+
+                        {/php}
+                        <li class="{$class}" ><a href="{$link}" target="_self">{$vo.title}</a>
+                            <ul class="fun_center" >
+                            {volist name="list" id="sub"}
+                                {if condition='$sub.pid==$vo.nid && $sub.is_view==1'}
+                                {php} 
+                                    $c='';
+                                    if($sub->cmodel){
+                                        $c=$sub->cmodel->controller;
+                                    }
+                                    $a=$sub->type;
+                                    $nid=$sub->nid;
+                                    $link="/web/$c/$a?nid=$nid";
+                                    if(!empty($sub['url'])){
+                                        $link=$sub['url'];
+                                    }
+                                {/php}
+                                <li><a href="{$link}" target="_self" ><span>{$sub.title}</span></a></li>
+                                {/if}
+                            {/volist}
+                            </ul>
+                        </li>
+                    {/if}
+                {/xt:select}
+            </ul>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+<div class="form-group"><label class="col-sm-2 control-label">{$form.title}</label>
+    <div class="col-sm-10">
+    	{volist name="form.options" id="option"}
+	    <input type="radio" class="" value="{$option}" name="{$form.name}" 
+	    {if condition="$form.value==$option"}checked="true"{/if}>{$key}
+	    {/volist}
+    </div>
+</div> 

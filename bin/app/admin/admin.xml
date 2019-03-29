@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu> 
+	<item title='客户管理' class="si-users" url='/admin/member/init'>
+		<pagelink title='客户查询' url='/admin/member/index' c='member'></pagelink> 
+		<pagelink title='推荐网络' url='/admin/upteam/index' c='upteam'></pagelink>
+	</item>
+	<item title='账户管理' class="si-users" url='/admin/account/init'> 
+		<pagelink title='钱包管理' url='/admin/wallet/index' c='wallet'></pagelink>
+		<pagelink title='奖金管理' url='/admin/splittin/index' c='splittin'></pagelink>
+		<pagelink title='积分管理' url='/admin/point/index' c='point'></pagelink>
+	</item>
+	
+	<item title='商品管理' url='/admin/product/init' c='product' class="si-note">
+		<pagelink title='创建商品' url='/admin/product/create' c='product'></pagelink>
+		<pagelink title='商品列表' url='/admin/product/index' c='product'></pagelink> 
+		<pagelink title='商品类别' url='/admin/pcategory/index' c='pcategory'></pagelink>
+	</item>
+	<item title='营销管理' url='/admin/content/init' c='content' class="si-note"> 
+		<pagelink title='关键字' url='/admin/keyword/index' c='keyword'>
+			<function url='/admin/api/create_keyword' title='添加'></function>
+			<function url='/admin/api/update_keyword' title='编辑'></function>
+			<function url='/admin/api/delete_keyword' title='删除'></function>
+		</pagelink> 
+		<pagelink title='友情链接' url='/admin/link/index' c='link'>
+			<function url='/admin/api/create_link' title='添加'></function>
+			<function url='/admin/api/update_link' title='编辑'></function>
+			<function url='/admin/api/delete_link' title='删除'></function>
+		</pagelink>
+		<pagelink title='放灯片' url='/admin/relay/index' c='relay'>
+			<function url='/admin/api/create_relay' title='添加'></function>
+			<function url='/admin/api/update_relay' title='编辑'></function>
+			<function url='/admin/api/delete_relay' title='删除'></function>
+		</pagelink>
+	</item> 
+	<item title='内容管理' url='/admin/content/init' c='content' class="si-note">
+		<pagelink title='创建文章' url='/admin/article/create' c='article'></pagelink>
+		<pagelink title='文章列表' url='/admin/article/index' c='article'></pagelink>
+ 
+		<pagelink title='文章类别' url='/admin/category/index' c='category'></pagelink>
+		<pagelink title='创建单页' url='/admin/about/create' c='about'></pagelink> 
+		 <pagelink title='单页列表' url='/admin/about/index' c='about'></pagelink> 
+	</item> 
+	<item title='内容设置' url='/admin/config/index' class="si-settings">
+		<pagelink title='内容模型' url='/admin/model/index' c='model'>
+		</pagelink>
+		<pagelink title='栏目管理' url='/admin/nav/index' c='nav'>
+			<function url='/admin/api/create_nav' title='添加'></function>
+			<function url='/admin/api/update_nav' title='编辑'></function>
+			<function url='/admin/api/delete_nav' title='删除'></function>
+		</pagelink>  
+	</item>
+	<item title='基础设置' url='/admin/basic/index'>
+		<pagelink title='基本设置' url='/admin/setting/basic' c='setting'>
+		</pagelink>
+		
+		<pagelink title='日志管理'  url='/admin/logs/index' c='logs'></pagelink>
+		
+		<pagelink title='模块管理' url='/admin/module/index' c='module'></pagelink>
+		<pagelink title='插件管理' url='/admin/plugs/setsms' c='plugs'></pagelink>
+		<pagelink title='数据库管理' url='/admin/database/index' c='database'></pagelink>
+	</item> 
+	<item title='消息管理' class='si-bag' url='/admin/message/index'>
+		<pagelink title='收件箱' url='/admin/inbox/index' c='inbox'>
+		</pagelink>
+		<pagelink title='发件箱' url='/admin/sendbox/index' c='sendbox'>
+		</pagelink>
+		<pagelink title='发送邮件' url='/admin/sendbox/send' c='sendbox'>
+		</pagelink> 
+	</item>
+	<item title='权限管理' url='/admin/basic/index'>
+		<pagelink title='管理员' url='/admin/manager/index' c='manager'>
+			<function url='/admin/manager/create' title='添加管理员'></function>
+			<function url='/admin/manager/edit' title='编辑管理员'></function>
+			<function url='/admin/manager/delete_post' title='删除管理员'></function>
+		</pagelink>
+		<pagelink title='角色管理' url='/admin/roles/index' c='roles'>
+			<function url='/admin/roles/create' title='添加角色'></function>
+			<function url='/admin/roles/edit' title='添加角色'></function>
+			<function url='/admin/roles/delete_post' title='删除角色'></function>
+			<function url='/admin/roles/allot' title='角色功能分配'></function>
+		</pagelink>
+	</item> 
+</menu>

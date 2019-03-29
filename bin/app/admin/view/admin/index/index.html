@@ -1,0 +1,333 @@
+{extend name="$layout" /}
+
+{block name="content"}
+	<div class="content" style="padding:15px;">
+        <div class="row text-uppercase">
+                        <div class="col-xs-6 col-sm-3">
+                            <div class="block block-rounded">
+                                <div class="block-content block-content-full">
+                                    <div class="text-muted">
+                                        <small><i class="si si-calendar"></i> All</small>
+                                    </div>
+                                    <div class="font-s12 font-w700">会员数</div>
+                                    <a class="h2 font-w300 text-primary" href="base_comp_charts.html" data-toggle="countTo" data-to="480950">{$members}</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <div class="block block-rounded">
+                                <div class="block-content block-content-full">
+                                    <div class="text-muted">
+                                        <small><i class="si si-calendar"></i> Today</small>
+                                    </div>
+                                    <div class="font-s12 font-w700">登录数</div>
+                                    <a class="h2 font-w300 text-primary" href="base_comp_charts.html" data-toggle="countTo" data-to="495">{$user_login_time}</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <div class="block block-rounded">
+                                <div class="block-content block-content-full">
+                                    <div class="text-muted">
+                                        <small><i class="si si-calendar"></i> Today</small>
+                                    </div>
+                                    <div class="font-s12 font-w700">文章数</div>
+                                    <a class="h2 font-w300 text-primary" href="base_comp_charts.html" data-toggle="countTo" data-to="148000" data-before="$">148000</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <div class="block block-rounded">
+                                <div class="block-content block-content-full">
+                                    <div class="text-muted">
+                                        <small><i class="si si-calendar"></i> Today</small>
+                                    </div>
+                                    <div class="font-s12 font-w700">产品数</div>
+                                    <a class="h2 font-w300 text-primary" href="base_comp_charts.html" data-toggle="countTo" data-to="299" data-before="$">299</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END Stats -->
+<div class="row">
+                        <div class="col-lg-8">
+                            <!-- Main Dashboard Chart -->
+                            <div class="block">
+                                <div class="block-header">
+                                    <ul class="block-options">
+                                        <li>
+                                            <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
+                                        </li>
+                                    </ul>
+                                    <h3 class="block-title">Weekly Overview</h3>
+                                </div>
+                                <div class="block-content block-content-full bg-gray-lighter text-center">
+                                    <!-- Chart.js Charts (initialized in js/pages/base_pages_dashboard.js), for more examples you can check out http://www.chartjs.org/docs/ -->
+                                    <div style="height: 374px;"><canvas class="js-dash-chartjs-lines"></canvas></div>
+                                </div>
+                                <div class="block-content text-center">
+                                    <div class="row items-push text-center">
+                                        <div class="col-xs-6 col-lg-3">
+                                            <div class="push-10"><i class="si si-graph fa-2x"></i></div>
+                                            <div class="h5 font-w300 text-muted">+ 205 Sales</div>
+                                        </div>
+                                        <div class="col-xs-6 col-lg-3">
+                                            <div class="push-10"><i class="si si-users fa-2x"></i></div>
+                                            <div class="h5 font-w300 text-muted">+ 25% Clients</div>
+                                        </div>
+                                        <div class="col-xs-6 col-lg-3 visible-lg">
+                                            <div class="push-10"><i class="si si-star fa-2x"></i></div>
+                                            <div class="h5 font-w300 text-muted">+ 10 Ratings</div>
+                                        </div>
+                                        <div class="col-xs-6 col-lg-3 visible-lg">
+                                            <div class="push-10"><i class="si si-share fa-2x"></i></div>
+                                            <div class="h5 font-w300 text-muted">+ 35 Followers</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END Main Dashboard Chart -->
+                        </div>
+                        <div class="col-lg-4">
+                            <!-- Latest Sales Widget -->
+                            <div class="block">
+                                <div class="block-header">
+                                    <ul class="block-options">
+                                        <li>
+                                            <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
+                                        </li>
+                                    </ul>
+                                    <h3 class="block-title">Latest Sales</h3>
+                                </div>
+                                <div class="block-content bg-gray-lighter">
+                                    <div class="row items-push">
+                                        <div class="col-xs-4">
+                                            <div class="text-muted"><small><i class="si si-calendar"></i> 24 hrs</small></div>
+                                            <div class="font-w600">18 Sales</div>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <div class="text-muted"><small><i class="si si-calendar"></i> 7 days</small></div>
+                                            <div class="font-w600">78 Sales</div>
+                                        </div>
+                                        <div class="col-xs-4 h1 font-w300 text-right">$769</div>
+                                    </div>
+                                </div>
+                                <div class="block-content">
+                                    <div class="pull-t pull-r-l">
+                                        <!-- Slick slider (.js-slider class is initialized in App() -> uiHelperSlick()) -->
+                                        <!-- For more info and examples you can check out http://kenwheeler.github.io/slick/ -->
+                                        <div class="js-slider remove-margin-b" data-slider-autoplay="true" data-slider-autoplay-speed="2500">
+                                            <div>
+                                                <table class="table remove-margin-b font-s13">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="font-w600">
+                                                                <a href="javascript:void(0)">Admin Template</a>
+                                                            </td>
+                                                            <td class="hidden-xs text-muted text-right" style="width: 70px;">23:01</td>
+                                                            <td class="font-w600 text-success text-right" style="width: 70px;">+ $21</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="font-w600"><a href="javascript:void(0)">WP Theme</a></td>
+                                                            <td class="hidden-xs text-muted text-right">22:15</td>
+                                                            <td class="font-w600 text-success text-right">+ $52</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="font-w600"><a href="javascript:void(0)">HTML Template</a></td>
+                                                            <td class="hidden-xs text-muted text-right">22:01</td>
+                                                            <td class="font-w600 text-success text-right">+ $16</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="font-w600"><a href="javascript:void(0)">Admin Template</a></td>
+                                                            <td class="hidden-xs text-muted text-right">21:45</td>
+                                                            <td class="font-w600 text-success text-right">+ $23</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="font-w600"><a href="javascript:void(0)">WP Theme</a></td>
+                                                            <td class="hidden-xs text-muted text-right">21:15</td>
+                                                            <td class="font-w600 text-success text-right">+ $48</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="font-w600"><a href="javascript:void(0)">Admin Template</a></td>
+                                                            <td class="hidden-xs text-muted text-right">20:11</td>
+                                                            <td class="font-w600 text-success text-right">+ $23</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="font-w600"><a href="javascript:void(0)">WP Theme</a></td>
+                                                            <td class="hidden-xs text-muted text-right">20:01</td>
+                                                            <td class="font-w600 text-success text-right">+ $50</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="font-w600"><a href="javascript:void(0)">HTML Template</a></td>
+                                                            <td class="hidden-xs text-muted text-right">19:35</td>
+                                                            <td class="font-w600 text-success text-right">+ $16</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="font-w600"><a href="javascript:void(0)">WP Theme</a></td>
+                                                            <td class="hidden-xs text-muted text-right">19:17</td>
+                                                            <td class="font-w600 text-success text-right">+ $60</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="font-w600"><a href="javascript:void(0)">WP Theme</a></td>
+                                                            <td class="hidden-xs text-muted text-right">17:49</td>
+                                                            <td class="font-w600 text-success text-right">+ $59</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div> 
+                                        </div>
+                                        <!-- END Slick slider -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END Latest Sales Widget -->
+                        </div>
+                    </div>
+<script src="http://www.tbzou.com/assets/js/plugins/chartjs/Chart.min.js"></script>
+<script>
+var BasePagesDashboard = function() {
+    // Chart.js Chart, for more examples you can check out http://www.chartjs.org/docs
+    var initDashChartJS = function(){
+        // Get Chart Container
+        var $dashChartLinesCon  = jQuery('.js-dash-chartjs-lines')[0].getContext('2d');
+
+        // Set Chart and Chart Data variables
+        var $dashChartLines, $dashChartLinesData;
+
+        // Lines Chart Data
+        var $dashChartLinesData = {
+            labels: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
+            datasets: [
+                {
+                    label: 'This Week',
+                    fillColor: 'rgba(44, 52, 63, .07)',
+                    strokeColor: 'rgba(44, 52, 63, .25)',
+                    pointColor: 'rgba(44, 52, 63, .25)',
+                    pointStrokeColor: '#fff',
+                    pointHighlightFill: '#fff',
+                    pointHighlightStroke: 'rgba(44, 52, 63, 1)',
+                    data: [34, 42, 40, 65, 48, 56, 80]
+                },
+                {
+                    label: 'Last Week',
+                    fillColor: 'rgba(44, 52, 63, .1)',
+                    strokeColor: 'rgba(44, 52, 63, .55)',
+                    pointColor: 'rgba(44, 52, 63, .55)',
+                    pointStrokeColor: '#fff',
+                    pointHighlightFill: '#fff',
+                    pointHighlightStroke: 'rgba(44, 52, 63, 1)',
+                    data: [18, 19, 20, 35, 23, 28, 50]
+                }
+            ]
+        };
+
+        // Init Lines Chart
+        $dashChartLines = new Chart($dashChartLinesCon).Line($dashChartLinesData, {
+            scaleFontFamily: "'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+            scaleFontColor: '#999',
+            scaleFontStyle: '600',
+            tooltipTitleFontFamily: "'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+            tooltipCornerRadius: 3,
+            maintainAspectRatio: false,
+            responsive: true
+        });
+    };
+
+    return {
+        init: function () {
+            initDashChartJS();
+        }
+    };
+}();
+jQuery(function(){ BasePagesDashboard.init(); });
+</script>
+
+    <div class="row">
+        <div class="col-md-6">
+    <div class="block block-bordered">
+        <div class="block-header bg-gray-lighter">
+            <h3 class="block-title">系统信息</h3>
+        </div>
+        <div class="block-content">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <td>商业授权版本</td>
+                    <td id="product-auth"><a class="label label-danger" href="http://www.xtocn.com/" target="_blank">未授权</a></td>
+                </tr>
+                <tr>
+                    <td>xtophp</td>
+                    <td id="product-update">1.0</td>
+                </tr>
+                <tr>
+                    <td>ThinkPHP版本</td>
+                    <td>{$Think.VERSION}</td>
+                </tr>
+                <tr>
+                    <td>服务器操作系统</td>
+                    <td>{$Think.const.PHP_OS}</td>
+                </tr>
+                <tr>
+                    <td>运行环境</td>
+                    <td>{$Request.server.SERVER_SOFTWARE}</td>
+                </tr>
+                <tr>
+                    <td>MYSQL版本</td>
+                    <td>{:db()->query('select version() as version')[0]['version']}</td>
+                </tr>
+                <tr>
+                    <td>PHP版本</td>
+                    <td>{$Think.const.PHP_VERSION}</td>
+                </tr>
+                <tr>
+                    <td>上传限制</td>
+                    <td>{:ini_get('upload_max_filesize')}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div><div class="col-md-6">
+    <div class="block block-bordered">
+        <div class="block-header bg-gray-lighter">
+            <h3 class="block-title">产品团队</h3>
+        </div>
+        <div class="block-content">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <td>产品名称</td>
+                    <td>xtophp</td>
+                </tr>
+                <tr>
+                    <td>产品设计及研发团队</td>
+                    <td>XTEAM</td>
+                </tr>
+                <tr>
+                    <td>官方网址</td>
+                    <td><a href="http://www.xtoyun.net" target="_blank">www.xtoyun.net</a></td>
+                </tr>
+                <tr>
+                    <td>官方QQ群</td>
+                    <td>
+                        <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=5dd557f53946e59eef2820f956a06a682cd44db91aee6c8c18b1eb92052d30dc"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="xtophp交流群" title="xtophp交流群"></a>
+                     
+                    </td>
+                </tr>
+                <tr>
+                    <td>BUG反馈</td>
+                    <td><a href="http://ask.xtoyun.net" target="_blank">讨论区</a></td>
+                </tr>
+                <tr>
+                    <td>开发手册</td>
+                    <td><a href="http://www.xtoyun.net/doc" target="_blank">ask.xtoyun.net</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+{/block}
