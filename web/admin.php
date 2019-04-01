@@ -27,8 +27,8 @@ define('WEB_PATH', __DIR__ . '/');
 define('APP_PATH', WEB_PATH . '../bin/app/');
 
 define('BIND', 'admin');
-
 // 加载框架引导文件
 require APP_PATH . '../thinkphp/base.php';
+require APP_PATH . '../vendor/autoload.php';
 
 Container::get('app', [APP_PATH])->run()->send();

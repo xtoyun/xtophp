@@ -31,9 +31,8 @@ class Users extends Model {
     static function get_login_count(){
     	$night = strtotime(date('Y-m-d', time()));
         $day = strtotime(date('Y-m-d', time()))+86400;//86400为一天的秒数
-        $where['last_login_date'] = ['between',$night.",".$day];//用between判断
- 
-    	return parent::where($where)->count();
+        
+    	return parent::where('last_login_date','between',$night.",".$day)->count();
     }
 
     static function getauth(){

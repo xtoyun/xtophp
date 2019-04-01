@@ -1,22 +1,16 @@
 <?
-namespace app\web\admin;
+namespace app\admin\admin;
 
-use xto\Util;
-use app\web\dao\FieldDao;
-use app\web\dao\CategoryDao;
+use app\data\model\Fields as FieldModel; 
+use app\data\model\Cmodel;
 
 class Field extends BaseController{
-	private $dao;
 
-	public function __construct(){
-		parent::__construct();
-		$this->dao=FieldDao::instance();
-	}
-
-	public function index(){
-		$this->dao->setQuickSearch(input('keyword'),input('field'),'c');
-		$this->dao->setorder('fid','desc');
-		$this->dao->map['mid']=input('mid');
+	public function index(){ 
+		//$this->dao->setQuickSearch(input('keyword'),input('field'),'c');
+		//$this->dao->setorder('fid','desc');
+		//$this->dao->map['mid']=input('mid');
+		$list=FieldModel::selectpage(20,'mid='.input('mid'));
 		return $this->template
 				->TableTemplate
 				->setNav(true)
@@ -27,7 +21,7 @@ class Field extends BaseController{
 				->addColumnButton('delete','删除',url('field/post_delete')) 
 				//->addColumnButton('','',url('field/create').'?fid=$fid&mid='.input('mid'),'','fa fa-pencil')
 				//->addLeftBlock('nav','选择栏目','nav')
-				->setDataSource($this->dao->selectpage(10))
+				->setDataSource($list)
 				->setQuickSearch('title','')
 				->setPid('fid')
 				->setColumns([
@@ -69,9 +63,9 @@ class Field extends BaseController{
 		return $this->template
 				->FormTemplate 
 				->setData('modulename','基础设置') 
-				->addLeftBlock('nav','选择栏目','nav')
+				//->addLeftBlock('nav','选择栏目','nav')
 				->addNav('','创建字段',url('field/create'))
-				->addNav('','列表',url('field/index').'?mid='.$mid)
+				->addNav('','列表',url('field/index'),'?mid='.$mid)
 				->setTitle('添加类别')
 				->addFormItems([ 
 						['select','type','表单类型','',$data],
@@ -83,7 +77,7 @@ class Field extends BaseController{
 						['text', 'remark', '备注', ''],
 						['hidden', 'mid', $mid],
 					])
-				->setDataSource($this->dao->find($fid))
+				->setDataSource(Cmodel::find($fid))
 				->submit($submit_text)
 				->setPid('fid',$fid)
 				->fetch();
@@ -93,29 +87,31 @@ class Field extends BaseController{
 		if(request()->ispost()){
 			$data=request()->param();
 			if(empty(input('name'))){
-				return Util::message('名称不能为空',false);
+				return message('名称不能为空',false);
 			}
 			$status=false;
-			if (input('fid')>0) {
-				$status=$this->dao->edit($data);
-			}else{
-				$status=$this->dao->save($data);
+			$fieldmodel=FieldModel::find(input('fid'));
+			if(!$fieldmodel){
+				$fieldmodel=new FieldModel;
 			}
+			$status=$fieldmodel->save($data);
 			if ($status) {
-				return Util::message('提交成功',true);
+				return message('提交成功',true);
 			}
 			
 		}
-		return Util::message('提交失败，或是字段重复，首字符为英文字母',false);
+		return message('提交失败，或是字段重复，首字符为英文字母',false);
 	}
 
-	public function post_delete(){
+	public function delete_post(){
 		if(request()->ispost()){
 			$id 	=input('id'); 
-			if($this->dao->delete($id)){
-				return Util::message('删除成功',true);
-			}
+			$data=FieldModel::find($id);
+			if ($data) {
+				$data->delete();
+				return message('删除成功',true);
+			} 
 		}
-		return Util::message('删除失败',false);
+		return message('删除失败',false);
 	}
 }

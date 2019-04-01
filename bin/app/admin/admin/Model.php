@@ -125,9 +125,9 @@ class Model extends BaseController{
 
 	private function tables(){
 		$tables=[
-			'文章表'=>'xto_article',
-			'产品表'=>'xto_product',
-			'单页表'=>'xto_about',
+			'文章表'=>'article',
+			'产品表'=>'product',
+			'单页表'=>'about',
 		];
 		return $tables;
 	}

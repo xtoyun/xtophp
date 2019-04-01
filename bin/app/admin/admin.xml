@@ -4,7 +4,7 @@
 		<pagelink title='客户查询' url='/admin/member/index' c='member'></pagelink> 
 		<pagelink title='推荐网络' url='/admin/upteam/index' c='upteam'></pagelink>
 	</item>
-	<item title='账户管理' class="si-users" url='/admin/account/init'> 
+	<item title='资产管理' class="si-users" url='/admin/account/init'> 
 		<pagelink title='钱包管理' url='/admin/wallet/index' c='wallet'></pagelink>
 		<pagelink title='奖金管理' url='/admin/splittin/index' c='splittin'></pagelink>
 		<pagelink title='积分管理' url='/admin/point/index' c='point'></pagelink>

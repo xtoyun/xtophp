@@ -9,8 +9,8 @@
                                     <div class="text-muted">
                                         <small><i class="si si-calendar"></i> All</small>
                                     </div>
-                                    <div class="font-s12 font-w700">会员数</div>
-                                    <a class="h2 font-w300 text-primary" href="base_comp_charts.html" data-toggle="countTo" data-to="480950">{$members}</a>
+                                    <div class="font-s12 font-w700">客户数</div>
+                                    <a class="h2 font-w300 text-primary" href="{:url('member/index')}" data-toggle="countTo" data-to="480950">{$view_members}</a>
                                 </div>
                             </div>
                         </div>
@@ -21,7 +21,7 @@
                                         <small><i class="si si-calendar"></i> Today</small>
                                     </div>
                                     <div class="font-s12 font-w700">登录数</div>
-                                    <a class="h2 font-w300 text-primary" href="base_comp_charts.html" data-toggle="countTo" data-to="495">{$user_login_time}</a>
+                                    <a class="h2 font-w300 text-primary" href="{:url('member/index')}" data-toggle="countTo" data-to="495">{$view_login_time}</a>
                                 </div>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                                         <small><i class="si si-calendar"></i> Today</small>
                                     </div>
                                     <div class="font-s12 font-w700">文章数</div>
-                                    <a class="h2 font-w300 text-primary" href="base_comp_charts.html" data-toggle="countTo" data-to="148000" data-before="$">148000</a>
+                                    <a class="h2 font-w300 text-primary" href="{:url('article/index')}" data-toggle="countTo" data-to="148000" data-before="$">{$view_articles}</a>
                                 </div>
                             </div>
                         </div>
@@ -43,13 +43,13 @@
                                         <small><i class="si si-calendar"></i> Today</small>
                                     </div>
                                     <div class="font-s12 font-w700">产品数</div>
-                                    <a class="h2 font-w300 text-primary" href="base_comp_charts.html" data-toggle="countTo" data-to="299" data-before="$">299</a>
+                                    <a class="h2 font-w300 text-primary" href="{:url('product/index')}" data-toggle="countTo" data-to="299" data-before="$">{$view_products}</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- END Stats -->
-<div class="row">
+                    <div class="row" style="display:none">
                         <div class="col-lg-8">
                             <!-- Main Dashboard Chart -->
                             <div class="block">

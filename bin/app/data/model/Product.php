@@ -11,6 +11,10 @@ class Product extends Model{
     protected $createTime = 'create_time';
     protected $updateTime = 'update_time';
 
+     static function get_counts(){
+        return parent::where('')->count();
+    }
+
        //文章内容
        public function content()
        {

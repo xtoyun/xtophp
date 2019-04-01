@@ -12,6 +12,10 @@ class Article extends Model {
     protected $createTime = 'create_time';
     protected $updateTime = 'update_time';
 
+    static function get_counts(){
+        return parent::where('')->count();
+    }
+
     public function getCreateTimeAttr($value)
     {
         return date("Y-m-d H:i:s" ,$value);
