@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50519
 File Encoding         : 65001
 
-Date: 2019-03-20 12:16:32
+Date: 2019-04-02 11:19:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,9 +25,11 @@ CREATE TABLE `xto_about` (
   `order` varchar(255) DEFAULT NULL,
   `key` varchar(255) DEFAULT NULL,
   `appid` int(11) DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
   `selfin` varchar(50) DEFAULT NULL,
   `nid` int(11) unsigned zerofill NOT NULL,
+  `update_time` int(11) DEFAULT NULL,
+  `create_time` int(11) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`abid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1056 DEFAULT CHARSET=utf8;
 
@@ -63,6 +65,8 @@ CREATE TABLE `xto_apps` (
   `host` varchar(255) DEFAULT NULL,
   `img` varchar(255) DEFAULT NULL,
   `userid` int(11) DEFAULT NULL,
+  `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`appid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
@@ -79,13 +83,8 @@ CREATE TABLE `xto_article` (
   `selfin` varchar(255) DEFAULT NULL,
   `nid` int(11) DEFAULT NULL,
   `f_name` varchar(255) DEFAULT NULL,
-  `f23` varchar(255) DEFAULT NULL,
-  `a1` varchar(255) DEFAULT NULL,
-  `a3` varchar(256) DEFAULT NULL,
-  `phone` varchar(255) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
+  `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`arid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
 
@@ -112,13 +111,13 @@ CREATE TABLE `xto_cmodel` (
   `name` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `tablename` varchar(255) DEFAULT NULL,
-  `createdate` datetime DEFAULT NULL,
   `default_theme` varchar(255) DEFAULT NULL,
   `category_template` varchar(255) DEFAULT NULL,
   `list_template` varchar(255) DEFAULT NULL,
   `show_template` varchar(255) DEFAULT NULL,
   `is_sys` bit(1) DEFAULT NULL,
   `controller` varchar(255) DEFAULT NULL,
+  `createdate` int(11) DEFAULT NULL,
   PRIMARY KEY (`mid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
@@ -146,12 +145,12 @@ CREATE TABLE `xto_content` (
   `keywords` varchar(255) DEFAULT NULL,
   `img1` varchar(255) DEFAULT NULL,
   `appid` int(11) DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
   `mgid` int(11) DEFAULT NULL,
   `author` varchar(255) DEFAULT NULL,
   `seein` int(11) DEFAULT NULL,
   `code` varchar(255) DEFAULT NULL,
+  `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`cid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1124 DEFAULT CHARSET=utf8;
 
@@ -169,8 +168,10 @@ CREATE TABLE `xto_fields` (
   `mid` int(11) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
   `appid` int(11) DEFAULT NULL,
+  `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`fid`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for xto_imgs
@@ -198,6 +199,8 @@ CREATE TABLE `xto_keyurl` (
   `title` varchar(255) DEFAULT NULL,
   `url` varchar(255) DEFAULT NULL,
   `appid` int(11) DEFAULT NULL,
+  `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`kid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
@@ -210,9 +213,9 @@ CREATE TABLE `xto_link` (
   `title` varchar(255) DEFAULT NULL,
   `url` varchar(255) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
-  `createdate` datetime DEFAULT NULL,
   `appid` int(11) DEFAULT NULL,
   `img` varchar(255) DEFAULT NULL,
+  `createdate` int(11) DEFAULT NULL,
   PRIMARY KEY (`lid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
@@ -224,12 +227,12 @@ CREATE TABLE `xto_logs` (
   `logid` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) DEFAULT NULL,
   `url` varchar(255) DEFAULT NULL,
-  `createdate` datetime DEFAULT NULL,
   `ip` varchar(255) DEFAULT NULL,
   `description` varchar(1000) DEFAULT NULL,
   `appid` int(11) DEFAULT NULL,
+  `createdate` int(11) DEFAULT NULL,
   PRIMARY KEY (`logid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2163 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2178 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for xto_managers
@@ -239,8 +242,8 @@ CREATE TABLE `xto_managers` (
   `userid` int(11) NOT NULL,
   `appid` int(11) DEFAULT NULL,
   `description` varchar(100) DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
+  `create_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`userid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -271,6 +274,8 @@ CREATE TABLE `xto_members` (
   `wechat` varchar(100) DEFAULT NULL,
   `alipay` varchar(100) DEFAULT NULL,
   `splittins` decimal(18,6) DEFAULT NULL,
+  `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`userid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -282,9 +287,9 @@ CREATE TABLE `xto_message_data` (
   `mid` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) DEFAULT NULL,
   `content` text,
-  `createdate` datetime DEFAULT NULL,
   `appid` int(11) DEFAULT NULL,
   `remsg` varchar(500) DEFAULT NULL,
+  `createdate` int(11) DEFAULT NULL,
   PRIMARY KEY (`mid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
@@ -299,7 +304,7 @@ CREATE TABLE `xto_messages` (
   `accepter` varchar(255) DEFAULT NULL,
   `isread` bit(1) DEFAULT NULL,
   `appid` int(11) DEFAULT NULL,
-  `updatetime` datetime DEFAULT NULL,
+  `updatetime` int(11) DEFAULT NULL,
   PRIMARY KEY (`mbid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
@@ -321,6 +326,8 @@ CREATE TABLE `xto_nav` (
   `nav_order` int(11) DEFAULT NULL,
   `style` varchar(255) DEFAULT NULL,
   `img` varchar(255) DEFAULT NULL,
+  `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`nid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
@@ -335,6 +342,8 @@ CREATE TABLE `xto_pays` (
   `paytype` varchar(50) DEFAULT NULL,
   `config` varchar(1000) DEFAULT NULL,
   `remark` varchar(500) DEFAULT NULL,
+  `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`payid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
@@ -346,13 +355,13 @@ CREATE TABLE `xto_points` (
   `pid` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
-  `tradedate` datetime DEFAULT NULL,
   `tradetype` smallint(6) DEFAULT NULL,
   `income` decimal(18,0) DEFAULT NULL,
   `expenses` decimal(18,0) DEFAULT NULL,
   `balance` decimal(18,0) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
   `appid` int(11) DEFAULT NULL,
+  `tradedate` int(11) DEFAULT NULL,
   PRIMARY KEY (`pid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
@@ -371,7 +380,8 @@ CREATE TABLE `xto_product` (
   `price` decimal(18,4) DEFAULT '0.0000' COMMENT '价格',
   `spec` varchar(255) DEFAULT '0' COMMENT '规格',
   `nid` int(11) DEFAULT '0' COMMENT '栏目',
-  `update_time` datetime DEFAULT NULL,
+  `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`pid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -399,6 +409,8 @@ CREATE TABLE `xto_relays` (
   `mgid` int(11) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
+  `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`rid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
@@ -412,8 +424,8 @@ CREATE TABLE `xto_relays_data` (
   `title` varchar(255) DEFAULT NULL,
   `img` varchar(255) DEFAULT NULL,
   `link` varchar(255) DEFAULT NULL,
-  `createdate` datetime DEFAULT NULL,
   `appid` int(11) DEFAULT NULL,
+  `createdate` int(11) DEFAULT NULL,
   PRIMARY KEY (`rdid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
@@ -437,6 +449,8 @@ CREATE TABLE `xto_roles` (
   `name` varchar(32) DEFAULT NULL,
   `description` varchar(100) DEFAULT NULL,
   `appid` int(11) DEFAULT NULL,
+  `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`roleid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
@@ -448,7 +462,6 @@ CREATE TABLE `xto_splittins` (
   `sid` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
-  `tradedate` datetime DEFAULT NULL,
   `tradetype` smallint(6) DEFAULT NULL,
   `fromuser` int(11) DEFAULT NULL,
   `income` decimal(18,4) DEFAULT NULL,
@@ -459,6 +472,7 @@ CREATE TABLE `xto_splittins` (
   `classid` int(11) DEFAULT NULL,
   `isuse` bit(1) DEFAULT NULL,
   `appid` int(11) DEFAULT NULL,
+  `tradedate` int(11) DEFAULT NULL,
   PRIMARY KEY (`sid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
 
@@ -478,25 +492,25 @@ CREATE TABLE `xto_users` (
   `password_answer` varchar(50) DEFAULT NULL,
   `is_approved` bit(1) DEFAULT NULL,
   `is_locked` bit(1) DEFAULT NULL,
-  `createdate` datetime DEFAULT NULL,
+  `createdate` int(11) DEFAULT NULL,
   `userrole` smallint(6) DEFAULT NULL,
   `funrole` smallint(6) DEFAULT NULL,
   `appid` int(11) DEFAULT NULL,
-  `last_login_date` datetime DEFAULT NULL,
-  `last_password_changeddate` datetime DEFAULT NULL,
-  `last_lockeddate` datetime DEFAULT NULL,
+  `last_login_date` int(11) DEFAULT NULL,
+  `last_password_changeddate` int(11) DEFAULT NULL,
+  `last_lockeddate` int(11) DEFAULT NULL,
   `failed_password_attemptcount` int(11) DEFAULT NULL,
   `comment` text,
   `gender` smallint(6) DEFAULT NULL,
   `birthdate` datetime DEFAULT NULL,
   `session_id` varchar(100) DEFAULT NULL,
   `token` varchar(100) DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
   `is_admin` bit(1) DEFAULT NULL,
   `headimg` varchar(255) DEFAULT NULL,
   `secret` varchar(255) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=289 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=295 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for xto_usersinroles
@@ -517,7 +531,6 @@ CREATE TABLE `xto_wallets` (
   `wid` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
-  `tradedate` datetime DEFAULT NULL,
   `tradetype` int(11) DEFAULT NULL,
   `income` decimal(20,6) NOT NULL,
   `expenses` decimal(20,6) DEFAULT NULL,
@@ -525,27 +538,23 @@ CREATE TABLE `xto_wallets` (
   `remark` varchar(255) DEFAULT NULL,
   `fromuser` int(11) DEFAULT NULL,
   `appid` int(11) DEFAULT NULL,
+  `tradedate` int(11) DEFAULT NULL,
   PRIMARY KEY (`wid`)
-) ENGINE=InnoDB AUTO_INCREMENT=385 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=386 DEFAULT CHARSET=utf8;
 
 DROP TRIGGER IF EXISTS `tr_point_insert`;
-DELIMITER ;;
 CREATE TRIGGER `tr_point_insert` AFTER INSERT ON `xto_points` FOR EACH ROW begin
 update xto_members set points = new.balance where userid = new.userid and appid=new.appid;
 end
-;;
-DELIMITER ;
+
+
 DROP TRIGGER IF EXISTS `tr_splittin_insert`;
-DELIMITER ;;
 CREATE TRIGGER `tr_splittin_insert` AFTER INSERT ON `xto_splittins` FOR EACH ROW begin
 update xto_members set splittins = new.balance where userid = new.userid and new.isuse=1 and appid=new.appid;
 end
-;;
-DELIMITER ;
+
+
 DROP TRIGGER IF EXISTS `tr_wallet_insert`;
-DELIMITER ;;
 CREATE TRIGGER `tr_wallet_insert` AFTER INSERT ON `xto_wallets` FOR EACH ROW begin
 update xto_members set wallets = new.balance where userid = new.userid and appid=new.appid;
 end
-;;
-DELIMITER ;
