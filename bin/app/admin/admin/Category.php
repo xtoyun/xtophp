@@ -6,7 +6,7 @@ use app\data\model\ArticleCategory as ArticleCategoryModel;
 class Category extends BaseController{
 
 	public function index(){ 
-		$list=ArticleCategoryModel::where(null)->order('cateid desc')->paginate(20); 
+		$list=ArticleCategoryModel::where('')->order('cateid desc')->paginate(20); 
  
 		return $this->template
 				->TableTemplate 

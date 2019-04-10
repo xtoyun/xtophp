@@ -23,7 +23,7 @@ class Config extends Model {
 				return $c;
 			} 
 		}
-		$result=self::where(null)->column('value','name');
+		$result=self::where('')->column('value','name');
 		Cache::set(self::$cache_name,$result,3600);
 		return $result;
 	}

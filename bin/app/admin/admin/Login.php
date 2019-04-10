@@ -3,6 +3,7 @@ namespace app\admin\admin;
 
 use app\common\lib\GeetestLib;
 use think\facade\Session; 
+use think\facade\Cache; 
 use app\data\model\Logs;
 
 use app\data\App;
@@ -29,6 +30,7 @@ class Login extends \think\Controller  {
 	}
 
 	public function logout(){
+        Cache::clear(); 
 		Session::set('access_token','');
 		$this->redirect("/admin.php/admin/login");
 	}
@@ -38,6 +40,7 @@ class Login extends \think\Controller  {
         $request=request();
         $OauthAuth = new OauthAuth();
         $result_token=$OauthAuth->accessToken($request);
+ 
          
         if ($result_token) { 
             Session::set('access_token',$result_token->getData()['access_token']);
@@ -48,9 +51,9 @@ class Login extends \think\Controller  {
 
 	public function login(){
 		//Session::clear();
-		if(!$this->check_geetest()){
-			return message('验证码不能为空',false);
-        }
+		// if(!$this->check_geetest()){
+		// 	return message('验证码不能为空',false);
+  //       }
 		$username=input('username');
 		$password=input('password');
 		$time=getdate();
@@ -59,6 +62,7 @@ class Login extends \think\Controller  {
 			return message('用户名不能为空',false);
 		} 
 		$result=$user->validateUser($password);
+
 		if ($result->success) {
             $userid=$user->userid;
             $password=$user->password; 

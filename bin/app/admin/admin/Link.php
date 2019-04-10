@@ -7,7 +7,7 @@ class Link extends BaseController{
  
 
 	public function index(){
-		$list = LinkModel::where(null)->order('lid desc')->paginate(5);
+		$list = LinkModel::where('')->order('lid desc')->paginate(5);
 
 		return $this->template
 				->TableTemplate 

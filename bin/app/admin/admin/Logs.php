@@ -34,4 +34,14 @@ class Logs extends BaseController{
 				])
 				->fetch();
 	}
+
+	public function delete_post(){
+		$logid=input('logid');
+		$info=LogsModel::find($logid);
+		if ($info) {
+			$info->delete();
+			return message('删除成功',trye);
+		}
+		return message('删除失败',false);
+	}
 }

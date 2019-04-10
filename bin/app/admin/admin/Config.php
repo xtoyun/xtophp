@@ -24,17 +24,20 @@ class Config extends BaseController
 
 	public function config_post(){
 		if(request()->ispost()){  
+ 
 			$t=request(); 
 			foreach ($t->param() as $key => $value) {
 				$config=ConfigModel::where('name',$key)->find();
 				if ($config) {
 					$config->name=$key;
 					$config->value=$value;
+					$config->appid=appid();
 					$result=$config->save();
 				}else{
 					ConfigModel::create([
 					    'name'  =>  $key,
-					    'value' =>  $value
+					    'value' =>  $value,
+					    'appid'=>appid()
 					]);
 				}
 				

@@ -63,19 +63,17 @@ class Article extends Model {
 
     //用来分页查询数据源
     static function selectpage($pagesize,$where=null,$order=null,$field='*'){
-        $result = Db::view('Article',$field)
-            ->view('Content','*','Article.cid=Content.cid') 
-            ->view('ArticleCategory','*','ArticleCategory.cateid=Article.cateid')
-            ->view('Nav','title as n_title','Nav.nid=Article.nid') 
-            ->order($order)
-            ->where($where)
-            ->withAttr('update_time', function($value, $data) {
-                return date("Y-m-d H:i:s" ,$value);
-            })
-             ->withAttr('create_time', function($value, $data) {
-                return date("Y-m-d H:i:s" ,$value);
-            })
-            ->paginate($pagesize);
+        $result= parent::view('Article',"*",$where,$order,[
+                                ['Content','*','Article.cid=Content.cid'],
+                                ['ArticleCategory','*','ArticleCategory.cateid=Article.cateid'],
+                                ['Nav','title as n_title','Nav.nid=Article.nid']
+                            ])->withAttr('update_time', function($value, $data) {
+                                return date("Y-m-d H:i:s" ,$value);
+                            })
+                             ->withAttr('create_time', function($value, $data) {
+                                return date("Y-m-d H:i:s" ,$value);
+                            })
+                            ->paginate($pagesize);
         return $result;
     }
 }

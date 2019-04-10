@@ -239,7 +239,7 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
      * @return Query
      */
     protected function buildQuery()
-    {
+    { 
         // 设置当前模型 确保查询返回模型对象
         $query = Db::connect($this->connection, false, $this->query);
         $query->model($this)
@@ -283,11 +283,13 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
      */
     public function db($useBaseQuery = true)
     {
+
         if ($this->queryInstance) {
             return $this->queryInstance;
         }
 
         $query = $this->buildQuery();
+
 
         // 软删除
         if (property_exists($this, 'withTrashed') && !$this->withTrashed) {
@@ -1064,8 +1066,9 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
     }
 
     public static function __callStatic($method, $args)
-    {
+    {  
         $model = new static();
+
 
         return call_user_func_array([$model->db(), $method], $args);
     }

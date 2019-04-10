@@ -90,7 +90,9 @@ class OauthAuth extends OAuth
             return [
                   'client_id' => $client_id,//app_id
                   'secret' => $user->password,
-                  'name' => $user->username 
+                  'name' => $user->username,
+                  'appid'=>$user->appid,
+                  'is_plat'=>$user->is_plat
             ];
         } 
         return null;

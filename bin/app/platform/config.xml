@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<item name="app_open" title="站点开关" type="switch" tips="" sort="1" attr="action:/admin.php/admin/setting/config_swift_post" tab="basic" group="基本">false</item>
+	 
+</config>

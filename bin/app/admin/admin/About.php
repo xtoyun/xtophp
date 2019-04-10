@@ -8,7 +8,7 @@ use app\data\model\Content as ContentModel;
 class About extends BaseController{
 
 		public function index(){ 
-		$list = AboutModel::selectpage(15,'','abid desc'); 
+		$list = AboutModel::selectpage(15,null,'abid desc'); 
  
 		return $this->template
 				->TableTemplate 

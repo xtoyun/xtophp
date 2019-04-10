@@ -50,16 +50,19 @@ class Product extends Model{
         return parent::save($data,$where,$sequence);
        }
 
-       // 用来分页查询数据源
-       // static function selectpage($pagesize,$where=null,$order=null,$field='*'){
-       //  $result = Db::view('WebProduct',$field)
-       //      ->view('WebContent','*','WebProduct.cid=WebContent.cid')
-       //      ->view('WebProductCategory','*','WebProductCategory.cateid=WebProduct.cateid')
-       //      ->order($order)
-       //      ->where($where)
-       //      ->paginate($pagesize);
-       //  return $result;
-       // }
+       //用来分页查询数据源
+       static function selectpage($pagesize,$where=null,$order=null,$field='*'){
+          if (!isset($where['appid']) || is_null($where['appid'])) {
+              $where['Product.appid']=appid();
+          } 
+          $result = Db::view('Product',$field)
+              ->view('Content','*','Product.cid=Content.cid')
+              ->view('ProductCategory','*','ProductCategory.cateid=Product.cateid')
+              ->order($order)
+              ->where($where)
+              ->paginate($pagesize);
+          return $result;
+       }
 	
 	// public function parent()
  //    { 

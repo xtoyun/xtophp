@@ -28,6 +28,9 @@ class Members extends Model {
     }
 
     static function selectpage($pagesize,$where=null,$order=null,$field='*'){
+    	if (!isset($where['appid']) || is_null($where['appid'])) {
+            $where['Members.appid']=appid();
+        } 
     	$result = Db::view('Members',$field)
 			->view('Users','username,is_approved,is_locked,createdate,funrole,email,last_login_date,is_admin','Users.userid=Members.userid') 
 			->withAttr('createdate', function($value, $data) {
@@ -49,16 +52,35 @@ class Members extends Model {
 		return $user;
 	}
 
-	public function createUser($user){
-		$result=$user->createuser(); 
-		if(!empty($result)&& $result->success){
+	public function createmember($data = [], $where = [], $sequence = NULL){
+		//先写入用户表
+		$user=new Users;
+		$user->username=$this->username;
+		$user->password=$this->password;
+		$user->is_plat=0;
+		$user->appid=appid();
+		$user->is_admin=0;
+		$user->is_approved=isset($this->is_approved)?$this->is_approved:true; 
+		$result=$user->save();
+
+		if($result->success){
 			$this->userid=$user->userid;
-			if($this->save()){
-				return message('添加成功',true,1,1);
-			}
-		} 
+			$this->appid=appid();
+			parent::save($data,$where,$sequence);
+		}
 		return $result;
 	}
+
+	// public function createUser($user){
+	// 	$result=$user->createuser(); 
+	// 	if(!empty($result)&& $result->success){
+	// 		$this->userid=$user->userid;
+	// 		if($this->save()){
+	// 			return message('添加成功',true,1,1);
+	// 		}
+	// 	} 
+	// 	return $result;
+	// }
 
 	public function changeSafePassword($password){
 		$newpwd=md5($password.config('encrystr'));
@@ -70,7 +92,7 @@ class Members extends Model {
 		return self::update($data);
 	}
 
-	public function createMember($data=null){
+	public function change_trade_pwd($data=null){
 		$pwd=$this->trade_password;
 		if(!empty($this->trade_password_format)){
 			switch ($this->trade_password_format) {
@@ -93,11 +115,11 @@ class Members extends Model {
 		$userid=empty($userid)?0:$userid;
 		return Db::view('Members','refer_userid,refer_username,mobile')
 			->view('Users','username as b_username,userid','Users.userid=Members.userid') 
-			->where("ifnull(refer_userid,0)=$userid")
+			->where("ifnull(refer_userid,0)=$userid and Members.appid=".appid())
 			->select(); 
 	}
 
 	static function get_refer_count($userid){
-		return parent::where("ifnull(refer_userid,0)=$userid")->count();
+		return parent::where("ifnull(refer_userid,0)=$userid and appid=".appid())->count();
 	}
 }

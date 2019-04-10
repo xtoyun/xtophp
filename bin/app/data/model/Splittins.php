@@ -29,6 +29,9 @@ class Splittins extends Model{
 	}
 
 	static function selectpage($pagesize,$where=null,$order=null,$field='*'){
+		if (!isset($where['appid']) || is_null($where['appid'])) {
+            $where['Splittins.appid']=appid();
+        } 
     	$result = Db::view('Splittins',$field) 
 			->order($order)
 			->where($where) 

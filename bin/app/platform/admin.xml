@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu>  
+	<item title='站点管理' class="si-users" url='/platform/siteapp/index'>
+		<pagelink title='站点查询' url='/platform/siteapp/index' c='siteapp'></pagelink> 
+		<pagelink title='添加站点' url='/platform/siteapp/create' c='siteapp'></pagelink>
+	</item>
+</menu>

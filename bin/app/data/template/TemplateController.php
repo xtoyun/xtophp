@@ -13,7 +13,7 @@ namespace app\data\template;
 
 
 //use xto\App; 
-use app\data\template\IModule;
+use app\data\IModule;
 use app\data\template\Template;
 use think\Controller;
 use think\Request;
@@ -51,12 +51,14 @@ class TemplateController extends Controller{
         
         $this->module=IModule::current(); //当前模块信息
 
+
         //$this->context=Context::current();//页面上下文信息
         //$this->config=$this->cdao->getConfigs(true);
         
         $this->assign('m',strtolower($this->m));
         $this->assign('c',strtolower($this->c));
         $this->assign('a',strtolower($this->a));
+
       
         $this->assign('viewurl',$this->module->viewurl);//当前模块首页 
         $this->assign('layout',$this->layout);//指定母版页面 
@@ -70,6 +72,7 @@ class TemplateController extends Controller{
         $this->assign('tablelayout',$this->getTableLayout());
         $this->assign('showlayout',$this->getShowLayout());
         $this->assign('theme',$this->getTheme());
+ 
     } 
 
     //重写fetch

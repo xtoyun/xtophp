@@ -13,6 +13,7 @@ use app\data\model\Product as ProductModel;
 
 class Index extends BaseController{
 	public function index(){ 
+ 
  		$this->assign('view_members',MembersModel::getcount());
  		$this->assign('view_login_time',UsersModel::get_login_count());
  		$this->assign('view_articles',ArticleModel::get_counts());

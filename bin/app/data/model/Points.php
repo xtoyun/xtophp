@@ -29,6 +29,9 @@ class Points extends Model{
 	}
 
 	static function selectpage($pagesize,$where=null,$order=null,$field='*'){
+		if (!isset($where['appid']) || is_null($where['appid'])) {
+            $where['Points.appid']=appid();
+        } 
     	$result = Db::view('Points',$field) 
 			->order($order)
 			->where($where) 

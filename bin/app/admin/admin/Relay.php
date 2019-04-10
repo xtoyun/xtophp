@@ -7,7 +7,7 @@ use app\data\model\RelaysData as RelayDataModel;
 class Relay extends BaseController{
 
 	public function index(){
-		$list = RelaysModel::where(null)->order('rid desc')->paginate(5);
+		$list = RelaysModel::where('')->order('rid desc')->paginate(5);
 
 		return $this->template
 				->TableTemplate 

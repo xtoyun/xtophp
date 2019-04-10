@@ -215,7 +215,7 @@ abstract class IModule{
 		$auth=Users::getauth();
 		if($auth){
 			$user=Users::getuser($auth->client_id);
-		} 
+		}  
 
 		$funs=[];
 		if ($user) {

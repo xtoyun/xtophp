@@ -13,7 +13,7 @@ class Pcategory extends BaseController{
 	// }
 
 	public function index(){ 
-		$list=ProductCategoryModel::where(null)->order('cateid desc')->paginate(10);
+		$list=ProductCategoryModel::where("")->order('cateid desc')->paginate(10);
 
 		return $this->template
 				->TableTemplate 

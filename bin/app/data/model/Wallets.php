@@ -27,13 +27,23 @@ class Wallets extends Model{
 	}
 
 	static function selectpage($pagesize,$where=null,$order=null,$field='*'){
-    	$result = Db::view('Wallets',$field) 
-			->order($order)
-			->where($where) 
-			->withAttr('tradedate', function($value, $data) {
-				return date("Y-m-d H:i:s" ,$value);
-			}) 
-		    ->paginate($pagesize);
-		return $result; 
+		 $result= parent::view('Wallets',"*",$where,$order)->withAttr('tradedate', function($value, $data) {
+                                return date("Y-m-d H:i:s" ,$value);
+                            }) 
+                            ->paginate($pagesize);
+        return $result;
+
+		// if (!isset($where['appid']) || is_null($where['appid'])) {
+  //           $where['Wallets.appid']=appid();
+  //       } 
+        
+  //   	$result = Db::view('Wallets',$field) 
+		// 	->order($order)
+		// 	->where($where) 
+		// 	->withAttr('tradedate', function($value, $data) {
+		// 		return date("Y-m-d H:i:s" ,$value);
+		// 	}) 
+		//     ->paginate($pagesize);
+		// return $result; 
 	} 
 }

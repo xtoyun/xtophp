@@ -59,7 +59,12 @@ if (!function_exists('fdate')) {
 
 if (!function_exists('appid')) {
     function appid(){
-        return App::appid();
+        $auth=\app\data\membership\Users::getauth();
+ 
+        if ($auth) {
+          return $auth->appid;
+        }
+        return 10000;
     }
 }
 if (!function_exists('gourl')) {

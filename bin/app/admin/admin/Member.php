@@ -131,32 +131,28 @@ class Member extends BaseController{
 			$nickname=input('nickname');
 			$email=input('email');
 			
-			
-			$user->username 	= $username;
-			$user->password 	= $loginpwd; 
-			$user->email 		= $email; 
-			$user->is_approved	= true;
-			$user->nickname 	= $nickname;
-
-			$result=$user->createuser(); 
-			if($result->success){
-				$member=new Members();
-				if(!empty($tusername)){
-					$tuser=Users::getuser(0,$tusername);
-					if(!empty($tuser)){
-						$member->refer_userid=$tuser->userid;
-						$member->refer_username=$tuser->username;
-					}
-				} 
-				$member->points=0;
-				$member->splittins=0;
-				$member->wallets=0;
-				$member->trade_password=$safepwd;
-				$member->userid=$user->userid; 
-				$member->createMember();
-				return message('保存成功',true);
+			 
+			$member=new Members();
+			if(!empty($tusername)){
+				$tuser=Users::getuser(0,$tusername);
+				if(!empty($tuser)){
+					$member->refer_userid=$tuser->userid;
+					$member->refer_username=$tuser->username;
+				}
 			} 
-
+			$member->username 	= $username;
+			$member->password 	= $loginpwd; 
+			$member->email 		= $email; 
+			$member->is_approved	= true;
+			$member->nickname 	= $nickname;
+			$member->points=0;
+			$member->splittins=0;
+			$member->wallets=0;
+			$member->trade_password=$safepwd; 
+			$result=$member->createmember();
+			if ($result->success) {
+				return message($result->msg,true);
+			} 
 			return message($result->msg,false);
 		}
 	}

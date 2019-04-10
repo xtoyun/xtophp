@@ -68,7 +68,8 @@ class Users extends Model {
     	$result = Db::view('Usersinroles','*')
 			->view('Rolefunction','*','Usersinroles.roleid=Rolefunction.roleid') 
 			->where([
-				'userid'=>$this->userid
+				'userid'=>$this->userid,
+				'Usersinroles.appid'=>appid()
 			])
 			->select();
 		return $result;
@@ -108,15 +109,18 @@ class Users extends Model {
 						$newpwd=md5($password.$this->salt.config('encrystr'));
 						break;
 				}  
-		    	if($newpwd==$this->password){
-		    		$this->last_login_date=time();
-		    		$this->save(); 
+
+		    	if($newpwd==$this->password){ 
+
+		    		parent::where('userid='.$this->userid,false)
+		    		          ->update(['last_login_date'=>time()]);
 		    		return message('登录成功',true,1,1);
 		    	}
 			}
 		} 
-		$this->failed_password_attemptcount=(empty($this->failed_password_attemptcount)?0:$this->failed_password_attemptcount)+1;
-		$this->save();
+
+		$c=(empty($this->failed_password_attemptcount)?0:$this->failed_password_attemptcount)+1;
+		parent::where('userid='.$this->userid,false)->update(['failed_password_attemptcount'=>$c]);
 		return message('登录失败',false,-1,1);
 	} 
 
@@ -134,7 +138,7 @@ class Users extends Model {
 		return $this->delete(); 
 	}
 
-	public function createuser($data=null){
+	public function save($data = [], $where = [], $sequence = NULL){
 		if(empty($this->username)){
 			return message('用户不能为空',false,-10,1);
 		}
@@ -149,6 +153,7 @@ class Users extends Model {
 		$this->wallets=0;
 		$this->points=0;
 		$this->is_locked=0;
+		$this->is_plat=(empty($this->is_plat)?0:$this->is_plat);
 		$this->password_format=empty($this->password_format)?'md5':$this->password_format;
 		
 		if(!empty($this->password_format)){
@@ -161,7 +166,7 @@ class Users extends Model {
 			} 
 		} 
 		$this->password=$pwd;
-		if($this->save($data)){
+		if(parent::save($data,$where,$sequence)){
 			//加入角色
 			if(!empty($this->userrole)){
 				$userinrole=new Usersinroles;
@@ -175,6 +180,47 @@ class Users extends Model {
 		return message('未知错误',false,0,1);
 	}
 
+	// public function createuser($data=null){
+	// 	if(empty($this->username)){
+	// 		return message('用户不能为空',false,-10,1);
+	// 	}
+	// 	if(empty($this->password)){
+	// 		return message('密码不能为空',false,-20,1);
+	// 	}
+	// 	if(!empty($this->where(['username'=>$this->username])->find())){
+	// 		return message('用户名重复',false,-30,1);
+	// 	}
+	// 	$this->salt=uniqid();
+	// 	$this->createdate=fdate();
+	// 	$this->wallets=0;
+	// 	$this->points=0;
+	// 	$this->is_locked=0;
+	// 	$this->password_format=empty($this->password_format)?'md5':$this->password_format;
+		
+	// 	if(!empty($this->password_format)){
+	// 		switch ($this->password_format) {
+	// 			case 'md5':
+	// 				$pwd=md5($this->password.$this->salt.config('encrystr'));
+	// 			default:
+	// 				$pwd=md5($this->password.$this->salt.config('encrystr'));
+					
+	// 		} 
+	// 	} 
+	// 	$this->password=$pwd;
+	// 	if($this->save($data)){
+	// 		//加入角色
+	// 		if(!empty($this->userrole)){
+	// 			$userinrole=new Usersinroles;
+	// 			$userinrole->userid=$this->userid;
+	// 			$userinrole->roleid=$this->userrole;
+	// 			$userinrole->save();
+	// 		}
+			
+	// 		return message('添加成功',true,1,1);
+	// 	}
+	// 	return message('未知错误',false,0,1);
+	// }
+
     public function changeLoginPassword($password){
     	$newpwd=md5($password.$this->salt.config('encrystr'));
     	$data = ['userid'=>$this->userid,
@@ -183,13 +229,13 @@ class Users extends Model {
 	}
 
 	static function getuser($userid,$username='',$mobilein='',$iscache=true){
-		$appid=appid();//全局appid
+		//$appid=appid();//全局appid
 		$result=null;//返回结果
 		$hashtable = Users::userCache(); //读取hasttable和数组功能一样，只是键值的关系，便于管理和性能
-		$key = Users::UserKey($username."_".$appid);//读取会员名的缓存key
+		$key = Users::UserKey($username);//读取会员名的缓存key
 		 
 		if($userid>0){
-			$key = Users::UserKey($userid."_".$appid);//如果用户名为空，则以userid缓存key
+			$key = Users::UserKey($userid);//如果用户名为空，则以userid缓存key
 		}
 		//是否读取缓存用户
 		if ($iscache) { 
@@ -200,22 +246,22 @@ class Users extends Model {
 		}
 
 		if($userid>0){
-			$result=Users::where(['userid'=>$userid])->find();
+			$result=Users::where(['userid'=>$userid],false)->find();
 		}
 		if(!empty($username)){
-			$result=Users::where(['username'=>$username])->find();
+			$result=Users::where(['username'=>$username],false)->find();
 		}
 		if(!empty($mobilein)){
-			$result=Users::where(['mobilein'=>$mobilein])->find();
+			$result=Users::where(['mobilein'=>$mobilein],false)->find();
 		}
 		if(!is_null($result)){
 			//读取会员或管理员的扩展信息
 			if($iscache){
-				$hashtable->remove(Users::UserKey($result->userid."_".$appid));
-				$hashtable->remove(Users::UserKey($result->username."_".$appid));
+				$hashtable->remove(Users::UserKey($result->userid));
+				$hashtable->remove(Users::UserKey($result->username));
 				//写入缓存
-				$hashtable->insert(Users::UserKey($result->userid."_".$appid),$result); 
-				$hashtable->insert(Users::UserKey($result->username."_".$appid),$result);  
+				$hashtable->insert(Users::UserKey($result->userid),$result); 
+				$hashtable->insert(Users::UserKey($result->username),$result);  
 				Cache::set('DataCache-UserLookuptable',$hashtable,3600);
 			}   
 		} 

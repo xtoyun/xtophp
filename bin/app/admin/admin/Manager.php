@@ -156,7 +156,7 @@ class Manager extends BaseController{
 				}
 			} 
 
-			$user=new Users();
+			$user=new Managers();
 			$user->username 	= $username;
 			$user->password 	= $password;
 			$user->email 		= $email;
@@ -165,15 +165,13 @@ class Manager extends BaseController{
 			$user->is_admin 	= $is_admin;
 			$user->funrole 		= $roleid;
 			$user->userrole 	= $roleid;
-			$result=$user->createuser();
+			$user->description='管理员';
+			$result=$user->create_manager();
 			
-			if($result->success){
-				$manager=new Managers();
-				$manager->userid=$user->userid;
-				$manager->description='管理员';
-				$manager->save();
+			if($result->success){ 
 				return message('保存成功',true);
 			} 
+			return message('保存失败',false);
 		}
 	}
 

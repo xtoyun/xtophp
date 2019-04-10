@@ -6,7 +6,7 @@ use app\data\model\Keyurl as KeyurlModel;
 class Keyword extends BaseController{
  
 	public function index(){
-		$list = KeyurlModel::where(null)->order('kid desc')->paginate(10);
+		$list = KeyurlModel::where('')->order('kid desc')->paginate(10);
 
 		return $this->template
 				->TableTemplate 

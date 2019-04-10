@@ -29,20 +29,19 @@ class Setting extends BaseController
 
 	public function config_post(){
 		if(request()->ispost()){  
-			$t=request(); 
+			$t=request();  
 			foreach ($t->param() as $key => $value) {
-				$config=ConfigModel::where('name',$key)->find();
-				if ($config) {
-					$config->name=$key;
-					$config->value=$value;
-					$result=$config->save();
-				}else{
-					ConfigModel::create([
-					    'name'  =>  $key,
-					    'value' =>  $value
-					]);
+	 
+				$config=ConfigModel::where([
+					'name'=>$key
+				])->find();
+				if (empty($config)) {
+					$config=new ConfigModel();
 				}
-				
+				$config->name=$key;
+				$config->value=$value;
+				$config->appid=appid();
+				$result=$config->save();
 			}
 			return message('更新成功',true);
 		}

@@ -34,6 +34,9 @@ class About extends Model{
 
     //用来分页查询数据源
     static function selectpage($pagesize,$where=null,$order=null,$field='*'){
+        if (!isset($where['appid']) || empty($where['appid'])) {
+            $where['About.appid']=appid();
+        } 
         $result = Db::view('About',$field)
             ->view('Content','*','About.cid=Content.cid') 
              ->view('Nav','title as n_title','Nav.nid=About.nid')  
