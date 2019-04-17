@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50519
 File Encoding         : 65001
 
-Date: 2019-04-02 11:19:52
+Date: 2019-04-10 17:04:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -65,10 +65,11 @@ CREATE TABLE `xto_apps` (
   `host` varchar(255) DEFAULT NULL,
   `img` varchar(255) DEFAULT NULL,
   `userid` int(11) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
   `create_time` int(11) DEFAULT NULL,
   `update_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`appid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10001 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for xto_article
@@ -232,7 +233,7 @@ CREATE TABLE `xto_logs` (
   `appid` int(11) DEFAULT NULL,
   `createdate` int(11) DEFAULT NULL,
   PRIMARY KEY (`logid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2178 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2214 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for xto_managers
@@ -509,8 +510,9 @@ CREATE TABLE `xto_users` (
   `headimg` varchar(255) DEFAULT NULL,
   `secret` varchar(255) DEFAULT NULL,
   `update_time` int(11) DEFAULT NULL,
+  `is_plat` bit(1) DEFAULT NULL,
   PRIMARY KEY (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=295 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=100000 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for xto_usersinroles
@@ -541,20 +543,24 @@ CREATE TABLE `xto_wallets` (
   `tradedate` int(11) DEFAULT NULL,
   PRIMARY KEY (`wid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=386 DEFAULT CHARSET=utf8;
-
 DROP TRIGGER IF EXISTS `tr_point_insert`;
+DELIMITER ;;
 CREATE TRIGGER `tr_point_insert` AFTER INSERT ON `xto_points` FOR EACH ROW begin
 update xto_members set points = new.balance where userid = new.userid and appid=new.appid;
 end
-
-
+;;
+DELIMITER ;
 DROP TRIGGER IF EXISTS `tr_splittin_insert`;
+DELIMITER ;;
 CREATE TRIGGER `tr_splittin_insert` AFTER INSERT ON `xto_splittins` FOR EACH ROW begin
 update xto_members set splittins = new.balance where userid = new.userid and new.isuse=1 and appid=new.appid;
 end
-
-
+;;
+DELIMITER ;
 DROP TRIGGER IF EXISTS `tr_wallet_insert`;
+DELIMITER ;;
 CREATE TRIGGER `tr_wallet_insert` AFTER INSERT ON `xto_wallets` FOR EACH ROW begin
 update xto_members set wallets = new.balance where userid = new.userid and appid=new.appid;
 end
+;;
+DELIMITER ;

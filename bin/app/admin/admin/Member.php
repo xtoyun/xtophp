@@ -15,6 +15,8 @@ class Member extends BaseController{
 			];
 		}   
 		$result=Members::selectpage(20,$where,'userid desc');//读取数据
+
+		
 		return $this->template
 				->TableTemplate 
 				->setData('modulename','基础管理')
@@ -37,7 +39,8 @@ class Member extends BaseController{
 	                ['points', '积分'], 
 	                ['wallets', '钱包'],
 	                ['realname', '姓名'],
-	                ['createdate', '创建日期'],
+	                ['create_time', '创建日期','time'],
+	                ['update_time', '更新日期','time'],
 	                ['is_approved','审核','bool'],
 	                ['button', '操作', 'btn']
 				])

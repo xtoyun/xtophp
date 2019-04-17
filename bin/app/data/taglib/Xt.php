@@ -34,7 +34,7 @@ class Xt extends TagLib{
         $parse .= '{volist name="'.$name.'" id="' . $id . '"}';
         $parse .= $content;
         $parse .= '{/volist}';                      
-        return $parse;
+        return $parse; 
     }  
 
     public function tagFind($tag, $content)

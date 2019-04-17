@@ -65,14 +65,9 @@ class Users extends Model {
     }
 
     public function functions(){
-    	$result = Db::view('Usersinroles','*')
-			->view('Rolefunction','*','Usersinroles.roleid=Rolefunction.roleid') 
-			->where([
-				'userid'=>$this->userid,
-				'Usersinroles.appid'=>appid()
-			])
-			->select();
-		return $result;
+    	return Usersinroles::alias('a')->field('*')->where('userid='.$this->userid)
+    			->join('Rolefunction b','b.roleid=a.roleid')
+    			->select();
     }
 
     public function addRoles($roles=[]){
@@ -180,47 +175,6 @@ class Users extends Model {
 		return message('未知错误',false,0,1);
 	}
 
-	// public function createuser($data=null){
-	// 	if(empty($this->username)){
-	// 		return message('用户不能为空',false,-10,1);
-	// 	}
-	// 	if(empty($this->password)){
-	// 		return message('密码不能为空',false,-20,1);
-	// 	}
-	// 	if(!empty($this->where(['username'=>$this->username])->find())){
-	// 		return message('用户名重复',false,-30,1);
-	// 	}
-	// 	$this->salt=uniqid();
-	// 	$this->createdate=fdate();
-	// 	$this->wallets=0;
-	// 	$this->points=0;
-	// 	$this->is_locked=0;
-	// 	$this->password_format=empty($this->password_format)?'md5':$this->password_format;
-		
-	// 	if(!empty($this->password_format)){
-	// 		switch ($this->password_format) {
-	// 			case 'md5':
-	// 				$pwd=md5($this->password.$this->salt.config('encrystr'));
-	// 			default:
-	// 				$pwd=md5($this->password.$this->salt.config('encrystr'));
-					
-	// 		} 
-	// 	} 
-	// 	$this->password=$pwd;
-	// 	if($this->save($data)){
-	// 		//加入角色
-	// 		if(!empty($this->userrole)){
-	// 			$userinrole=new Usersinroles;
-	// 			$userinrole->userid=$this->userid;
-	// 			$userinrole->roleid=$this->userrole;
-	// 			$userinrole->save();
-	// 		}
-			
-	// 		return message('添加成功',true,1,1);
-	// 	}
-	// 	return message('未知错误',false,0,1);
-	// }
-
     public function changeLoginPassword($password){
     	$newpwd=md5($password.$this->salt.config('encrystr'));
     	$data = ['userid'=>$this->userid,
@@ -246,13 +200,13 @@ class Users extends Model {
 		}
 
 		if($userid>0){
-			$result=Users::where(['userid'=>$userid],false)->find();
+			$result=Users::overall(false)->where(['userid'=>$userid],false)->find();
 		}
 		if(!empty($username)){
-			$result=Users::where(['username'=>$username],false)->find();
+			$result=Users::overall(false)->where(['username'=>$username],false)->find();
 		}
 		if(!empty($mobilein)){
-			$result=Users::where(['mobilein'=>$mobilein],false)->find();
+			$result=Users::overall(false)->where(['mobilein'=>$mobilein],false)->find();
 		}
 		if(!is_null($result)){
 			//读取会员或管理员的扩展信息

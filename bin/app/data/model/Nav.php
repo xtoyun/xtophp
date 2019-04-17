@@ -10,7 +10,12 @@ class Nav extends Model{
 	public function cmodel()
     { 
         return $this->hasOne('Cmodel','mid','model_id');
+        //return Cmodel::overall(false)->find($this->model_id);
     } 
+
+    public function smodel(){
+        return Cmodel::overall(false)->find($this->model_id);
+    }
  
     static function getlist($name){
         return parent::hasWhere('cmodel')->where('name',$name)->select(); 

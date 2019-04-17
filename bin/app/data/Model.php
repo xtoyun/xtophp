@@ -5,79 +5,39 @@ namespace app\data;
 use think\Db;
 
 abstract class Model extends \think\Model{ 
+
+    //是否启用全局查询
+    private $is_over=true;
  
+    /**
+     * 默认分页查询
+     * @param 页数 $pagesize
+     * @param 查询条件 $where
+     * @param 排序 $order
+     * @param 字段 $field
+     */
 	static function selectpage($pagesize,$where=null,$order=null,$field='*'){
-        $result= self::view('',$field,$where,$order)->paginate($pagesize);
-        return $result;
+        return parent::where($where)->order($order)->field($field)->paginate($pagesize);
 	} 
 
-    static function view($table='',$field="*",$where='',$order='',$joins=[]){
+    /**
+     * 是否开启全局查询
+     * @param (true|false) $is_over
+     */
+    static function Overall($is_over=true){
         $instance=new static(); 
-        $where=$instance->getc($where); 
-        if (empty($table)) {
-            $table=$instance->name;
-         } 
-    
-        $g=Db::view($table,$field)->order($order)->where($where);
-        foreach ($joins as $key => $value) {
-            $g->view($value[0],$value[1],$value[2]); 
-        } 
-        return $g;
-    }
-
-    public function save($data = [], $where = [], $sequence = NULL){
-    	return parent::save($data,$where,$sequence);
-    }
-
-    public function getc($where,$table=''){
-        if (empty($table)) {
-            $table=$this->getTable();
-        }
-        switch (gettype($where)) {
-           case 'string':
-                if(empty($where)){
-                    $where = $table.'.appid='.appid();
-                }else{
-                    $where .= " and $table.appid=".appid();
-                }
-               
-               break;
-           case 'array':
-               if (!isset($where['appid']) || is_null($where['appid'])) {
-                    $where["$table.appid"]=appid();
-                } 
-               break;
-           default:
-               # code...
-               break;
-       }
-       return $where;
-    }
-
-    // static function find($id=null){ 
-    //     return self::where('')->find($id);
-    // }
-
-    // static function get($id=null){
-    //     return self::where('')->get($id);
-    // }
-
-    static function where($where=[],$is_bin=true){
-        if ($is_bin) {
-          $instance=new static(); 
-          $where=$instance->getc($where); 
-        }
-       return parent::where($where);
-    }  
+        $instance->is_over=$is_over;
+        return $instance;
+    } 
  
- 
-
-    public function saveorupdate($id,$data){
-        $isupdate=false;
-        if (self::find($id)) {
-           $isupdate=true;
+     /**
+     * 定义全局的查询范围
+     * @param \think\db\Query $query
+     */
+    protected function base($query)
+    { 
+        if ($this->is_over) {
+            $query->where($query->getTable() . '.appid', appid());
         }
-       return $this->isUpdate($isupdate)
-        ->save($data);
     }
 }

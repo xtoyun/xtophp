@@ -163,10 +163,10 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
         $newPassword = md5($adminPassword.$salt.$c);
         
 
-        $pdo->query("INSERT xto_users(username,email,password,salt,is_admin,is_approved,appid) values('{$adminUsername}', '{$adminEmail}','{$newPassword}','{$salt}',1,1,0)");
+        $pdo->query("INSERT xto_users(username,email,password,salt,is_admin,is_approved,appid,is_plat) values('{$adminUsername}', '{$adminEmail}','{$newPassword}','{$salt}',1,1,10000,1)");
         
         $newID = $pdo->lastInsertId();
-        $pdo->query("INSERT xto_managers(userid,appid) values({$newID},0)");
+        $pdo->query("INSERT xto_managers(userid,appid) values({$newID},10000)");
 
        //检测能否成功写入lock文件
         $result = @file_put_contents($lockFile, 1);

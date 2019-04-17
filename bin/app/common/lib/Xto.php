@@ -67,7 +67,7 @@ class Xto extends TagLib{
         $parse .= '$dao=' . $dao . '::instance();'; // 
         if(!empty($where)){
             $parse .= '$dao->map="'.$where.'";';
-        }   
+        }    
         if(!empty($order)){
             $parse .= '$dao->order="'.$order.'";';
         }

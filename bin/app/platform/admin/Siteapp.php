@@ -7,10 +7,10 @@ use app\data\membership\Users;
 
 class Siteapp extends Base{
 	public function index(){  
-		$list = AppModel::where(null)->order('appid asc')->paginate(10);
+		$list = AppModel::Overall(false)->order('appid asc')->paginate(10);
 
 		return $this->template
-				->TableTemplate 
+				->TableTemplate  
 				->setData('modulename','站点管理')
 				->setTitle('站点列表')
 				->setDataSource($list)
@@ -51,7 +51,7 @@ class Siteapp extends Base{
 
 	public function edit(){
 		$appid=input('appid');
-		$info=AppModel::find($appid)->toarray();
+		$info=AppModel::overall(false)->find($appid)->toarray();
 		return $this->template
 				->FormTemplate 
 				->setData('modulename','内容设置') 
@@ -107,7 +107,7 @@ class Siteapp extends Base{
 				$manager->appid=$apps->appid;
 				$manager->is_admin=true;
 				$manager->is_approved=true;
-				$result=$manager->save(); 
+				$result=$manager->create_manager(); 
 			} 
 			return message($result->msg,$result->success);
 		}
@@ -116,7 +116,7 @@ class Siteapp extends Base{
 	public function delete_post(){
 		if (request()->ispost()) {
 			$id = input('id');
-			$category_item = AppModel::get($id);
+			$category_item = AppModel::Overall(false)->find($id);
 
 			$user=Users::getuser(0,$category_item->username,'',false);
 			if($user!=null && $user->is_plat){

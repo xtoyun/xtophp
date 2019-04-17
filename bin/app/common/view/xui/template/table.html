@@ -53,14 +53,16 @@
                             $result=str_replace('$'.$key,$value,$result);
                         }   
                     }
-                    return $result;
-                }
-            {/php}
-             {volist name="datasource" id="row"}
+                        return $result; 
+                } 
+            {/php} 
+             {volist name="datasource" id="row"} 
+          
+           
             <tr id="{$row[$pid]}">
                 <td style="display:none"><input class="ids" type="checkbox" name="id" value=""></td>
                 {volist name="columns" id="column"}
-                {php} 
+                {php}  
                     $value='';
                     $cols=explode(".",$column['name']);
                     $cols_count=count($cols);

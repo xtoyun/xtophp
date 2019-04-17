@@ -85,7 +85,7 @@ class OauthAuth extends OAuth
     public static function getUserInfo($client_id)
     {
         //从数据库里面读取
-        $user=\app\data\membership\Users::find($client_id);
+        $user=\app\data\membership\Users::overall(false)->find($client_id);
         if ($user) {
             return [
                   'client_id' => $client_id,//app_id

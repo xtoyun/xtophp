@@ -31,7 +31,7 @@ class Relay extends BaseController{
 
 	public function detail(){
 		$id=input('id'); 
-		$data=RelayDataModel::find($id);
+		$data=RelayDataModel::where('rid',$id)->select();
 		return $this->template
 				->ShowTemplate 
 				->setData('modulename','基础设置') 
@@ -59,13 +59,60 @@ class Relay extends BaseController{
 						['image', 'img', '图片', '']
 					])
 				->setpid('rid',$id)
-				->submit('relay_data_create','')
+				->submit(url('relay/relay_data_create'),'')
 				->fetch();
+	}
+
+	public function relay_data_create(){
+		if(request()->ispost()){
+			$rid=input('rid');
+			$title=input('title');
+			$link=input('link');
+			$img=input('img');
+
+			if (empty($title)) {
+				return message('标题不能为空',false);
+			}
+			$info=new RelayDataModel;
+			$info->rid=$rid;
+			$info->title=$title;
+			$info->link=$link;
+			$info->img=$img;
+			if($info->save()){
+				return message('成功',true);
+			}
+		}
+		return message('提交失败',false);
+	}
+
+	public function relay_data_update(){
+		if(request()->ispost()){
+			$rdid=input('rdid');
+			$title=input('title');
+			$link=input('link');
+			$img=input('img');
+
+			if (empty($title)) {
+				return message('标题不能为空',false);
+			}
+
+			$info=RelayDataModel::find($rdid);
+			if ($info) {
+				$info->title=$title;
+				$info->link=$link;
+				$info->img=$img;
+				if($info->save()){
+					return message('成功',true);
+				}
+			}
+			
+		}
+		return message('提交失败',false);
 	}
 
 	public function editdata(){
 		$id=input('id');
-		$data=\app\web\dao\RelayDataDao::instance()->find($id);
+		$data=RelayDataModel::find($id)->toarray();
 		return $this->template
 				->FormTemplate 
 				->setTitle('添加放灯片')
@@ -79,7 +126,7 @@ class Relay extends BaseController{
 					])
 				->setDataSource($data)
 				->setpid('rdid',$id)
-				->submit('relay_data_update','')
+				->submit(url('relay/relay_data_update'),'')
 				->fetch();
 	}
 
@@ -126,14 +173,14 @@ class Relay extends BaseController{
 	public function delete_post(){
 		if (request()->ispost()) {
 			$rid = input('id');
-			$category_item = RelaysModel::get($rid,'sublist');
+			$category_item = RelaysModel::get($rid,'Items');
 
 			if ($category_item) {
-				$result = $category_item->together('sublist')->delete();
+				$result = $category_item->together('Items')->delete();
 				if($result){
 					return message('删除成功',true);
 				}
-			}
+			} 
 		}
 		return message('删除失败',false);
  }

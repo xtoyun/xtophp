@@ -19,7 +19,7 @@ use think\Controller;
 use think\Request;
 
 class TemplateController extends Controller{
-    protected $app;
+    public $app;
     private $context;
     private $template;
     private $module;

@@ -59,11 +59,15 @@ if (!function_exists('fdate')) {
 
 if (!function_exists('appid')) {
     function appid(){
-        $auth=\app\data\membership\Users::getauth();
- 
-        if ($auth) {
-          return $auth->appid;
+        //后台读取登录信息
+        if (BIND=='admin') {
+          $auth=\app\data\membership\Users::getauth();
+          if ($auth) {
+            return $auth->appid;
+          }
         }
+        
+        //默认认
         return 10000;
     }
 }

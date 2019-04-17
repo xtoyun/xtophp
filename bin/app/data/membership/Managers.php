@@ -17,22 +17,15 @@ class Managers extends Model {
     }
 
     static function selectpage($pagesize,$where=null,$order=null,$field='*'){
-    	if (!isset($where['appid']) || is_null($where['appid'])) {
-            $where['Users.appid']=appid();
-        } 
-
-    	$result = Db::view('Managers',$field)
-			->view('Users','username,is_approved,is_locked,createdate,funrole,email,last_login_date,is_admin','Users.userid=Managers.userid') 
-			->order($order)
-			->where($where)
-			->withAttr('last_login_date', function($value, $data) {
-				return date("Y-m-d H:i:s" ,$value);
-			}) 
-			->withAttr('createdate', function($value, $data) {
-				return date("Y-m-d H:i:s" ,$value);
-			}) 
-		    ->paginate($pagesize);
-		return $result; 
+    	return parent::alias('a')->field("a.*,username,is_approved,is_locked,createdate,funrole,email,last_login_date,is_admin")->where($where)->order($order)
+                  ->join('Users b','b.userid=a.userid') 
+                  ->withAttr('last_login_date', function($value, $data) {
+                  	 	return date("Y-m-d H:i:s" ,(int)$value);
+					}) 
+					->withAttr('createdate', function($value, $data) {
+						return date("Y-m-d H:i:s" ,(int)$value);
+					}) 
+                  ->paginate($pagesize);
 	} 
 
 	
@@ -53,14 +46,14 @@ class Managers extends Model {
 		$user->username=$this->username;
 		$user->password=$this->password;
 		$user->is_plat=isset($this->is_plat)?$this->is_plat:false;
-		$user->appid=appid();
+		$user->appid 	=isset($this->appid)?$this->appid:appid();;
 		$user->is_admin=isset($this->is_admin)?$this->is_admin:false;
 		$user->is_approved=$this->is_approved; 
 		$result=$user->save();
 
 		if($result->success){
 			$this->userid=$user->userid;
-			$this->appid=appid();
+			$this->appid=$user->appid;
 			parent::save($data,$where,$sequence);
 		}
 		return $result;

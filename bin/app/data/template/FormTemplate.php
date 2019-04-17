@@ -44,7 +44,7 @@ class FormTemplate  extends Template{
                 $ts[$key]=$item;
             } 
         }
-        
+         
         $this->setData('forms',$ts);
     }
 

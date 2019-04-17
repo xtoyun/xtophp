@@ -26,6 +26,7 @@ abstract class TableTemplate  extends Template{
 	}
 
     public function render(){ 
+        
         //合并数据源
         $new_source=[];
         $source=$this->datasource;

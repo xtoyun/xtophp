@@ -6,16 +6,27 @@ use app\data\Model;
 
 class Members extends Model { 
 
-	protected $pk="userid"; 
+	protected $pk="userid";  
+	protected $autoWriteTimestamp = 'int';
+	protected $updateTime = 'update_time';
+	protected $createTime = 'create_time';
 
 	public function getCreateTimeAttr($value)
-    {
-    	return date("Y-m-d H:i:s" ,$value);
+    {  
+    	if(is_numeric($value)){
+    		return date("Y-m-d H:i:s" ,(int)$value);
+    	}else{
+    		return $value;
+    	}
     }
 
     public function getUpdateTimeAttr($value)
     {
-    	return date("Y-m-d H:i:s" ,$value);
+    	if(is_numeric($value)){
+    		return date("Y-m-d H:i:s" ,(int)$value);
+    	}else{
+    		return $value;
+    	}
     }
 
 	public function user()
@@ -28,22 +39,10 @@ class Members extends Model {
     }
 
     static function selectpage($pagesize,$where=null,$order=null,$field='*'){
-    	if (!isset($where['appid']) || is_null($where['appid'])) {
-            $where['Members.appid']=appid();
-        } 
-    	$result = Db::view('Members',$field)
-			->view('Users','username,is_approved,is_locked,createdate,funrole,email,last_login_date,is_admin','Users.userid=Members.userid') 
-			->withAttr('createdate', function($value, $data) {
-				return date("Y-m-d H:i:s" ,$value);
-			}) 
-			->withAttr('last_login_date', function($value, $data) {
-				return date("Y-m-d H:i:s" ,$value);
-			})
-			->order($order)
-			->where($where) 
-		    ->paginate($pagesize);
-		return $result; 
-	} 
+    	return parent::alias('a')->field("a.*,username,is_approved,is_locked,createdate,funrole,email,last_login_date,is_admin")->where($where)->order($order)
+                  ->join('Users b','b.userid=a.userid')  
+                  ->paginate($pagesize);
+	}  
 
 	static function getuser($userid){
 		$user=parent::find($userid);
@@ -69,18 +68,7 @@ class Members extends Model {
 			parent::save($data,$where,$sequence);
 		}
 		return $result;
-	}
-
-	// public function createUser($user){
-	// 	$result=$user->createuser(); 
-	// 	if(!empty($result)&& $result->success){
-	// 		$this->userid=$user->userid;
-	// 		if($this->save()){
-	// 			return message('添加成功',true,1,1);
-	// 		}
-	// 	} 
-	// 	return $result;
-	// }
+	} 
 
 	public function changeSafePassword($password){
 		$newpwd=md5($password.config('encrystr'));
@@ -113,13 +101,12 @@ class Members extends Model {
 
 	static function get_refer_list($userid){
 		$userid=empty($userid)?0:$userid;
-		return Db::view('Members','refer_userid,refer_username,mobile')
-			->view('Users','username as b_username,userid','Users.userid=Members.userid') 
-			->where("ifnull(refer_userid,0)=$userid and Members.appid=".appid())
-			->select(); 
+		return parent::alias('a')->field("a.userid,refer_userid,refer_username,mobile,username as b_username,is_approved,is_locked,createdate,funrole,email,last_login_date,is_admin")->where("ifnull(refer_userid,0)=$userid") 
+            ->join('Users b','b.userid=a.userid') 
+			->select();
 	}
 
 	static function get_refer_count($userid){
-		return parent::where("ifnull(refer_userid,0)=$userid and appid=".appid())->count();
+		return parent::where("ifnull(refer_userid,0)=$userid")->count();
 	}
 }

@@ -17,6 +17,7 @@ class Roles extends BaseController{
 			];
 		}   
 		$result=RolesModel::selectpage(20,$where,'roleid desc');//读取数据 
+		 
 		$del_url=url('roles/delete_post');
 		$go_url=url('roles/index');
 		return $this->template

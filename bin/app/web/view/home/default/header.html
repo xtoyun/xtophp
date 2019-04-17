@@ -26,9 +26,10 @@
                             if($nid==$vo['nid']){
                                 $class=$class.' active';
                             }  
-                            $c='';
-                            if($vo->cmodel){
-                                $c=$vo->cmodel->controller;
+                            $c=''; 
+                            $model_info=$vo->smodel();
+                            if($model_info){
+                                $c=$model_info->controller;
                             } 
                             $a=$vo->type;
                             $nid=$vo->nid;
@@ -43,9 +44,10 @@
                             {volist name="list" id="sub"}
                                 {if condition='$sub.pid==$vo.nid && $sub.is_view==1'}
                                 {php} 
+                                    $s_model_info=$vo->smodel();
                                     $c='';
-                                    if($sub->cmodel){
-                                        $c=$sub->cmodel->controller;
+                                    if($s_model_info){
+                                        $c=$s_model_info->controller;
                                     }
                                     $a=$sub->type;
                                     $nid=$sub->nid;

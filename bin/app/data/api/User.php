@@ -46,7 +46,9 @@ class User extends Base
     public function index()
     { 
         //dump(input('limit'));
-        return $this->sendSuccess($this->user);
+        $param=$this->user;
+        unset($param['secret']);
+        return $this->sendSuccess($param);
     }
     /**
      * @title 创建用户

@@ -3,7 +3,7 @@
 {block name="content"} 
 <div class="block-content">
 	当前放灯片：<b>{$relay.title}</b><br><br>
-	<button class="btn btn-primary" type="button" onclick="app.show('/admin.php/web/relay/adddata?id={$id}','','600px','400px')">创建图片</button>
+	<button class="btn btn-primary" type="button" onclick="app.show('{:url('relay/adddata')}?id={$id}','','600px','400px')">创建图片</button>
     <table class="table table-striped">
         <thead>
 	        <tr>
@@ -11,7 +11,7 @@
 	            <th>标题</th>
 	            <th>链接</th>
 	            <th>图片</th>
-	            <th>操作</th>
+	            <th>操作</th> 
 	        </tr>
         </thead>
         <tbody>
@@ -20,9 +20,9 @@
                 <td>{$item.rdid}</td> 
             	<td>{$item.title}</td> 
                 <td>{$item.link}</td> 
-                <td>{$item.img}</td> 
+                <td><a href="{$item.img}" target="blank">显示</a></td> 
                 <td><a href="javascript:app.delete(1,'relaydata_delete')"><div class='btn btn-xs btn-default ajax-get confirm'><i class='fa fa-times'></i></div></a>
-                	<a href="#" onclick="app.show('/admin.php/web/relay/editdata?id={$item.rdid}','','600px','400px')">
+                	<a href="#" onclick="app.show('{:url('relay/editdata')}?id={$item.rdid}','','600px','400px')">
 
                 	<div class='btn btn-xs btn-default ajax-get confirm'><i class='fa fa-pencil'></i></div></a></td> 
             </tr> 
