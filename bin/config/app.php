@@ -12,6 +12,7 @@
 // +----------------------------------------------------------------------
 // | 应用设置
 // +----------------------------------------------------------------------
+ 
 
 return [
     // 应用名称
@@ -89,7 +90,7 @@ return [
     // IP代理获取标识
     'http_agent_ip'          => 'X-REAL-IP',
     // URL伪静态后缀
-    'url_html_suffix'        => 'html',
+    'url_html_suffix'        => '',
     // URL普通方式参数 用于自动生成
     'url_common_param'       => false,
     // URL参数方式 0 按名称成对解析 1 按顺序解析
@@ -155,5 +156,10 @@ return [
         'api_debug'=>true,
         'api_auth'=>true,
     ],
-    'home_theme_path'=>APP_PATH.'web/view/home/'
+    'home_theme_path'=>APP_PATH.'web/view/home/',
+    'auth_admin_name'=>'admin_session',
+    'appid'=>10000,
+    'web'=>[
+        'theme'=>'default' 
+    ]
 ];

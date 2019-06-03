@@ -13,12 +13,20 @@ class Content extends Model{
 
     public function getCreateTimeAttr($value)
     {
-        return date("Y-m-d H:i:s" ,$value);
+       if(is_numeric($value)){
+            return date("Y-m-d H:i:s" ,(int)$value);
+        }else{
+            return $value; 
+        }
     }
 
     public function getUpdateTimeAttr($value)
     {
-        return date("Y-m-d H:i:s" ,$value);
+        if(is_numeric($value)){
+            return date("Y-m-d H:i:s" ,(int)$value);
+        }else{
+            return $value;
+        }
     }
     
 }

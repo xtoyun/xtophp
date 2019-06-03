@@ -2,6 +2,7 @@
 namespace app\admin\admin;
 
 use app\data\model\Config as ConfigModel;
+use think\facade\Cache; 
 
 class Setting extends BaseController
 {
@@ -43,6 +44,8 @@ class Setting extends BaseController
 				$config->appid=appid();
 				$result=$config->save();
 			}
+
+			Cache::clear();
 			return message('更新成功',true);
 		}
 	}
@@ -53,16 +56,13 @@ class Setting extends BaseController
 			$key=input('name');
 		 
 			$config=ConfigModel::where('name',$key)->find();
-			if ($config) {
-				$config->name=$key;
-				$config->value=$value;
-				$result=$config->save();
-			}else{
-				ConfigModel::create([
-				    'name'  =>  $key,
-				    'value' =>  $value
-				]);
+			if (!$config) {
+				$config=new ConfigModel; 
 			}
+			$config->appid=appid();
+			$config->name=$key;
+			$config->value=$value;
+			$result=$config->save();
 			return message('更新成功',true);
 		}
 	}

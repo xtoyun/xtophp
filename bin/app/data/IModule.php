@@ -111,7 +111,7 @@ abstract class IModule{
 				$tab=$item['@attributes']['tab'];
 				$name=$item['@attributes']['name'];
 				if($action==$tab){
-					$t=Util::strToArray('|',$item['@attributes']['attr']);
+					$t=strToArray('|',$item['@attributes']['attr']);
 					$data[]=[$item['@attributes']['type'],
 						$item['@attributes']['name'],
 						$item['@attributes']['title'],
@@ -212,9 +212,9 @@ abstract class IModule{
 	//读取菜单处理
 	final private function loadmenu(){
 		$user=null;
-		$auth=Users::getauth();
-		if($auth){
-			$user=Users::getuser($auth->client_id);
+		$useid=Session::get(config('auth_admin_name'));
+		if($useid){
+			$user=Users::getuser($useid);
 		}  
 
 		$funs=[];

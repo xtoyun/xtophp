@@ -18,7 +18,7 @@ class Config extends Model {
 
 	static function getconfigs($iscache=true){
 		if ($iscache) {
-			$c=Cache::get(self::$cache_name);
+			$c=Cache::get(self::$cache_name.'_'.appid());
 			if ($c) {
 				return $c;
 			} 

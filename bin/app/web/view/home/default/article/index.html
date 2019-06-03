@@ -9,7 +9,7 @@
     <!--nav_list-->
     <div class="nav_list">
         <div class="wrapper">
-            <ul>
+            <ul> 
             	{php}
             		$nid=input('nid');//栏目编号
                     $cateid=input('cateid');
@@ -32,13 +32,13 @@
                             $where.=" and Article.nid=$nid";
                         }
                         if(!empty($cateid)){
-                            $where.=" and Article.cateid=$cateid";
+                            $where.=" and cateid=$cateid";
                         }
                         
-                    {/php}
+                    {/php}             
                 	{xt:select model="Article" module="data" id="as" where="$where" limit="12" order="arid desc"}
                     <li class="fl" >
-                            <a href="/web/article/show.html?id={$as.arid}&nid={$nid}">
+                            <a href="{:url('article/detail')}?id={$as.arid}&nid={$nid}">
                                 <div class="date fl">
                                     <img src="__STATIC__/img/d1.png"  />
                                 </div>

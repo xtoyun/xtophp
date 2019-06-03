@@ -8,8 +8,8 @@ use app\data\model\Content as ContentModel;
 class About extends BaseController{
 
 		public function index(){ 
-		$list = AboutModel::selectpage(15,null,'abid desc'); 
- 
+		$list = AboutModel::selectpage(15,'','abid desc'); 
+
 		return $this->template
 				->TableTemplate 
 				->setData('modulename','内容管理')
@@ -24,7 +24,7 @@ class About extends BaseController{
 				->setPid('abid')
 				->setColumns([
 					['abid', '编号'],
-					['n_title', '栏目'],
+					['name', '页面名称'],
                     ['title', '标题'],
                     ['create_time','创建时间'],
                     ['update_time','更新时间'],
@@ -33,15 +33,15 @@ class About extends BaseController{
 				->fetch();
 	}
 	public function create(){
-		$source = get_home_themes();
-		$result =[];
-		foreach ($source as $key => $value) {
-			$result[$value['theme']['name']]=$key;
-		}
-		$navs=[];
-		foreach (NavModel::getlist('单页模型') as $key => $value) {
-			$navs[$value['title']]=$value['nid'];
-		}  
+		// $source = get_home_themes();
+		// $result =[];
+		// foreach ($source as $key => $value) {
+		// 	$result[$value['theme']['name']]=$key;
+		// }
+		// $navs=[];
+		// foreach (NavModel::getlist('单页模型') as $key => $value) {
+		// 	$navs[$value['title']]=$value['nid'];
+		// }  
 		
 		return $this->template
 				->FormTemplate 
@@ -50,8 +50,9 @@ class About extends BaseController{
 				->addNav('','页面管理',url('about/index'))
 				->setTitle('添加单页')
 				->addFormItems([ 
-						['select','nid','栏目','',$navs],
+						//['select','nid','栏目','',$navs],
 						['text', 'name', '页面名称', ''],
+						['text', 'title', '标题', ''],
 						['ueditor','content','内容'],
 						// ['select', 'tablename', '数据表', '',$this->tables()],
 						// ['select', 'controller', '控制器', '',$this->controllers()],
@@ -64,21 +65,18 @@ class About extends BaseController{
 				->submit(url('about/create_post'),'')
 				->fetch();
 
-	}
+	} 
 	public function create_post(){
 		if (request()->ispost()) {
-			$title = input('title');
-			$content = input('content');
-			$order = input('order');
-			$description = input('description');
-
+			$data=$_POST;
+			if (empty($data['title'])) {
+				return message('标题不能为空',false);
+			}
+			if (empty($data['content'])) {
+				return message('内容不能为空',false);
+			}
 			$about_item = new AboutModel();
-			$about_item->title = $title;
-			$about_item->content = $content;
-			$about_item->order = $order;
-			$about_item->description = $description;
-
-			$result = $about_item->save();
+			$result = $about_item->save($data);
 			if ($result) {
 				return message('创建成功',true);
 			}
@@ -90,11 +88,13 @@ class About extends BaseController{
 	public function edit(){
 		$abid = input('abid'); 
 		$info = AboutModel::getinfo($abid);
-		$navs=[];
-		foreach (NavModel::getlist('单页模型') as $key => $value) {
-			$navs[$value['title']]=$value['nid'];
-		}  
-		$fields=[	['select','nid','栏目','',$navs],
+		// $navs=[];
+		// foreach (NavModel::getlist('单页模型') as $key => $value) {
+		// 	$navs[$value['title']]=$value['nid'];
+		// }  
+		$fields=[	
+			//['select','nid','栏目','',$navs],
+						['text', 'name', '页面名称', ''],
 						['text', 'title', '标题', ''],
 						['ueditor', 'content', '内容', ''],
 						['text', 'order', '排序', ''],
@@ -116,29 +116,31 @@ class About extends BaseController{
 	}
 	public function about_update(){
 			if (request()->ispost()) {
-				$abid = input('abid');
-				$title = input('title');
-				$content = input('content');
-				$order = input('order');
-				$key = input('key');
-				$description = input('description');
+				$data=$_POST;
+
+				$abid = $data['abid'];
+				// $title = input('title');
+				// $content = input('content');
+				// $order = input('order');
+				// $key = input('key');
+				// $description = input('description');
 				
-				if (empty($title)) {
+				if (empty($data['title'])) {
 					return message('标题不能为空',false);
 				}
 				$about_item = AboutModel::find($abid);
 
-				if($about_item->content){
-					$about_item->content->title = $title;
-					$about_item->content->content = $content;
-					$about_item->content->order = $order;
-					$about_item->content->key = $key;
-					$about_item->content->description = $description;
-					$about_item->content->save();
-				}
+				// if($about_item->content){
+				// 	$about_item->content->title = $title;
+				// 	$about_item->content->content = $content;
+				// 	$about_item->content->order = $order;
+				// 	$about_item->content->key = $key;
+				// 	$about_item->content->description = $description;
+				// 	$about_item->content->save();
+				// }
 				
-				$about_item->title=$title;
-				$result = $about_item->force()->save();
+				//$about_item->title=$title;
+				$result = $about_item->force()->save($data);
 				if ($result) {
 					return message('修改成功',true);
 				}
@@ -149,7 +151,7 @@ class About extends BaseController{
 	public function delete_post(){
 		if (request()->ispost()) {
 			$abid = input('id');
-			$about_item = AboutModel::get($abid,'sublist');
+			$about_item = AboutModel::get($abid,'content');
 			if ($about_item) {
 				$result = $about_item->delete();
 				if ($result) {

@@ -28,12 +28,12 @@
                             }  
                             $c=''; 
                             $model_info=$vo->smodel();
-                            if($model_info){
-                                $c=$model_info->controller;
+                            if($model_info){ 
+                                $c=$model_info->tablename;
                             } 
                             $a=$vo->type;
                             $nid=$vo->nid;
-                            $link="/web/$c/$a?nid=$nid";
+                            $link="/web/$c?nid=$nid";
                             if(!empty($vo->url)){
                                 $link=$vo->url;
                             }
@@ -47,11 +47,11 @@
                                     $s_model_info=$vo->smodel();
                                     $c='';
                                     if($s_model_info){
-                                        $c=$s_model_info->controller;
+                                        $c=$s_model_info->tablename;
                                     }
                                     $a=$sub->type;
                                     $nid=$sub->nid;
-                                    $link="/web/$c/$a?nid=$nid";
+                                    $link="/web/$c?nid=$nid";
                                     if(!empty($sub['url'])){
                                         $link=$sub['url'];
                                     }

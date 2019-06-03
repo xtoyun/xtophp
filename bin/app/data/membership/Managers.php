@@ -10,6 +10,24 @@ class Managers extends Model {
 	protected $autoWriteTimestamp = 'int';
 	protected $updateTime = 'update_time';
 	protected $createTime = 'create_time';
+	 
+	public function getCreateTimeAttr($value)
+    {  
+    	if(is_numeric($value)){
+    		return date("Y-m-d H:i:s" ,(int)$value);
+    	}else{
+    		return $value;
+    	}
+    }
+
+    public function getUpdateTimeAttr($value)
+    {
+    	if(is_numeric($value)){
+    		return date("Y-m-d H:i:s" ,(int)$value);
+    	}else{
+    		return $value;
+    	}
+    }
 
 	public function user()
     { 
@@ -49,7 +67,9 @@ class Managers extends Model {
 		$user->appid 	=isset($this->appid)?$this->appid:appid();;
 		$user->is_admin=isset($this->is_admin)?$this->is_admin:false;
 		$user->is_approved=$this->is_approved; 
-		$result=$user->save();
+		$user->email=isset($this->email)?$this->email:'';
+		$user->userrole=isset($this->userrole)?$this->userrole:'';
+		$result=$user->c_save();
 
 		if($result->success){
 			$this->userid=$user->userid;

@@ -15,6 +15,7 @@
 
 return [
     'tpl_replace_string'  =>  [
-        '__STATIC__'=>'/theme/web/'.config('theme').'', 
+        '__STATIC__'=>'/theme/web/'.config('app.web.theme').'', 
     ],
+    'url_html_suffix'			=>''
 ];

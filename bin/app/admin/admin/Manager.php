@@ -195,7 +195,7 @@ class Manager extends BaseController{
 
 			if (!empty($user) && !empty($user->manager)) {
 				$user->email 		= $email;
-				$user->is_approved 	= $is_approved;
+				$user->is_approved 	= (bool)$is_approved;
 				if($user->username=='admin'){//只要是admin标为管理员
 					$user->is_admin=true;
 					$user->is_approved=true;
@@ -203,12 +203,12 @@ class Manager extends BaseController{
 					$user->is_admin 	= $is_admin;
 				} 
 				$user->funrole 		= $roleid;
-				if($user->force()->save()){
+				if($user->save()){ 
 					$user->manager->description=input('description');
 					$user->manager->save();
 					foreach ($user->usersinroles as $role) { 
 						$role->delete();
-					} 
+					}  
 					$user->addRoles([$roleid]);
 					if (!empty($password)) {
 						$user->changeLoginPassword($password);

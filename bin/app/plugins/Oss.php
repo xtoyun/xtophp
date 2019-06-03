@@ -47,12 +47,12 @@ class Oss {
             if(!empty($result)){
                 return $result->save($file); 
             }else{
-                $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads');  
+                $info = $file->move(WEB_PATH . '/uploads');  
                 if ($info) {
                     return array(
                         'msg'       => '上传成功',
                         'success'   => true,
-                        'path'      => DS . 'public' . DS . 'uploads'. DS .$info->getSaveName()
+                        'path'      => '/uploads/' .$info->getSaveName()
                     );
                 }
             }

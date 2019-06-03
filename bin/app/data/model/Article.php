@@ -16,14 +16,34 @@ class Article extends Model {
         return parent::where('')->count();
     }
 
+    private $_create_time=null;
     public function getCreateTimeAttr($value)
     {
-        return date("Y-m-d H:i:s" ,$value);
+        if(is_numeric($value)){
+            $this->_create_time=$value;
+            return date("Y-m-d H:i:s" ,(int)$value);
+        }else{
+            return $value;
+        }
     }
 
     public function getUpdateTimeAttr($value)
     {
-        return date("Y-m-d H:i:s" ,$value);
+       if(is_numeric($value)){
+            return date("Y-m-d H:i:s" ,(int)$value);
+        }else{
+            return $value;
+        }
+    }
+
+    //上一篇文章
+    public function pre(){ 
+        return $this->where("create_time",'<',$this->_create_time)->find();
+    }
+
+    //下一篇文章
+    public function next(){
+        return $this->where("create_time",'>',$this->_create_time)->find();
     }
 	
     //文章内容
@@ -33,7 +53,7 @@ class Article extends Model {
     } 
 
     //文章类别
-    public function cate()
+    public function category()
     {  
         return $this->belongsTo('ArticleCategory','cateid','cateid');
     } 
@@ -62,17 +82,11 @@ class Article extends Model {
     }
 
     //用来分页查询数据源
-    static function selectpage($pagesize,$where=null,$order=null,$field='*'){ 
-        return parent::alias('a')->field("*")->where($where)->order($order)
-                  ->join('Content b','b.cid=a.cid')
-                  ->join('ArticleCategory c','c.cateid=a.cateid')  
-                  ->join('Nav d','d.nid=a.nid')
-                  ->withAttr('update_time', function($value, $data) {
-                        return date("Y-m-d H:i:s" ,(int)$value);
-                    }) 
-                    ->withAttr('create_time', function($value, $data) {
-                        return date("Y-m-d H:i:s" ,(int)$value);
-                    }) 
+    static function selectpage($pagesize,$where=null,$order=null,$field='*'){  
+        return parent::alias('Article')->field("Article.*,Content.*,ArticleCategory.catename")->where($where)->order($order)
+                  ->join('Content','Content.cid=Article.cid')
+                  ->join('ArticleCategory','ArticleCategory.cateid=Article.cateid')  
+                  //->join('Nav','Nav.nid=Article.nid')
                   ->paginate($pagesize); 
     }
 }

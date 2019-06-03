@@ -127,9 +127,11 @@ class Nav extends BaseController{
 
 	public function create(){
 		//$source = new NavModel();
-		$source=get_home_themes();
+		$source=get_home_themes(); 
 		$result=[];
 		foreach ($source as $key => $value) {
+			//dump($value);
+
 			$result[$value['theme']['name']]=$key;
 		}
 

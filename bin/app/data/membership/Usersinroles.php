@@ -18,16 +18,14 @@ class Usersinroles extends Model {
     	$count=0;
     	$roleid=$this->roleid;
         Rolefunction::where("roleid=$roleid")->delete();
-    	foreach ($funs as $key => $value) {
-    		//if(!Rolefunction::where("roleid=$roleid and funid='$value'")->find()){
-	    		$ad=new Rolefunction();
-	    		$ad->roleid=$roleid;
-	    		$ad->funid=$value;
-	    		$ad->appid=App::appid();
-	    		if($ad->save()){
-	    			$count++;
-	    		}
-	    	//}
+    	foreach ($funs as $key => $value) { 
+    		$ad=new Rolefunction();
+    		$ad->roleid=$roleid;
+    		$ad->funid=$value;
+    		$ad->appid=appid();
+    		if($ad->save()){
+    			$count++;
+    		} 
     	}
     	return $count;
     }

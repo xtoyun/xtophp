@@ -23,6 +23,7 @@ class Category extends BaseController{
 				->setColumns([
 					['cateid', '编号'],					
 					['catename', '类别名称'],
+					['url_name', '地址名称'],
 					['parent.catename', '上级类别'],
                     ['order', '排序'],
                     ['button', '操作', 'btn']
@@ -45,6 +46,7 @@ class Category extends BaseController{
 				->addFormItems([
 						['select', 'parent_cateid', '上级', 'select ',$data],
 						['text', 'catename', '名称', '输入名称'],
+						['text', 'url_name', '地址栏', '请输入英文名称'],
 						['text', 'order', '排序', '输入排序'],
 						 
 					])
@@ -54,6 +56,7 @@ class Category extends BaseController{
 
 	public function create_post(){
 		if(request()->ispost()){
+			$url_name=input('url_name');
 			$catename=input('catename');
 			$order=input('order');
 			$parent_cateid=input('parent_cateid');
@@ -67,8 +70,10 @@ class Category extends BaseController{
 
 			$category=new ArticleCategoryModel();
 			$category->catename=$catename;
+			$category->url_name=$url_name;
 			$category->parent_cateid=$parent_cateid;
 			$category->order=(empty($order)?0:$order);
+			$category->appid=appid();
 			
 			$result=$category->save(); 
 
@@ -91,6 +96,7 @@ class Category extends BaseController{
 				->setTitle('编辑类别')
 				->addFormItems([
 						['text', 'catename', '名称', ''],
+						['text', 'url_name', '地址栏', '请输入英文名称'],
 						['text', 'order', '排序', ''],
 					])
 				->setDataSource($category_item)
@@ -102,11 +108,13 @@ class Category extends BaseController{
 	public function edit_post(){
 		if(request()->ispost()){
 			$catename=input('catename');
+			$url_name=input('url_name');
 			$order=input('order');
 			$cateid=input('cateid'); 
 
 			$category_item=ArticleCategoryModel::find($cateid);
 			if ($category_item) {
+				$category_item->url_name=$url_name;
 				$category_item->catename=$catename;
 				$category_item->order=$order;
 				$result=$category_item->force()->save();

@@ -107,6 +107,7 @@ class Siteapp extends Base{
 				$manager->appid=$apps->appid;
 				$manager->is_admin=true;
 				$manager->is_approved=true;
+				$manager->is_siter=true;
 				$result=$manager->create_manager(); 
 			} 
 			return message($result->msg,$result->success);

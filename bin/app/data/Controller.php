@@ -1,35 +1,33 @@
 <?
 namespace app\data;
 
-use app\api\facade\Factory;
 use app\data\template\TemplateController;
 use app\data\model\Config;
+use think\facade\Session; 
+use app\data\membership\Users;
 
 class Controller extends TemplateController{
 	//权限
-	public $auth;
+	//public $user;
 	public $config;
+	protected static $initialized = [];
 
 	public function __construct(){ 
 		parent::__construct(); 
 		$this->config=Config::getconfigs();
 		$this->assign('config',$this->config); 
+		$this->_init();
 	} 
 
-	protected function _init(){
-		 $class = Factory::getInstance(config('api')['auth_class']);
-		 $baseAuth = Factory::getInstance(\app\api\auth\BaseAuth::class);
-		 
-		 if (!empty($baseAuth)) {
+	protected function _init()
+    {
+        if (!isset(static::$initialized[static::class])) {
+            static::$initialized[static::class] = true;
+            static::init();
+        }
+    }
 
-		 	$result=$baseAuth->getuser($class);  
-			 if ($result) {
-			 	$this->auth=(object)$baseAuth->getuser($class);
-			 }
-		 }else{
-		 	$this->auth=false;
-		 }
-	}
-
-
+	protected static function init(){
+		
+	} 
 }

@@ -29,14 +29,14 @@
                     {php}
                         $where="1=1";
                         if(!empty($nid)){
-                            $where.=" and Article.nid=$nid";
+                            $where.=" and nid=$nid";
                         }
                         if(!empty($cateid)){
-                            $where.=" and Article.cateid=$cateid";
+                            $where.=" and cateid=$cateid";
                         }
                         
                     {/php}
-                	{xt:select model="Article" module="data" id="as" where="$where" limit="12" order="arid desc"}
+                	{xt:select model="Product" module="data" id="as" where="$where" limit="12" order="pid desc"}
                     <li class="fl" >
                             <a href="/web/article/show.html?id={$as.arid}&nid={$nid}">
                                 <div class="date fl">

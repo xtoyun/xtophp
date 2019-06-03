@@ -2,6 +2,7 @@
 namespace app\platform;
 use app\data\IModule;
 use app\data\membership\Users;
+use think\facade\Session; 
 
 class Module extends IModule{
 
@@ -30,6 +31,11 @@ class Module extends IModule{
 	}
 
 	public function getIsShow(){ 
-		return Users::getauth()->is_plat;
+		$userid=Session::get(config('auth_admin_name'));
+		$user=Users::getuser($userid);
+		if($user){
+			return $user->is_plat;
+		}
+		return false;
 	}
 }

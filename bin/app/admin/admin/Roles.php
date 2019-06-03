@@ -78,6 +78,7 @@ class Roles extends BaseController{
 	 	if(request()->ispost()){
 			$data=new RolesModel();
 			$data->name=input('name');
+			$data->appid=appid();//添加全局id
 			$data->description=input('description');
 			if($data->save()){
 				return message('修改成功',true);
@@ -129,7 +130,7 @@ class Roles extends BaseController{
 	 
 			$model=new Usersinroles();
 			$model->roleid=$roleid;
-
+			$model->appid=appid();
 
 			if($model->addFuns($arr)){
 				return message('添加成功',true);

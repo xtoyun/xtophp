@@ -305,12 +305,12 @@
             </div>
             <div class="news-contain">
                 <div class="news1 fl">
-                    <p><a href="/web/article/list?catename=最新动态"  class="hoverBlue">最新动态</a></p>
+                    <p><a href="{:url('article/index')}?tag=最新动态"  class="hoverBlue">最新动态</a></p>
                     <div class="new-news">
                         <ul class=""> 
                             {xt:select model='Article' id='item' where="catename='最新动态'" limit='10' order='arid desc' module="data"}
                             <li class='swiper-slide' style="list-style: disc;">
-                                    <a href="/web/article/show?id={$item.arid}" target="_blank"  class="hoverBlue">
+                                    <a href="{:url('article/detail')}?id={$item.arid}" target="_blank"  class="hoverBlue">
                                         {$item.title|default=''}
                                      </a>
                                 </li>
@@ -324,7 +324,7 @@
                         <ul class=""> 
                             {xt:select model='Article' module="data" id='item' where="catename='功能发布'" limit='10' order='arid desc'}
                             <li class='swiper-slide' style="list-style: disc;">
-                                    <a href="/web/article/show?id={$item.arid}" target="_blank"  class="hoverBlue">
+                                    <a href="{:url('article/detail')}?id={$item.arid}" target="_blank"  class="hoverBlue">
                                         {$item.title|default=''}
                                      </a>
                                 </li>
@@ -338,7 +338,7 @@
                         <ul class=""> 
                             {xt:select model='Article' module="data" id='item' where="catename='更新日志'" limit='10' order='arid desc'}
                             <li class='swiper-slide' style="list-style: disc;">
-                                <a href="/web/article/show?id={$item.arid}" target="_blank"  class="hoverBlue">
+                                <a href="{:url('article/detail')}?id={$item.arid}" target="_blank"  class="hoverBlue">
                                     {$item.title|default=''}
                                  </a>
                             </li>

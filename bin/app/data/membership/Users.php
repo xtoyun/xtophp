@@ -13,10 +13,16 @@ use app\api\facade\Factory;
 class Users extends Model { 
 
 	protected $pk="userid"; 
- 
+
+	
+
     public function getLastLoginDateAttr($value)
     {
-    	return date("Y-m-d H:i:s" ,$value);
+    	if(is_numeric($value)){
+    		return date("Y-m-d H:i:s" ,(int)$value);
+    	}else{
+    		return $value;
+    	} 
     }
 	// 模型初始化
     protected static function init()
@@ -38,9 +44,7 @@ class Users extends Model {
     static function getauth(){
     	$class = Factory::getInstance(config('api')['auth_class']);
 		$baseAuth = Factory::getInstance(\app\api\auth\BaseAuth::class);
-		 
 		if (!empty($baseAuth)) {
-
 		 	$result=$baseAuth->getuser($class);  
 			if ($result) {
 				return (object)$baseAuth->getuser($class);
@@ -68,7 +72,7 @@ class Users extends Model {
     	return Usersinroles::alias('a')->field('*')->where('userid='.$this->userid)
     			->join('Rolefunction b','b.roleid=a.roleid')
     			->select();
-    }
+    } 
 
     public function addRoles($roles=[]){
     	$count=0;
@@ -78,7 +82,7 @@ class Users extends Model {
 	    		$ad=new Usersinroles();
 	    		$ad->userid=$userid;
 	    		$ad->roleid=$value;
-	    		$ad->appid=App::appid();
+	    		$ad->appid=appid();
 	    		if($ad->save()){
 	    			$count++;
 	    		}
@@ -133,52 +137,88 @@ class Users extends Model {
 		return $this->delete(); 
 	}
 
-	public function save($data = [], $where = [], $sequence = NULL){
-		if(empty($this->username)){
-			return message('用户不能为空',false,-10,1);
-		}
-		if(empty($this->password)){
-			return message('密码不能为空',false,-20,1);
-		}
-		if(!empty($this->where(['username'=>$this->username])->find())){
-			return message('用户名重复',false,-30,1);
-		}
-		$this->salt=uniqid();
-		$this->createdate=fdate();
-		$this->wallets=0;
-		$this->points=0;
-		$this->is_locked=0;
+	public function c_save($data = [], $where = [], $sequence = NULL){
+		$this->salt=(empty($this->salt)?uniqid():$this->salt);
+		$this->createdate=(empty($this->createdate)?fdate():$this->createdate);
+
+		$this->is_locked=(empty($this->is_locked)?0:$this->is_locked);
+		$this->email=(empty($this->email)?'':$this->email);
 		$this->is_plat=(empty($this->is_plat)?0:$this->is_plat);
+		$this->is_admin=(empty($this->is_admin)?0:$this->is_admin);
 		$this->password_format=empty($this->password_format)?'md5':$this->password_format;
-		
-		if(!empty($this->password_format)){
+
+		//添加默认密码操作
+		if(!empty($this->password_format) && !empty($this->password) && empty($this->userid)){
 			switch ($this->password_format) {
 				case 'md5':
 					$pwd=md5($this->password.$this->salt.config('encrystr'));
 				default:
 					$pwd=md5($this->password.$this->salt.config('encrystr'));
-					
 			} 
-		} 
-		$this->password=$pwd;
-		if(parent::save($data,$where,$sequence)){
+			$this->password=$pwd;
+		}
+		if(parent::save($data,$where,$sequence)){ 
 			//加入角色
 			if(!empty($this->userrole)){
 				$userinrole=new Usersinroles;
 				$userinrole->userid=$this->userid;
 				$userinrole->roleid=$this->userrole;
+				$userinrole->appid=appid();
 				$userinrole->save();
 			}
-			
 			return message('添加成功',true,1,1);
 		}
 		return message('未知错误',false,0,1);
 	}
 
+	// public function save($data = [], $where = [], $sequence = NULL){
+
+	// 	// if(empty($this->username)){
+	// 	// 	return message('用户不能为空',false,-10,1);
+	// 	// }
+	// 	// if(empty($this->password)){
+	// 	// 	return message('密码不能为空',false,-20,1);
+	// 	// }
+	// 	// if(!empty($this->where(['username'=>$this->username])->find())){
+	// 	// 	return message('用户名重复',false,-30,1);
+	// 	// }
+	// 	$this->salt=(empty($this->salt)?uniqid():$this->salt);
+	// 	$this->createdate=(empty($this->createdate)?fdate():$this->createdate);
+
+	// 	$this->is_locked=(empty($this->is_locked)?0:$this->is_locked);
+	// 	$this->email=(empty($this->email)?'':$this->email);
+	// 	$this->is_plat=(empty($this->is_plat)?0:$this->is_plat);
+	// 	$this->is_admin=(empty($this->is_admin)?0:$this->is_admin);
+	// 	$this->password_format=empty($this->password_format)?'md5':$this->password_format;
+
+	// 	//添加默认密码操作
+	// 	if(!empty($this->password_format) && !empty($this->password) && empty($this->userid)){
+	// 		switch ($this->password_format) {
+	// 			case 'md5':
+	// 				$pwd=md5($this->password.$this->salt.config('encrystr'));
+	// 			default:
+	// 				$pwd=md5($this->password.$this->salt.config('encrystr'));
+	// 		} 
+	// 		$this->password=$pwd;
+	// 	}
+	// 	if(parent::save($data,$where,$sequence)){ 
+	// 		//加入角色
+	// 		if(!empty($this->userrole)){
+	// 			$userinrole=new Usersinroles;
+	// 			$userinrole->userid=$this->userid;
+	// 			$userinrole->roleid=$this->userrole;
+	// 			$userinrole->appid=appid();
+	// 			$userinrole->save();
+	// 		}
+	// 		return message('添加成功',true,1,1);
+	// 	}
+	// 	return message('未知错误',false,0,1);
+	// }
+
     public function changeLoginPassword($password){
     	$newpwd=md5($password.$this->salt.config('encrystr'));
     	$data = ['userid'=>$this->userid,
-				 'password' => $newpwd];
+				 'password' => $newpwd]; 
 		return self::update($data);
 	}
 

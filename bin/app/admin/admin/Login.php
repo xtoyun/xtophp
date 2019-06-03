@@ -20,7 +20,7 @@ class Login extends \think\Controller  {
         $this->param = $this->request->param();
     }
 
-	public function index(){   
+	public function index(){
 		$url=input('url');
 		if (empty($url)) {
 			$url=url('/admin/index');
@@ -31,7 +31,7 @@ class Login extends \think\Controller  {
 
 	public function logout(){
         Cache::clear(); 
-		Session::set('access_token','');
+		Session::set(config('auth_admin_name'),'');
 		$this->redirect("/admin.php/admin/login");
 	}
 
@@ -51,9 +51,9 @@ class Login extends \think\Controller  {
 
 	public function login(){
 		//Session::clear();
-		// if(!$this->check_geetest()){
-		// 	return message('验证码不能为空',false);
-  //       }
+		if(!$this->check_geetest()){
+			return message('验证码不能为空',false);
+        }
 		$username=input('username');
 		$password=input('password');
 		$time=getdate();
@@ -66,10 +66,14 @@ class Login extends \think\Controller  {
 		if ($result->success) {
             $userid=$user->userid;
             $password=$user->password; 
+
+            Session::set(config('auth_admin_name'),$userid);
+            Session::set('appid',$user->appid);
             Logs::write($username."用户于登录成功".$result->msg,$username);
-            $this->redirect("/admin.php/admin/login/auth?client_id=$userid&secret=$password");	
+            return message('登录成功',true);
+            //$this->redirect("/admin.php/admin/login/auth?client_id=$userid&secret=$password");	
 		} 
-		return $result; 
+		return message('登录失败',false);
 	}
 
 	//使用前验证

@@ -9,6 +9,6 @@
  
 
 	<item name="web_title" title="网站标题" type="text" tips="调用方法:{$config.web_title|default=''}" sort="1" attr="" tab="web" group="网站"></item>
-	<item name="web_keyWords" title="网站关键字" type="text" tips="调用方法:{$config.web_keyWords|default=''}" sort="1" attr="" tab="web" group="网站"></item>
+	<item name="web_keywords" title="网站关键字" type="text" tips="调用方法:{$config.web_keyWords|default=''}" sort="1" attr="" tab="web" group="网站"></item>
 	<item name="web_description" title="网站描述" type="text" tips="调用方法:{$config.web_description|default=''}" sort="1" attr="" tab="web" group="网站"></item>
 </config>

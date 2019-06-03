@@ -10,6 +10,21 @@
 // +----------------------------------------------------------------------
 use app\data\App;
 use app\data\lib\XML2Array;
+use think\facade\Session;
+
+if (!function_exists('strToArray')) {
+function strToArray($b,$t){
+    $a=explode($b,$t);
+    $n=[];
+    foreach ($a as $key => $value) {
+      $item=explode(':',$value);
+      if(count($item)==2){
+        $n[$item[0]]=$item[1];
+      } 
+    } 
+    return $n;
+  }
+}
 
 if (!function_exists('del_file_dir')) {
     function del_file_dir($dir) {
@@ -61,14 +76,13 @@ if (!function_exists('appid')) {
     function appid(){
         //后台读取登录信息
         if (BIND=='admin') {
-          $auth=\app\data\membership\Users::getauth();
-          if ($auth) {
+          $userid=Session::get(config('auth_admin_name'));
+          $auth=\app\data\membership\Users::getuser($userid);
+          if ($auth) { 
             return $auth->appid;
-          }
+          } 
         }
-        
-        //默认认
-        return 10000;
+        return config('appid');
     }
 }
 if (!function_exists('gourl')) {
@@ -190,5 +204,16 @@ if (!function_exists('getfiles')) {
             }
         }
         return $result;
+    }
+}
+if (!function_exists('uuid')) {
+    function uuid() {
+      mt_srand ( ( double ) microtime () * 10000 ); //optional for php 4.2.0 and up.随便数播种，4.2.0以后不需要了。
+          $charid = strtoupper ( md5 ( uniqid ( rand (), true ) ) ); //根据当前时间（微秒计）生成唯一id.
+          $hyphen = chr ( 45 ); // "-"
+          $uuid = '' . //chr(123)// "{"
+  substr ( $charid, 0, 8 ) . $hyphen . substr ( $charid, 8, 4 ) . $hyphen . substr ( $charid, 12, 4 ) . $hyphen . substr ( $charid, 16, 4 ) . $hyphen . substr ( $charid, 20, 12 );
+          //.chr(125);// "}"
+          return strtolower($uuid); 
     }
 }

@@ -62,10 +62,10 @@ class Model extends BaseController{
 				->addFormItems([ 
 						['text', 'name', '模型名称', ''],
 						['select', 'tablename', '数据表', '',$this->tables()],
-						['select', 'controller', '控制器', '',$this->controllers()],
+						//['select', 'controller', '控制器', '',$this->controllers()],
 						
-						['line', '', '', ''],
-						['web_theme_select', 'default_theme', '可用风格', '',$result],
+						//['line', '', '', ''],
+						//['web_theme_select', 'default_theme', '可用风格', '',$result],
 						['text', 'description', '描述', ''],
 						['date','createdate','创建时间']
 					])
@@ -85,11 +85,11 @@ class Model extends BaseController{
 				return message('请输入模型名称',false);
 			}
 			if(empty($tablename)){
-				return message('请输入数据表',false);
+				return message('请选择数据表',false);
 			}
-			if (empty($controller)) {
-				return message('请输入控制器',false);
-			}
+			// if (empty($controller)) {
+			// 	return message('请输入控制器',false);
+			// }
 
 			$model_item = new Cmodel();
 			$model_item->name = $name;
@@ -177,11 +177,10 @@ class Model extends BaseController{
 				->addFormItems([
 						['text', 'name', '模型名称', ''],
 						['select', 'tablename', '数据表', '',$this->tables()],
-						['select', 'controller', '控制器', '',$this->controllers()],
+						//['select', 'controller', '控制器', '',$this->controllers()],
 						
-						['line', '', '', ''],
-						['web_theme_select', 'default_theme', '可用风格', '',$result,$default_theme,
-							$category_template,$list_template,$show_template],
+						//['line', '', '', ''],
+						//['web_theme_select', 'default_theme', '可用风格', '',$result,$default_theme,$category_template,$list_template,$show_template],
 							['text', 'description', '描述', ''],
 					])
 				->setDataSource($info)
@@ -204,9 +203,9 @@ class Model extends BaseController{
 			if (empty($tablename)) {
 				return message('数据表不能为空',false);
 			}
-			if (empty($controller)) {
-				return message('控制器不能为空',false);
-			}
+			// if (empty($controller)) {
+			// 	return message('控制器不能为空',false);
+			// }
 
 			$model_item = Cmodel::find($mid);
 			if ($model_item) {

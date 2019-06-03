@@ -17,7 +17,8 @@ class Article extends BaseController{
 			$where['nid']= input('nid');
 		}
 		
-		$list = ArticleModel::selectpage(15,$where);//直接用selectpage，里面有相关联的表
+		$list = ArticleModel::selectpage(15,$where,'arid desc');//直接用selectpage，里面有相关联的表
+
 		return $this->template
 				->TableTemplate 
 				->setData('modulename','内容管理')
@@ -34,7 +35,7 @@ class Article extends BaseController{
 				->setColumns([
 
 					['arid', '编号'],
-					['n_title', '栏目'],
+					//['n_title', '栏目'],
 					['title', '文章标题','link','edit?id=$arid'], 
 					['catename', '类别'],
 					
@@ -53,22 +54,21 @@ class Article extends BaseController{
 		// 	$this->error('请选择栏目');
 		// 	return;
 		// }
-		$data=[];
+		$data=[]; 
 		foreach (ArticleCategoryModel::select() as $key => $value) {
 			$data[$value['catename']]=$value['cateid'];
 		}  
 
-		$navs=[];
-		foreach (NavModel::getlist('文章模型') as $key => $value) {
-			$navs[$value['title']]=$value['nid'];
-		}  
+		// $navs=[];
+		// foreach (NavModel::getlist('文章模型') as $key => $value) {
+		// 	$navs[$value['title']]=$value['nid'];
+		// }  
 
-		$fields=[	['select','nid','栏目','',$navs],['checkbox', 'selfin', '自定义', '',[
-							'推荐'=>'tj',
-							'置顶'=>'zd'
-							
-						],'tj'],
-						['select','cateid','文章类别','',$data],
+		$fields=[	
+			//['select','nid','栏目','',$navs],
+						['select','cateid','文章类别','',$data], 
+						['checkbox', 'selfin', '自定义', '',['推荐'=>'tj','置顶'=>'zd'],''],
+						
 						['text', 'title', '文章标题', ''],
 						['image', 'img1', '图片', ''],
 						['ueditor', 'content', '文章内容', ''],
@@ -116,11 +116,14 @@ class Article extends BaseController{
 		foreach (ArticleCategoryModel::select() as $key => $value) {
 			$data[$value['catename']]=$value['cateid'];
 		}
-		$navs=[];
-		foreach (NavModel::getlist('文章模型') as $key => $value) {
-			$navs[$value['title']]=$value['nid'];
-		} 
-		$fields=[['select','nid','栏目','',$navs],['checkbox', 'selfin', '自定义', '',[
+		// $navs=[];
+		// foreach (NavModel::getlist('文章模型') as $key => $value) {
+		// 	$navs[$value['title']]=$value['nid'];
+		// } 
+		$fields=[
+			//['select','nid','栏目','',$navs],
+
+		['checkbox', 'selfin', '自定义', '',[
 							'置顶'=>'zd',
 							'推荐'=>'tj'
 						]],
@@ -156,6 +159,13 @@ class Article extends BaseController{
 				return message($validate->getError(),false);
 	        }
 	        $article = new ArticleModel();
+	        $data['appid']=appid();
+	        if (strstr($data['selfin'], 'tj')) {
+	        	$data['is_tui']=1;
+	        }
+	        if (strstr($data['selfin'], 'zd')) {
+	        	$data['is_top']=1;
+	        }
 	        $result = $article->save($data);
 			if ($result) {
 				return message('文章创建成功',true);
@@ -173,6 +183,13 @@ class Article extends BaseController{
 				return message($validate->getError(),false);
 	        }
 			$article = ArticleModel::find($arid); 
+			 if (strstr($data['selfin'], 'tj')) {
+	        	$data['is_tui']=1;
+	        }
+	        if (strstr($data['selfin'], 'zd')) {
+	        	$data['is_top']=1;
+	        }
+	        
 			$result = $article->allowField(true)->save($data);
 			if ($result) {
 				return message('修改成功',true);

@@ -3,6 +3,7 @@ namespace app;
 
 class inithook{
 	public function run(){
+
 		 // 获取当前模块名称
           // 获取当前模块名称
         $module='';
@@ -20,7 +21,8 @@ class inithook{
         //如果模块为空，则默认调用配置的模块名称
         if (empty($module)) {
             $module=config('default_module');
-        }
+        } 
+
 
         //绑定是后台
         if(defined('BIND') && BIND == 'admin') { 
@@ -31,6 +33,21 @@ class inithook{
         else{
             config('url_controller_layer', 'home');
             config('template.view_path', APP_PATH. $module. '/view/home/');
-        } 
+        }  
+
+        if($_SERVER['HTTP_HOST']=='www.xtocn.com'){
+          config('app.web.theme','xtocn');
+          config('appid',10005); 
+        }
+
+        if($_SERVER['HTTP_HOST']=='xt.dev.xtysb.com'){
+          config('app.web.theme','dev');
+          config('appid',10005); 
+        }
+
+        if($_SERVER['HTTP_HOST']=='www.xtoyun.net'){
+          config('app.web.theme','yun');
+          config('appid',10000); 
+        }
 	}
 }

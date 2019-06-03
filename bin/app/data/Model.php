@@ -35,7 +35,7 @@ abstract class Model extends \think\Model{
      * @param \think\db\Query $query
      */
     protected function base($query)
-    { 
+    {  
         if ($this->is_over) {
             $query->where($query->getTable() . '.appid', appid());
         }

@@ -61,6 +61,7 @@ class TemplateController extends Controller{
 
       
         $this->assign('viewurl',$this->module->viewurl);//当前模块首页 
+
         $this->assign('layout',$this->layout);//指定母版页面 
         $this->assign('menus',$this->module->menus);//默认模块菜单
  
@@ -386,6 +387,7 @@ class TemplateController extends Controller{
      * @return string
      */
     public function getTheme(){
+        return 'xui';//默认模板
         if(!empty(config('theme'))){
             return config('theme');
         }else{

@@ -8,5 +8,7 @@
 /static/install/install.lock
 /static/web
 /app/web/view/home/xt
+/app/web/view/home/xtocn
+/app/web/view/home/yun
 /uploads
 /app/fans

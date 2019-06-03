@@ -42,9 +42,10 @@ class Xt extends TagLib{
         $model    =!isset($tag['model'])?null:$tag['model']; 
         $module    =isset($tag['module'])?$tag['module']:config('default_module'); 
         $where  =!isset($tag['where'])?null:$tag['where']; 
+        $value = $tag['value'];
         $id = $tag['id']; // name是必填项，这里不做判断了
         $parse = '<?php ';
-        $parse .= '$'."$id"."=\app\\$module\model\\$model::where('$where')->find();"; // 
+        $parse .= '$'."$id"."=\app\\$module\model\\$model::find($value);"; // 
  
         $parse .= ' ?>';
         $parse .= $content;

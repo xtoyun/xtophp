@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu>  
+	<item title='内容管理' url='/web/content/init' c='content' class="si-notebook"> 
+		<pagelink title='内容模型' url='/web/model/index' c='model'>
+		</pagelink>
+		<pagelink title='栏目管理' url='/web/nav/index' c='nav'>
+			<function url='/web/api/create_nav' title='添加'></function>
+			<function url='/web/api/update_nav' title='编辑'></function>
+			<function url='/web/api/delete_nav' title='删除'></function>
+		</pagelink>
+	</item>   
+	<item title='营销管理' url='/web/content/init' c='content' class="si-social-dropbox"> 
+		<pagelink title='关键字' url='/web/keyword/index' c='keyword'>
+			<function url='/web/api/create_keyword' title='添加'></function>
+			<function url='/web/api/update_keyword' title='编辑'></function>
+			<function url='/web/api/delete_keyword' title='删除'></function>
+		</pagelink> 
+		<pagelink title='友情链接' url='/web/link/index' c='link'>
+			<function url='/web/api/create_link' title='添加'></function>
+			<function url='/web/api/update_link' title='编辑'></function>
+			<function url='/web/api/delete_link' title='删除'></function>
+		</pagelink>
+		<pagelink title='放灯片' url='/web/relay/index' c='relay'>
+			<function url='/web/api/create_relay' title='添加'></function>
+			<function url='/web/api/update_relay' title='编辑'></function>
+			<function url='/web/api/delete_relay' title='删除'></function>
+		</pagelink>
+	</item>
+</menu>
