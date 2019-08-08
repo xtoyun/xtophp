@@ -57,8 +57,8 @@ class Manager extends BaseController{
 	                ['username', '用户名','link',url('manager/detail').'/userid/$userid'],
 	                ['email', '邮件'],
 	                ['description', '描述','bool'],
-	                ['createdate', '创建日期'],
-	                ['last_login_date', '更新日期'],
+	                ['create_time', '创建日期'],
+	                ['update_time', '更新日期'],
 	                ['is_approved','审核','bool'],
 	                ['is_admin','超级管理员','bool'],
 	                ['rolename','角色'],
@@ -75,20 +75,19 @@ class Manager extends BaseController{
 		return $this->template
 				->FormTemplate 
 				->setData('modulename','基础设置') 
-				->addNav('','添加管理员',url('manager/create'))
-				->addNav('','管理列表',url('manager/index'))
+				->addNav('','添加管理员',url('create'))
+				->addNav('','管理列表',url('index'))
 				->setTitle('添加管理员')
 				->addFormItems([
 						['text', 'username', '用户名', '用户名称'],
 						['password', 'password', '密码', '必填，6-20位'],  
+						['radio', 'is_admin', '超级管理员', '',['开通'=>1]],
 						['select', 'funrole', '角色','', $result],
 		                ['text', 'nickname', '昵称', '可以是中文'],
 		                ['text', 'email', '邮箱', '如:abc@b.com'],
-		                ['radio', 'is_admin', '超级管理员', '',[
-		                	'开通'=>1
-		                ]],
+		             
 					])
-				->submit(url('manager/create_post'),'')
+				->submit(url('create_post'),'')
 				->fetch();
 	}
 
@@ -104,8 +103,8 @@ class Manager extends BaseController{
 		return $this->template
 				->FormTemplate 
 				->setData('modulename','基础设置') 
-				->addNav('','编辑管理员',url('manager/edit'),'?id='.$id)
-				->addNav('','管理列表',url('manager/index'))
+				->addNav('','编辑管理员',url('edit'),'?id='.$id)
+				->addNav('','管理列表',url('index'))
 				->setTitle('编辑管理员')
 				->addFormItems([
 						['static', 'username', '用户名', '用户名称'],
@@ -156,13 +155,17 @@ class Manager extends BaseController{
 				}
 			} 
 
+			if(Users::where('username',$username)->count()>0){
+				return message('请输入其他用户名',false);
+			}
+
 			$user=new Managers();
 			$user->username 	= $username;
 			$user->password 	= $password;
 			$user->email 		= $email;
 			$user->description 	= $nickname;
 			$user->is_approved	= true;
-			$user->is_admin 	= $is_admin;
+			$user->is_admin 	= (bool)$is_admin;
 			$user->funrole 		= $roleid;
 			$user->userrole 	= $roleid;
 			$user->description='管理员';

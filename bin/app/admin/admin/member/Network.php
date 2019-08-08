@@ -1,10 +1,11 @@
 <?
-namespace app\admin\admin;
+namespace app\admin\admin\member;
 
 use app\data\membership\Members as MembersModel; 
 use app\data\membership\Users as UsersModel;
+use app\admin\admin\BaseController as Controller;
 
-class Upteam extends BaseController{
+class Network extends Controller{
 	public function index(){
 		$userid=input('userid'); 
 		$username=input('username');

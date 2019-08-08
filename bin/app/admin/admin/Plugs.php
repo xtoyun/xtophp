@@ -1,6 +1,7 @@
 <?
 namespace app\admin\admin;
 
+require APP_PATH . '../vendor/autoload.php';
 use xto\plugins\SMSPlugins;
 use xto\plugins\EmailPlugins;
 use xto\plugins\OSSPlugins;
@@ -11,6 +12,7 @@ use xto\plugins\PayPlugins;
 
 use app\data\model\Config;
 use app\data\model\Pays;
+use app\plugins\Sms;
 
 class Plugs extends BaseController
 {
@@ -175,9 +177,25 @@ class Plugs extends BaseController
 		return $this->setmodule('应用管理')->settitle('插件管理')->view();
 	}
 
+	public function smstest_post(){
+		if(request()->ispost()){
+			$mobile=input('testmobile'); 
+			$tc=input('testcontent');
+			if (empty($mobile)) {
+				return message('手机号码不能为空',false);
+			}
+			if (empty($tc)) {
+				return message('内容不能为空',false);
+			}
+
+			$sms=new Sms;
+			return $sms->send($mobile,$tc); 
+		}
+	}
+
 	public function sms_post(){
 		if(request()->ispost()){  
-			$type=input('type');
+			$type=input('type'); 
 	 		if (empty($type)) { 
 				return message('类型为空',false);
 			}
@@ -192,18 +210,24 @@ class Plugs extends BaseController
 				}
 			}
 
-			$c=new Config(); 
-			$h=[
-				'name'=>'smssender',
-				'value'=>json_encode($result)
-			];
-			$c->saveorupdate('smssender',$h);
- 
-			$d=[
-				'name'=>'smstype',
-				'value'=>$type
-			];
-			$c->saveorupdate('smstype',$d);
+			$c=Config::where('name','smssender')->find();
+			if(!$c){
+				$c=new Config;
+			}
+			$c->appid=appid();
+			$c->name='smssender';
+			$c->value=json_encode($result);
+			$c->save();
+
+			$d=Config::where('name','smstype')->find();
+			if(!$d){
+				$d=new Config;
+			}
+			$d->appid=appid();
+			$d->name='smstype';
+			$d->value=$type;
+			$d->save(); 
+
 			return message('保存成功',true);
 		}
 	}
@@ -259,18 +283,24 @@ class Plugs extends BaseController
 				}
 			} 
 
-			$c=new Config();
-			$h=[
-				'name'=>'emailsender',
-				'value'=>json_encode($result)
-			];
-			$c->saveorupdate('emailsender',$h);
+			$c=Config::where('name','emailsender')->find();
+			if(!$c){
+				$c=new Config;
+			}
+			$c->appid=appid();
+			$c->name='emailsender';
+			$c->value=json_encode($result);
+			$c->save();
 
-			$d=[
-				'name'=>'emailtype',
-				'value'=>$type
-			];
-			$c->saveorupdate('emailtype',$d);
+			$d=Config::where('name','emailtype')->find();
+			if(!$d){
+				$d=new Config;
+			}
+			$d->appid=appid();
+			$d->name='emailtype';
+			$d->value=$type;
+			$d->save(); 
+ 
 			return message('保存成功',true);
 		}
 	}
@@ -328,17 +358,23 @@ class Plugs extends BaseController
 				}
 			} 
 
-			$c=new Config();
-			$h=[
-				'name'=>'osssender',
-				'value'=>json_encode($result)
-			];
-			$c->saveorupdate('osssender',$h);
-			$d=[
-				'name'=>'osstype',
-				'value'=>$type
-			];
-			$c->saveorupdate('osstype',$d);
+			$c=Config::where('name','osssender')->find();
+			if(!$c){
+				$c=new Config;
+			}
+			$c->appid=appid();
+			$c->name='osssender';
+			$c->value=json_encode($result);
+			$c->save();
+
+			$d=Config::where('name','osstype')->find();
+			if(!$d){
+				$d=new Config;
+			}
+			$d->appid=appid();
+			$d->name='osstype';
+			$d->value=$type;
+			$d->save(); 
 			return message('保存成功',true); 
 		}
 	}

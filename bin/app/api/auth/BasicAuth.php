@@ -4,7 +4,7 @@ namespace app\api\auth;
 use think\Request;
 
 class BasicAuth extends Basic
-{
+{ 
     public static function auth($auth)
     {
         $request = Request(); 

@@ -129,11 +129,10 @@ abstract class OAuth implements AuthContract
      * @throws UnauthorizedException
      */
     public function getAccessToken()
-    {
+    { 
         $request = Request();
         //先行验证是否有传参
         $this->access_token = $request->param('access_token', null);
-
 
         if ($this->access_token) return $this;
  

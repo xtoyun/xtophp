@@ -14,8 +14,6 @@ class Users extends Model {
 
 	protected $pk="userid"; 
 
-	
-
     public function getLastLoginDateAttr($value)
     {
     	if(is_numeric($value)){
@@ -138,6 +136,15 @@ class Users extends Model {
 	}
 
 	public function c_save($data = [], $where = [], $sequence = NULL){
+		if(empty($this->username)){
+			return message('用户名不能为空',false,0,1);
+		}
+		if(empty($this->password)){
+			return message('密码不能为空',false,0,1);
+		}
+		if($this->Overall(false)->where('username',$this->username)->count()>0){
+			return message('用户名重复',false,0,1);
+		}
 		$this->salt=(empty($this->salt)?uniqid():$this->salt);
 		$this->createdate=(empty($this->createdate)?fdate():$this->createdate);
 
@@ -223,14 +230,14 @@ class Users extends Model {
 	}
 
 	static function getuser($userid,$username='',$mobilein='',$iscache=true){
+		//Cache::clear();
 		//$appid=appid();//全局appid
 		$result=null;//返回结果
 		$hashtable = Users::userCache(); //读取hasttable和数组功能一样，只是键值的关系，便于管理和性能
 		$key = Users::UserKey($username);//读取会员名的缓存key
-		 
 		if($userid>0){
 			$key = Users::UserKey($userid);//如果用户名为空，则以userid缓存key
-		}
+		} 
 		//是否读取缓存用户
 		if ($iscache) { 
 			$result = $hashtable->find($key); //查找hasttable

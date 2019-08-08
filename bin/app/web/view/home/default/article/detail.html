@@ -3,8 +3,8 @@
 	$id=input('id');
 	$info=\app\data\model\Article::find($id);
 	if($info){
-		$title=$info->content->title;
-		$content=$info->content->content;
+		$title=$info->title;
+		$content=$info->content;
 		$createdate=$info->create_time;
 	}
 

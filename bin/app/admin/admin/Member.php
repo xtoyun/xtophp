@@ -76,7 +76,7 @@ class Member extends BaseController{
 				->addNav('','添加会员',url('member/create'))
 				->addNav('','会员列表',url('member/index'))
 				->setTitle('添加会员')
-				->addFormItems([
+				->addFormItems([ 
 						['text', 'username', '用户名', '用户名称'],
 						['text', 'tuser', '推荐用户', '系统已经存在的用户'],
 						['password', 'loginpwd', '登录密码', '必填，6-20位，默认888888','888888'],  

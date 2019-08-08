@@ -46,7 +46,7 @@ class User extends Base
     public function index()
     {
         //dump(input('limit'));
-        return $this->sendSuccess(self::testUserData());
+        return $this->sendSuccess('test');
     }
     /**
      * @title 创建用户
@@ -125,5 +125,9 @@ class User extends Base
     public function delete($id)
     {
         return $this->sendSuccess(['user' => null], 'User delete failed.');
+    }
+
+    public function test(){
+        return $this->sendSuccess('test');
     }
 }

@@ -15,6 +15,20 @@ Date: 2019-04-24 11:08:46
 
 SET FOREIGN_KEY_CHECKS=0;
 
+/*
+20190628
+1、统一标题操作
+*/
+
+update xto_article set title=(select title from xto_content where cid=xto_article.cid)
+update xto_article set content=(select content from xto_content where cid=xto_article.cid)
+update xto_article set keywords=(select keywords from xto_content where cid=xto_article.cid)
+  update xto_article set description=(select description from xto_content where cid=xto_article.cid)
+  update xto_article set img1=(select img1 from xto_content where cid=xto_article.cid)
+
+  update xto_about set content=(select content from xto_content where cid=xto_about.cid)
+  update xto_about set keywords=(select keywords from xto_content where cid=xto_about.cid)
+
 DROP TABLE IF EXISTS `xto_member_refers`;
 CREATE TABLE `xto_member_refers` (
   `rid` int(11) NOT NULL AUTO_INCREMENT,

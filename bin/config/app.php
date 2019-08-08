@@ -160,6 +160,6 @@ return [
     'auth_admin_name'=>'admin_session',
     'appid'=>10000,
     'web'=>[
-        'theme'=>'default' 
+        'theme'=>'blog' 
     ]
 ];

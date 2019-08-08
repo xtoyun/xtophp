@@ -48,34 +48,27 @@ class Article extends BaseController{
 	}
 
 	public function create(){
- 
 		$nid=input('nid');
-		// if(empty($nid)){
-		// 	$this->error('请选择栏目');
-		// 	return;
-		// }
 		$data=[]; 
 		foreach (ArticleCategoryModel::select() as $key => $value) {
 			$data[$value['catename']]=$value['cateid'];
-		}  
-
-		// $navs=[];
-		// foreach (NavModel::getlist('文章模型') as $key => $value) {
-		// 	$navs[$value['title']]=$value['nid'];
-		// }  
-
+		}
 		$fields=[	
-			//['select','nid','栏目','',$navs],
 						['select','cateid','文章类别','',$data], 
-						['checkbox', 'selfin', '自定义', '',['推荐'=>'tj','置顶'=>'zd'],''],
+						['checkbox', 'selfin', '自定义', '',[
+							'推荐'=>'tj',
+							'置顶'=>'zd',
+							'推首'=>'ts',
+							'热门'=>'lm'],''],
 						
 						['text', 'title', '文章标题', ''],
 						['image', 'img1', '图片', ''],
+						['textarea', 'description', '描述', ''],
 						['ueditor', 'content', '文章内容', ''],
 						['text', 'order', '排序', ''],
 						['tags', 'keywords', '关键字', ''],
 						['text', 'author', '作者', ''],
-						['textarea', 'description', '描述', ''],
+						
 						['date','update_time','发布时间',''],
 					];
 		
@@ -110,7 +103,7 @@ class Article extends BaseController{
 
 	public function edit(){
 		$arid=input('id'); 
-		$article_item = ArticleModel::getinfo($arid);
+		$article_item = ArticleModel::find($arid)->toarray();
 
 		$data=[];
 		foreach (ArticleCategoryModel::select() as $key => $value) {
@@ -125,7 +118,9 @@ class Article extends BaseController{
 
 		['checkbox', 'selfin', '自定义', '',[
 							'置顶'=>'zd',
-							'推荐'=>'tj'
+							'推荐'=>'tj',
+							'推首'=>'ts',
+							'热门'=>'lm'
 						]],
 						['select','cateid','文章类别','',$data],
 						['text', 'title', '文章标题', ''],
@@ -162,9 +157,23 @@ class Article extends BaseController{
 	        $data['appid']=appid();
 	        if (strstr($data['selfin'], 'tj')) {
 	        	$data['is_tui']=1;
+	        }else{
+	        	$data['is_tui']=0;
 	        }
 	        if (strstr($data['selfin'], 'zd')) {
 	        	$data['is_top']=1;
+	        }else{
+	        	$data['is_top']=0;
+	        }
+	        if (strstr($data['selfin'], 'ts')) {
+	        	$data['is_home']=1;
+	        }else{
+	        	$data['is_home']=0;
+	        }
+	        if (strstr($data['selfin'], 'lm')) {
+	        	$data['is_hot']=1;
+	        }else{
+	        	$data['is_hot']=0;
 	        }
 	        $result = $article->save($data);
 			if ($result) {
@@ -183,11 +192,25 @@ class Article extends BaseController{
 				return message($validate->getError(),false);
 	        }
 			$article = ArticleModel::find($arid); 
-			 if (strstr($data['selfin'], 'tj')) {
+			if (strstr($data['selfin'], 'tj')) {
 	        	$data['is_tui']=1;
+	        }else{
+	        	$data['is_tui']=0;
 	        }
 	        if (strstr($data['selfin'], 'zd')) {
 	        	$data['is_top']=1;
+	        }else{
+	        	$data['is_top']=0;
+	        }
+	        if (strstr($data['selfin'], 'ts')) {
+	        	$data['is_home']=1;
+	        }else{
+	        	$data['is_home']=0;
+	        }
+	        if (strstr($data['selfin'], 'lm')) {
+	        	$data['is_hot']=1;
+	        }else{
+	        	$data['is_hot']=0;
 	        }
 	        
 			$result = $article->allowField(true)->save($data);

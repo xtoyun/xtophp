@@ -6,7 +6,7 @@ use think\facade\App;
 
 
 class locoss extends OSSSender{
-	protected $folder='/uploads/oss/'; 
+	protected $folder='/uploads/oss/'.appid().'/'; 
 
 	public function __construct(){
 		parent::__construct();

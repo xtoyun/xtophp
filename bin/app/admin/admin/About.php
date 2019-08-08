@@ -87,13 +87,8 @@ class About extends BaseController{
 
 	public function edit(){
 		$abid = input('abid'); 
-		$info = AboutModel::getinfo($abid);
-		// $navs=[];
-		// foreach (NavModel::getlist('单页模型') as $key => $value) {
-		// 	$navs[$value['title']]=$value['nid'];
-		// }  
+		$info = AboutModel::find($abid)->toarray();  
 		$fields=[	
-			//['select','nid','栏目','',$navs],
 						['text', 'name', '页面名称', ''],
 						['text', 'title', '标题', ''],
 						['ueditor', 'content', '内容', ''],

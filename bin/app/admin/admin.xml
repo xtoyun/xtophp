@@ -2,58 +2,56 @@
 <menu> 
 	<item title='客户管理' class="si-users" url='/admin/member/init'>
 		<pagelink title='客户查询' url='/admin/member/index' c='member'></pagelink> 
-		<pagelink title='推荐网络' url='/admin/upteam/index' c='upteam'></pagelink>
+		<pagelink title='推荐网络' url='/admin/member.network/index' c='member.network'></pagelink>
+		<pagelink title='客户套餐' url='/admin/product.service/index' c='product.service'></pagelink>
+		<!-- <pagelink title='套餐订单' url='/admin/order.service/index' c='order.service'></pagelink> -->
 	</item>
-	<item title='资产管理' class="si-wallet" url='/admin/account/init'> 
-		<pagelink title='钱包管理' url='/admin/wallet/index' c='wallet'></pagelink>
-		<pagelink title='奖金管理' url='/admin/splittin/index' c='splittin'></pagelink>
-		<pagelink title='积分管理' url='/admin/point/index' c='point'></pagelink>
+	<item title='资产管理' class="si-wallet" url='/admin/asset/init'> 
+		<pagelink title='钱包管理' url='/admin/asset.wallet/index' c='asset.wallet'></pagelink>
+		<pagelink title='奖金管理' url='/admin/asset.splittin/index' c='asset.splittin'></pagelink>
+		<pagelink title='积分管理' url='/admin/asset.point/index' c='asset.point'></pagelink>
 	</item>
 	
 	<item title='商品管理' url='/admin/product/init' c='product' class="si-present">
 		<pagelink title='创建商品' url='/admin/product/create' c='product'></pagelink>
 		<pagelink title='商品列表' url='/admin/product/index' c='product'></pagelink> 
-		<pagelink title='商品类别' url='/admin/pcategory/index' c='pcategory'></pagelink>
+		<pagelink title='商品类别' url='/admin/product.category/index' c='product.category'></pagelink> 
 	</item>
 	 
 	<item title='内容管理' url='/admin/content/init' c='content' class="si-notebook">
 		<pagelink title='创建文章' url='/admin/article/create' c='article'></pagelink>
 		<pagelink title='文章列表' url='/admin/article/index' c='article'></pagelink>
- 
-		<pagelink title='文章类别' url='/admin/category/index' c='category'></pagelink>
+		<pagelink title='文章类别' url='/admin/article.category/index' c='article.category'></pagelink>
 		<pagelink title='创建单页' url='/admin/about/create' c='about'></pagelink> 
 		<pagelink title='单页列表' url='/admin/about/index' c='about'></pagelink> 
 		 
 	</item>  
 	 
 	<item title='消息管理' class='si-envelope' url='/admin/message/index'>
-		<pagelink title='收件箱' url='/admin/inbox/index' c='inbox'>
-		</pagelink>
-		<pagelink title='发件箱' url='/admin/sendbox/index' c='sendbox'>
-		</pagelink>
-		<pagelink title='发送邮件' url='/admin/sendbox/send' c='sendbox'>
-		</pagelink> 
-	</item>
-
-	<item title='权限管理' url='/admin/limit/index'>
-		<pagelink title='管理员' url='/admin/manager/index' c='manager'>
-			<function url='/admin/manager/create' title='添加管理员'></function>
-			<function url='/admin/manager/edit' title='编辑管理员'></function>
-			<function url='/admin/manager/delete_post' title='删除管理员'></function>
-		</pagelink>
-		<pagelink title='角色管理' url='/admin/roles/index' c='roles'>
-			<function url='/admin/roles/create' title='添加角色'></function>
-			<function url='/admin/roles/edit' title='添加角色'></function>
-			<function url='/admin/roles/delete_post' title='删除角色'></function>
-			<function url='/admin/roles/allot' title='角色功能分配'></function>
-		</pagelink>
+		<pagelink title='内部公告' url='/admin/message.note/index' c='message.note'></pagelink>
+		<pagelink title='收件箱' url='/admin/inbox/index' c='inbox'></pagelink>
+		<pagelink title='发件箱' url='/admin/sendbox/index' c='sendbox'></pagelink>
+		<pagelink title='发送邮件' url='/admin/sendbox/send' c='sendbox'></pagelink> 
 	</item> 
 	<item title='基础设置' url='/admin/basic/index' class='si-settings'>
 		<pagelink title='基本设置' url='/admin/setting/basic' c='setting'>
 		</pagelink>
 		<pagelink title='日志管理'  url='/admin/logs/index' c='logs'></pagelink>
 		<pagelink title='插件管理' url='/admin/plugs/setsms' c='plugs'></pagelink>
-		 
-		
+		<pagelink title='管理员' url='/admin/manager/index' c='manager'>
+			<function url='/admin/manager/create' title='添加管理员'></function>
+			<function url='/admin/manager/edit' title='编辑管理员'></function>
+			<function url='/admin/manager/delete_post' title='删除管理员'></function>
+		</pagelink>
+		<pagelink title='角色管理' url='/admin/manager.roles/index' c='manager.roles'>
+			<function url='/admin/manager.roles/create' title='添加角色'></function>
+			<function url='/admin/manager.roles/edit' title='添加角色'></function>
+			<function url='/admin/manager.roles/delete_post' title='删除角色'></function>
+			<function url='/admin/manager.roles/allot' title='角色功能分配'></function>
+		</pagelink>
+	</item>
+	<item title='活动营销' url='/admin/rewark/index' class='si-support'>
+		<pagelink title='注册套餐奖励' url='/admin/rewark.service/index' c='rewark.service'>
+		</pagelink>
 	</item>
 </menu>

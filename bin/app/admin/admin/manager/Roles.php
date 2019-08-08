@@ -1,12 +1,12 @@
 <?
-namespace app\admin\admin;
+namespace app\admin\admin\manager;
 
  
 use app\data\membership\Roles as RolesModel;
 use app\data\membership\Usersinroles;
- 
+use app\admin\admin\BaseController as Controller;
 
-class Roles extends BaseController{
+class Roles extends Controller{
 	 
 
 	public function index(){
@@ -28,9 +28,9 @@ class Roles extends BaseController{
 				->setDataSource($result)
 				//->addColumnButton('delete','',url('roles/delete_post')) 
 				->addColumnButton('','','javascript:app.post(\''.$del_url.'\',{\'roleid\':\'$roleid\'},\''.$go_url.'\')','','fa fa-times','')
-				->addTopButton('','创建',url('roles/create')) 
-				->addColumnButton('','',url('roles/edit').'?id=$roleid','','fa fa-pencil')
-				->addNav('','角色列表',url('roles/index'))
+				->addTopButton('','创建',url('create')) 
+				->addColumnButton('','',url('edit').'?id=$roleid','','fa fa-pencil')
+				->addNav('','角色列表',url('index'))
 				->setQuickSearch('name|roleid','请输入关键字')
 				->setPid('roleid')
 				->setColumns([
@@ -52,7 +52,7 @@ class Roles extends BaseController{
 						['text', 'name', '角名名称', '必填，请输入角色名称'], 
 						['textarea', 'description', '描述', ''],
 					])
-				->submit(url('roles/createrole_post'),'',url('roles/index'))
+				->submit(url('roles/createrole_post'),'',url('index'))
 				->fetch();
 	}
 
@@ -68,7 +68,7 @@ class Roles extends BaseController{
 						['text', 'name', '角名名称', '必填，请输入角色名称'], 
 						['textarea', 'description', '描述', ''],
 					])
-				->submit(url('roles/editrole_post'),'',url('roles/index'))
+				->submit(url('editrole_post'),'',url('index'))
 				->setpid('roleid',$id)
 				->setdatasource($role)
 				->fetch();

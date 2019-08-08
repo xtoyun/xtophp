@@ -22,4 +22,20 @@ class FormTemplate  extends \app\data\template\FormTemplate{
         $this->setDataList('items',$item);
         return $this;
     }
+
+    public function addSpecs($name = '', $title = '', $tips = '', $options = [], $default = ''){
+        $type = 'specs';
+
+        $item = [
+            'type'        => $type,
+            'name'        => $name,
+            'title'       => $title,
+            'tips'        => $tips,
+            'options'     => $options,
+            'value'       => $default
+        ]; 
+
+        $this->setDataList('items',$item);
+        return $this;
+    }
 }

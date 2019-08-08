@@ -7,10 +7,9 @@ use xto\Util;
 class kingtto extends SMSSender{
 	protected $account; 
 	protected $password; 
-	protected $userid; 
+	protected $userid;  
 
 	public function send($tel,$message=''){
- 
 		if (empty($tel) || empty($message)) {
 			return false;
 		}
@@ -35,13 +34,17 @@ class kingtto extends SMSSender{
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1 );
 		$result = curl_exec($ch);
-		curl_close($ch);  
-		$b=\xto\Util::xml_to_array($result);
- 
-		if (strtolower($b['returnsms']['returnstatus'])=='success') {
-			return true;
-		}
-		return false;
+		curl_close($ch); 
+		$b=xml_to_array($result);
+	  	if ($b) {
+	  		if (strtolower($b['returnsms']['returnstatus'])=='success') {
+				return message('发送成功',true,10,10);
+			}else{
+				return message($b['returnsms']['message'],false,10,10);
+			}
+	  	}
+		
+		return message('未知错误',false,10,10);;
 	}
 
 	public function configShortDescription(){

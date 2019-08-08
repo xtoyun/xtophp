@@ -5,7 +5,9 @@
  * Date: 14-04-09
  * Time: 上午10:17
  */
-include "Uploader.class.php";
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+include "Uploader.class.php";   
 
 /* 判断类型 */
 switch ($_GET['action']) {
@@ -31,6 +33,7 @@ $end = $start + $size;
 
 /* 获取文件列表 */
 $path = $_SERVER['DOCUMENT_ROOT'] . (substr($path, 0, 1) == "/" ? "":"/") . $path;
+ 
 $files = getfiles($path, $allowFiles);
 if (!count($files)) {
     return json_encode(array(

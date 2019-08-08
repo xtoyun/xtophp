@@ -1,12 +1,13 @@
 <?
-namespace app\admin\admin;
- 
-use app\data\model\Splittins;
+namespace app\admin\admin\asset;
+
+use app\data\model\Points;
 use app\data\membership\Members; 
 use app\data\membership\Users;
+use app\admin\admin\BaseController as Controller;
 
-class Splittin extends BaseController{
- 
+class Point extends Controller{
+	 
 
 	public function index(){
 		$where=[];
@@ -15,23 +16,24 @@ class Splittin extends BaseController{
 				[input('field'),'like',input('keyword').'%'],
 			];
 		}   
-		$source=Splittins::selectpage(20,$where,'sid desc');//读取数据
+		$source=Points::selectpage(20,$where,'pid desc');//读取数据
 
 		return $this->template
 				->TableTemplate 
 				->setData('modulename','财务管理')
-				->setTitle('奖金管理')
+				->setTitle('积分管理')
 				->setPager($source->render())
 				->setDataSource($source)
-				//->addColumnButton('','',url('splittin/edit').'?id=$sid','','fa fa-pencil')
-				->addTopButton('','添加奖金',url('splittin/create'))
-				->addNav('','奖金列表',url('splittin/index')) 
+				//->addColumnButton('delete')
+				//->addColumnButton('','',url('point/edit').'?id=$pid','','fa fa-pencil')
+				->addTopButton('','添加积分',url('create'))
+				->addNav('','积分列表',url('index')) 
 				->setQuickSearch('username','请输入关键字')
-				->setPid('sid')
+				->setPid('pid')
 				->setColumns([
-					['sid', '流水号'],
+					['pid', '流水号'],
 					['userid', '用户编号'],
-	                ['username', '用户名','link','create?username=$username&sid=$sid'],
+	                ['username', '用户名','link','create?username=$username&pid=$pid'],
 	                ['tradedate', '交易日期'], 
 	                ['income','收入',''],
 	                ['expenses','支出',''],
@@ -46,15 +48,15 @@ class Splittin extends BaseController{
 		return $this->template
 				->FormTemplate 
 				->setData('modulename','财务设置') 
-				->addNav('','添加奖金',url('splittin/create'))
-				->addNav('','奖金列表',url('splittin/index'))
-				->setTitle('添加奖金')
+				->addNav('','添加积分',url('create'))
+				->addNav('','积分列表',url('index'))
+				->setTitle('添加积分')
 				->addFormItems([
 						['text', 'username', '用户名', '用户名称',input('username')],
 		                ['text', 'amount', '金额', '',100], 
 		                ['text', 'remark', '备注', ''], 
 					])
-				->submit(url('splittin/create_post'),'',url('splittin/index'))
+				->submit(url('create_post'),'',url('index'))
 				->fetch();
 	}
 
@@ -66,7 +68,7 @@ class Splittin extends BaseController{
  
 			$user=Users::getuser(0,$username,'',false);
 			if (!empty($user)) { 
-				if(Splittins::usein($user->userid,$amount,0,$remark)){
+				if(Points::usein($user->userid,$amount,0,$remark)){
 					//清理缓存
 					$user->clearCache();
 					return message('添加成功',true);

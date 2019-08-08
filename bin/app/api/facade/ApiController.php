@@ -133,15 +133,15 @@ abstract class ApiController
         $this->_register();
         if (self::_getConfig('api_debug')) {
 
-            $auth=false;
+            $auth=false; 
             if (self::_getConfig('api_auth') && $this->apiAuth) {
                 $auth = $this->_auth(); 
             }  
 
             if ($auth !== true){ 
-                throw new UnauthorizedException('没有权限');
-                
-                //return;
+                throw new UnauthorizedException('Unauthorized');
+                $this->sendError(300, '没有权限', 500, []);
+                return;
             } 
              //throw new UnauthorizedException();
             //执行操作
@@ -152,8 +152,7 @@ abstract class ApiController
                  * 认证授权通过  return true,
                  * 不通过可返回 return false or throw new UnauthorizedException
                  */
-                //认证
-
+                //认证 
                 $auth = (self::_getConfig('api_auth') && $this->apiAuth) ? $this->_auth() : true;
 
                 if ($auth !== true) throw new UnauthorizedException('Unauthorized');
@@ -187,7 +186,7 @@ abstract class ApiController
     {
 
         if (!isset(self::$app['auth']) || !self::$app['auth']) {
-            $auth = self::_getConfig('auth_class');
+            $auth = self::_getConfig('auth_class'); 
 
             //支持数组配置
             //判断是否实现验证接口

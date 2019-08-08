@@ -5,7 +5,7 @@ use app\data\App;
 use app\data\Model;
 use app\data\membership\Users;
 use think\Db;
-
+ 
 class Wallets extends Model{ 
 	protected $pk="wid";   
  
@@ -35,8 +35,9 @@ class Wallets extends Model{
 	}
 
 	static function selectpage($pagesize,$where=null,$order=null,$field='*'){
-		 $result= parent::view('Wallets',"*",$where,$order) 
-                            ->paginate($pagesize);
-        return $result;
+		return parent::view('Wallets',$field)
+				->where($where)
+				->order($order)
+				->paginate($pagesize); 
 	} 
 }

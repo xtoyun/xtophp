@@ -30,8 +30,8 @@
                     "data": {
                         "url": function (node) {
                             var url = node.id === '#' ?
-                        '{:url('upteam/refer_data')}?userid={$userid}' :
-                        '{:url('upteam/refer_data')}?userid=' + node.id; 
+                        '{:url('refer_data')}?userid={$userid}' :
+                        '{:url('refer_data')}?userid=' + node.id; 
                             return url;
                         },
                         "data": function (node) { 

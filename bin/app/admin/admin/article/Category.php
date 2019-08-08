@@ -1,9 +1,10 @@
 <?
-namespace app\admin\admin;
+namespace app\admin\admin\article;
 
 use app\data\model\ArticleCategory as ArticleCategoryModel;
+use app\admin\admin\BaseController as Controller;
 
-class Category extends BaseController{
+class Category extends Controller{
 
 	public function index(){ 
 		$list=ArticleCategoryModel::where('')->order('cateid desc')->paginate(20); 
@@ -15,9 +16,9 @@ class Category extends BaseController{
 				->setDataSource($list)
 				->setPager($list->render())
 				->addColumnButton('delete') 
-				->addNav('','类别',url('category/index'))  
-				->addTopButton('','创建',url('category/create'))
-				->addColumnButton('','修改',url('category/edit').'?id=$cateid&name=$catename','','fa fa-pencil') 
+				->addNav('','类别',url('index'))  
+				->addTopButton('','创建',url('create'))
+				->addColumnButton('','修改',url('edit').'?id=$cateid&name=$catename','','fa fa-pencil') 
 				->setQuickSearch('name','')
 				->setPid('cateid')
 				->setColumns([
@@ -40,8 +41,8 @@ class Category extends BaseController{
 		return $this->template
 				->FormTemplate 
 				->setData('modulename','基础设置') 
-				->addNav('','添加',url('category/create'))
-				->addNav('','文章类别',url('category/index'))
+				->addNav('','添加',url('create'))
+				->addNav('','文章类别',url('index'))
 				->setTitle('添加类别')
 				->addFormItems([
 						['select', 'parent_cateid', '上级', 'select ',$data],
@@ -50,7 +51,7 @@ class Category extends BaseController{
 						['text', 'order', '排序', '输入排序'],
 						 
 					])
-				->submit(url('category/create_post'),'','')
+				->submit(url('create_post'),'','')
 				->fetch();
 	}
 
@@ -91,8 +92,8 @@ class Category extends BaseController{
 		return $this->template
 				->FormTemplate 
 				->setData('modulename','基础设置') 
-				->addNav('','编辑',url('category/edit'),'?id='.$id)
-				->addNav('','类别',url('category/index'))
+				->addNav('','编辑',url('edit'),'?id='.$id)
+				->addNav('','类别',url('index'))
 				->setTitle('编辑类别')
 				->addFormItems([
 						['text', 'catename', '名称', ''],
@@ -101,7 +102,7 @@ class Category extends BaseController{
 					])
 				->setDataSource($category_item)
 				->setPid('cateid',$id)
-				->submit(url('category/edit_post'),'')
+				->submit(url('edit_post'),'')
 				->fetch();
 	}
 

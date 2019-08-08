@@ -10,5 +10,10 @@
 /app/web/view/home/xt
 /app/web/view/home/xtocn
 /app/web/view/home/yun
+/app/web/view/home/blog
+/app/web/view/home/caishui
 /uploads
 /app/fans
+/app/user
+/app/shop
+/app/api

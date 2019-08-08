@@ -59,34 +59,34 @@ class Article extends Model {
     } 
 
     //直接获取所有数据信息,便于读取
-    static function getinfo($id){
-        $result=self::find($id);
-        return array_merge($result->toArray(),($result->content)?$result->content->toArray():[]);
-    }
+    // static function getinfo($id){
+    //     $result=self::find($id);
+    //     return array_merge($result->toArray(),($result->content)?$result->content->toArray():[]);
+    // }
 
     //重写save方法
     //内容直接读取$_POST方法
-    public function save($data = [], $where = [], $sequence = NULL){
-        //重写内容
-        $data['update_time']=fdate();
-        $content=new Content();
-        if (!empty($this->cid)) {
-            $content=$this->content;
-        }
-        //创建成功后，保存cid
-        if($content->allowField(true)->save($data)){
-            $data['cid']=$content->cid;
-        }
+    // public function save($data = [], $where = [], $sequence = NULL){
+    //     //重写内容
+    //     $data['update_time']=fdate();
+    //     $content=new Content();
+    //     if (!empty($this->cid)) {
+    //         $content=$this->content;
+    //     }
+    //     //创建成功后，保存cid
+    //     if($content->allowField(true)->save($data)){
+    //         $data['cid']=$content->cid;
+    //     }
         
-        return parent::save($data,$where,$sequence);
-    }
+    //     return parent::save($data,$where,$sequence);
+    // }
 
     //用来分页查询数据源
-    static function selectpage($pagesize,$where=null,$order=null,$field='*'){  
-        return parent::alias('Article')->field("Article.*,Content.*,ArticleCategory.catename")->where($where)->order($order)
-                  ->join('Content','Content.cid=Article.cid')
+    static function selectpage($pagesize,$where=null,$order=null,$field='*'){ 
+    
+        return parent::alias('Article')->field("ArticleCategory.catename,Article.*")->where($where)->order($order)
+                  //->join('Content','Content.cid=Article.cid')
                   ->join('ArticleCategory','ArticleCategory.cateid=Article.cateid')  
-                  //->join('Nav','Nav.nid=Article.nid')
                   ->paginate($pagesize); 
     }
 }

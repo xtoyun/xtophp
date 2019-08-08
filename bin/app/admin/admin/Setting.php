@@ -12,8 +12,7 @@ class Setting extends BaseController
 
 	    $action = request()->action();
 	 
-		$data=$this->module->getconfig($action);           
-		
+		$data=$this->module->getconfig($action); 
 		if(!empty($data)){
 			$result= $this->template
 				->FormTemplate 
@@ -23,7 +22,7 @@ class Setting extends BaseController
 				->setTitle('基本设置')
 				->addFormItems($data['data'])
 				->setDataSource($c)
-				->submit(url('setting/config_post'),'');
+				->submit(url('config_post'),'');
 			return $result->fetch();
 		}
 	}  

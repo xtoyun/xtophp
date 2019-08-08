@@ -1,9 +1,10 @@
 <?
-namespace app\admin\admin;
+namespace app\admin\admin\product;
  
-use app\data\model\ProductCategory as ProductCategoryModel; 
+use app\data\model\ProductCategory as ProductCategoryModel;
+use app\admin\admin\BaseController as Controller;
 
-class Pcategory extends BaseController{
+class Category extends Controller{
 	// private $dao;
 
 	// public function __construct(){
@@ -13,7 +14,7 @@ class Pcategory extends BaseController{
 	// }
 
 	public function index(){ 
-		$list=ProductCategoryModel::where("")->order('cateid desc')->paginate(10);
+		$list=ProductCategoryModel::where("")->order('parent_cateid asc')->paginate(10);
 
 		return $this->template
 				->TableTemplate 
@@ -22,9 +23,9 @@ class Pcategory extends BaseController{
 				->setDataSource($list)
 				->setPager($list->render())
 				->addColumnButton('delete') 
-				->addNav('','类别',url('pcategory/index')) 
-				->addTopButton('','创建',url('pcategory/create'))
-				->addColumnButton('','修改',url('pcategory/edit').'?id=$cateid','','fa fa-pencil')
+				->addNav('','类别',url('index')) 
+				->addTopButton('','创建',url('create'))
+				->addColumnButton('','修改',url('edit').'?id=$cateid','','fa fa-pencil')
 				->setQuickSearch('name','Search')
 				->setPid('cateid')
 				->setColumns([
@@ -46,8 +47,8 @@ class Pcategory extends BaseController{
 		return $this->template
 				->FormTemplate 
 				->setData('modulename','基础设置') 
-				->addNav('','添加',url('pcategory/create'))
-				->addNav('','产品类别',url('pcategory/index'))
+				->addNav('','添加',url('create'))
+				->addNav('','产品类别',url('index'))
 				->setTitle('添加类别')
 				->addFormItems([
 						['select', 'parent_cateid', '上级', '选择一个上级类别',$data],
@@ -55,7 +56,7 @@ class Pcategory extends BaseController{
 						['text', 'order', '排序', '输入数字'],
 
 					])
-				->submit(url('pcategory/create_post'),'')
+				->submit(url('create_post'),'')
 				->fetch();
 	}
 	public function create_post(){
@@ -76,6 +77,7 @@ class Pcategory extends BaseController{
 			$category->catename = $catename;
 			$category->parent_cateid = $parent_cateid;
 			$category->order = (empty($order)?0:$order);
+			$category->appid=appid();
 
 			$result = $category->save();
 
@@ -93,8 +95,8 @@ class Pcategory extends BaseController{
 		return $this->template
 				->FormTemplate 
 				->setData('modulename','基础设置') 
-				->addNav('','编辑',url('pcategory/edit'),'?id='.$id)
-				->addNav('','类别',url('pcategory/index'))
+				->addNav('','编辑',url('edit'),'?id='.$id)
+				->addNav('','类别',url('index'))
 				->setTitle('编辑类别')
 				->addFormItems([
 						['text', 'catename', '名称', ''],
@@ -102,7 +104,7 @@ class Pcategory extends BaseController{
 					])
 				->setDataSource($category_item)
 				->setPid('cateid',$id)
-				->submit(url('pcategory/edit_post'),'')
+				->submit(url('edit_post'),'')
 				->fetch();
 	}
 	public function edit_post(){
@@ -115,6 +117,7 @@ class Pcategory extends BaseController{
  		if ($category_item) {
  			$category_item->catename = $catename;
  			$category_item->order = $order;
+ 			$category_item->appid=appid();
  			$result = $category_item->force()->save();
  			if ($result) {
  				return message('保存成功',true);

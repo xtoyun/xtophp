@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
-	<item name="app_open" title="站点开关" type="switch" tips="" sort="1" attr="action:/admin.php/admin/setting/config_swift_post" tab="basic" group="基本">false</item>
+	<item name="app_host" title="网址" type="text" attr="" tips="" sort="1" tab="basic" group="基本"></item> 
 	<item name="app_name" title="站点名称" type="text" tips="调用方法:{$config.app_name|default=''}" sort="1" attr="" tab="basic" group="基本"></item>
 	<item name="app_mobile" title="联系号码" type="text" tips="调用方法:{$config.app_mobile|default=''}" sort="1" attr="" tab="basic" group="基本"></item>
 	<item name="app_wechat" title="微信号码" type="text" tips="调用方法:{$config.app_wechat|default=''}" sort="1" attr="" tab="basic" group="基本"></item>
@@ -11,4 +11,12 @@
 	<item name="web_title" title="网站标题" type="text" tips="调用方法:{$config.web_title|default=''}" sort="1" attr="" tab="web" group="网站"></item>
 	<item name="web_keywords" title="网站关键字" type="text" tips="调用方法:{$config.web_keyWords|default=''}" sort="1" attr="" tab="web" group="网站"></item>
 	<item name="web_description" title="网站描述" type="text" tips="调用方法:{$config.web_description|default=''}" sort="1" attr="" tab="web" group="网站"></item>
+<item name="web_nav" title="导航条" type="textarea" tips="调用方法:{$config.web_nav|default=''}" sort="0" attr="" tab="web" group="网站"></item>
+	<item name="web_logo" title="LOGO" type="image" tips="调用方法:{$config.web_logo|default=''}" sort="1" attr="" tab="web" group="网站"></item>
+	<item name="web_phone" title="全国电话" type="text" tips="调用方法:{$config.web_phone|default=''}" sort="1" attr="" tab="web" group="网站"></item>
+	
+
+	<item name="app_fpre" title="文件前头" type="text" tips="请输入完整的http://" sort="1" attr="" tab="file" group="文件" value=""></item>
+
+	<item name="sms_reg" title="注册验证信息" type="textarea" tips="调用方法:{$config.sms_reg|default=''}" sort="1" attr="" tab="sms" group="短信"></item>
 </config>

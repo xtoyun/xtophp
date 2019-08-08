@@ -5,7 +5,7 @@ use app\data\Model;
 use think\facade\Cache;
 
 class Config extends Model {  
-	protected $pk="name";
+	protected $pk="cid";
 	private static $cache_name='DataCache-ConfigLookuptable';
 
 	static function find_value($name){ 

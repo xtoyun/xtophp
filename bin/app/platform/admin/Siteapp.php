@@ -25,6 +25,8 @@ class Siteapp extends Base{
 					['appid', '编号'],
 					
 					['name', '名称'],
+					['host', '域名'],
+					['web_theme','默认网站皮肤'],
 					['username', '管理员'], 
                     ['button', '操作', 'btn']
 				])
@@ -44,6 +46,8 @@ class Siteapp extends Base{
 						['password','password1','登录密码',''],
 						['password','password2','确认密码',''],
 						['text', 'description', '描述', ''],
+						['text','host','绑定域名',''],
+						['text','web_theme','网站皮肤',''],
 					])
 				->submit(url('siteapp/create_post'),'')
 				->fetch();
@@ -60,7 +64,8 @@ class Siteapp extends Base{
 				->setTitle('添加单页')
 				->addFormItems([  
 						['text', 'name', '站点名称', ''],
-						 
+						['text','host','绑定域名',''],
+						['text','web_theme','网站皮肤',''],
 						['text', 'description', '描述', ''],
 					])
 				->setDataSource($info)
@@ -71,9 +76,11 @@ class Siteapp extends Base{
 
 	public function edit_post(){
 		if (request()->ispost()) {
-			$info=AppModel::find(input('appid'));
+			$info=AppModel::Overall(false)->find(input('appid'));
 			if ($info) {
 				$info->name=input('name');
+				$info->host=input('host');
+				$info->web_theme=input('web_theme');
 				$info->save();
 				return message('提交成功',false);
 			}
@@ -87,6 +94,7 @@ class Siteapp extends Base{
 			$password1 = input('password1');
 			$password2 = input('password2');
 			$description = input('description');
+			$host = input('host');
 			if (empty($name)) {
 				return message('请输入站点名称',false);
 			}
@@ -98,6 +106,8 @@ class Siteapp extends Base{
 			$apps->name = $name; 
 			$apps->username = $username; 
 			$apps->description = $description;
+			$apps->host=$host;
+			$apps->web_theme=input('web_theme');
 			$result = $apps->save(); 
 			if($result){
 				$manager=new managersModel;

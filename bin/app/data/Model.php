@@ -40,4 +40,9 @@ abstract class Model extends \think\Model{
             $query->where($query->getTable() . '.appid', appid());
         }
     }
+
+    // public function save($data = [], $where = [], $sequence = NULL){
+    //     $where['appid']=appid();
+    //     return parent::save($data,$where,$sequence);
+    // }
 }

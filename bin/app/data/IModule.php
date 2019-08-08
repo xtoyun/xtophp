@@ -110,12 +110,14 @@ abstract class IModule{
 			foreach ($items as $item) { 
 				$tab=$item['@attributes']['tab'];
 				$name=$item['@attributes']['name'];
+				 
 				if($action==$tab){
 					$t=strToArray('|',$item['@attributes']['attr']);
 					$data[]=[$item['@attributes']['type'],
 						$item['@attributes']['name'],
 						$item['@attributes']['title'],
 						$item['@attributes']['tips'],
+						isset($item['@attributes']['value'])?$item['@attributes']['value']:'',
 						//isset($configs[$name])?$configs[$name]:'',
 						'',
 						$t]; 
@@ -139,7 +141,8 @@ abstract class IModule{
 				$navs[$tab]=['',$item['@attributes']['group'],url($tab)];
 			} 
 		}//读取选项卡
-		foreach ($items as $item) { 
+		foreach ($items as $item) {
+			//dump($item);
 			$tab=$item['@attributes']['tab'];
 			if($action==$tab){
 				$t=\xto\Util::strToArray('|',$item['@attributes']['attr']);
@@ -147,7 +150,7 @@ abstract class IModule{
 					$item['@attributes']['name'],
 					$item['@attributes']['title'],
 					$item['@attributes']['tips'],
-					$item['@value'],
+					$item['@attributes']['value'],
 					$t]; 
 				}
 		}
