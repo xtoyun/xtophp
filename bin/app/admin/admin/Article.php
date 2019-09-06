@@ -28,7 +28,7 @@ class Article extends BaseController{
 				->setPager($list->render()) 
 				->addNav('','文章列表',url('article/index'),'?nid='.input('nid')) 
 				->addTopButton('','创建',url('article/create').'?nid='.input('nid'))
-				->addColumnButton('delete','删除',url('article/article_delete'))
+				->addColumnButton('delete','删除',url('article/delete_post'))
 				->addColumnButton('','修改',url('article/edit').'?id=$arid&nid='.input('nid'),'','fa fa-pencil')
 				->setQuickSearch('title','')
 				->setPid('arid')
@@ -42,6 +42,7 @@ class Article extends BaseController{
                     ['author', '作者'],
 					['create_time', '发布时间'], 
 					['update_time', '更新时间'], 
+					['reads', '阅读'],
                     ['button', '操作', 'btn']
 				])
 				->fetch();
@@ -84,14 +85,14 @@ class Article extends BaseController{
 				->setPid('nid',$nid)
 				->addFormItems([
 					])
-				->fetch();
+				->fetch(); 
 	}
 	public function delete_post(){
 		if (request()->ispost()) {
 			$arid = input('id');
-			$article = ArticleModel::find($arid,'content');
+			$article = ArticleModel::find($arid);
 			if ($article) {
-				$result = $article->together('content')->delete();
+				$result = $article->delete();
 				
 				if ($result) {
 					return message('删除成功',true);

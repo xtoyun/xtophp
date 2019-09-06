@@ -13,7 +13,22 @@ class Members extends Model {
 
 	public function getWalletsAttr($value)
     {
-    	return $value;
+    	if(is_numeric($value)){
+    		return number_format($value,2);; 
+    	}else{
+    		return $value;
+    	}
+    	
+    }
+
+    public function getSplittinsAttr($value)
+    {
+    	if(is_numeric($value)){
+    		return number_format($value,2);; 
+    	}else{
+    		return $value;
+    	}
+    	
     }
 
 	public function getCreateTimeAttr($value)
@@ -29,6 +44,14 @@ class Members extends Model {
     {
     	if(is_numeric($value)){
     		return date("Y-m-d H:i:s" ,(int)$value);
+    	}else{
+    		return $value;
+    	}
+    }
+
+    public function getPointsAttr($value){
+    	if(is_numeric($value)){
+    		return number_format($value,2);; 
     	}else{
     		return $value;
     	}

@@ -337,7 +337,7 @@ class TemplateController extends Controller{
         if(isset($this->view->layout)){
             return $this->view->layout;
         }else{
-            return APP_PATH."common/view/$this->theme/template/layout.html";
+            return APP_PATH."admin/view/admin/$this->theme/template/layout.html";
         }  
     }
 
@@ -346,11 +346,11 @@ class TemplateController extends Controller{
      * @access public
      * @return string
      */
-    public function getFormLayout(){ 
+    public function getFormLayout(){
         if(isset($this->view->formlayout)){
             return $this->view->formlayout;
         }else{
-            return APP_PATH."common/view/$this->theme/template/form.html";//默认模板
+            return APP_PATH."admin/view/admin/$this->theme/template/form.html";//默认模板
         }         
     }
 
@@ -363,7 +363,7 @@ class TemplateController extends Controller{
         if(isset($this->view->tablelayout)){
             return $this->view->tablelayout;
         }else{
-            return APP_PATH."common/view/$this->theme/template/table.html";
+            return APP_PATH."admin/view/admin/$this->theme/template/table.html";
         }  
     }
 
@@ -376,7 +376,7 @@ class TemplateController extends Controller{
         if(isset($this->view->showlayout)){
             return $this->view->showlayout;
         }else{
-            return APP_PATH."common/view/$this->theme/template/show.html";
+            return APP_PATH."admin/view/admin/$this->theme/template/show.html";
         }  
     }
 

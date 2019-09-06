@@ -9,9 +9,9 @@ class Config extends Model {
 	private static $cache_name='DataCache-ConfigLookuptable';
 
 	static function find_value($name){ 
-		$result=parent::find($name);
+		$result=parent::where('name',$name)->find();
 		if($result){
-			return parent::find($name)->value; 
+			return $result->value; 
 		}
 		return null;
 	}

@@ -6,21 +6,23 @@ use think\facade\App;
 
 
 class locoss extends OSSSender{
-	protected $folder='/uploads/oss/'.appid().'/'; 
+	protected $folder='/uploads/oss/'; 
 
 	public function __construct(){
 		parent::__construct();
 		
 	}
 
-	public function save($file){
+	public function save($file){ 
 		$arr=array('msg'=>'上传失败','success'=>false);
-		$info = $file->move(App::getRootPath() . $this->folder);  
+		$info = $file->move(WEB_PATH . $this->folder);
+		$path=  $this->folder .$info->getSaveName();
+		$path=str_replace('\\', '/', $path);
 		if ($info) {
 			$arr = array(
 			    'msg' 		=> '上传成功',
 			    'success' 	=> true,
-			    'path' 		=> $this->folder .$info->getSaveName()
+			    'path' 		=> $path
 			);             
 		}
 		return $arr;

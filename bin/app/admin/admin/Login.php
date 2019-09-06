@@ -26,7 +26,7 @@ class Login extends \think\Controller  {
 			$url=url('/admin/index');
 		}
 		$this->assign("url", $url);
-		return view("login/index");
+		return view("/login");
 	}
 
 	public function logout(){

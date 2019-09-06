@@ -25,4 +25,8 @@ class Index extends BaseController{
 		Session::delete($this->app->manager_auth_name);
 		$this->redirect("login/index");
 	}
+
+	public function test(){
+		return $this->setblock(true)->setnav(false)->view("index/test");
+	}
 }

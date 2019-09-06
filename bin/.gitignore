@@ -12,8 +12,10 @@
 /app/web/view/home/yun
 /app/web/view/home/blog
 /app/web/view/home/caishui
+/app/web/view/home/xui
+/app/web/view/home/kongy
 /uploads
 /app/fans
 /app/user
 /app/shop
-/app/api
+/app/admin/view/admin/wui

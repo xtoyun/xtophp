@@ -21,4 +21,9 @@ class ProductCategory extends Model{
 		return Db::view('ProductCategory')->where('cateid',$this->cateid)->count();
 	}
 
+	public function Products()
+    { 
+        return $this->hasMany('Product','cateid','cateid');
+    }
+
 }

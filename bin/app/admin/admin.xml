@@ -6,11 +6,11 @@
 		<pagelink title='客户套餐' url='/admin/product.service/index' c='product.service'></pagelink>
 		<!-- <pagelink title='套餐订单' url='/admin/order.service/index' c='order.service'></pagelink> -->
 	</item>
-	<item title='资产管理' class="si-wallet" url='/admin/asset/init'> 
-		<pagelink title='钱包管理' url='/admin/asset.wallet/index' c='asset.wallet'></pagelink>
+<!-- 	<item title='资产管理' class="si-wallet" url='/admin/asset/init'> 
+		<pagelink title='钱包管理' class="wi-redact" url='/admin/asset.wallet/index' c='asset.wallet'></pagelink>
 		<pagelink title='奖金管理' url='/admin/asset.splittin/index' c='asset.splittin'></pagelink>
 		<pagelink title='积分管理' url='/admin/asset.point/index' c='asset.point'></pagelink>
-	</item>
+	</item> -->
 	
 	<item title='商品管理' url='/admin/product/init' c='product' class="si-present">
 		<pagelink title='创建商品' url='/admin/product/create' c='product'></pagelink>
@@ -21,14 +21,13 @@
 	<item title='内容管理' url='/admin/content/init' c='content' class="si-notebook">
 		<pagelink title='创建文章' url='/admin/article/create' c='article'></pagelink>
 		<pagelink title='文章列表' url='/admin/article/index' c='article'></pagelink>
-		<pagelink title='文章类别' url='/admin/article.category/index' c='article.category'></pagelink>
-		<pagelink title='创建单页' url='/admin/about/create' c='about'></pagelink> 
-		<pagelink title='单页列表' url='/admin/about/index' c='about'></pagelink> 
-		 
+		<pagelink title='文章类别' url='/admin/article.category/index' c='article.category'></pagelink> 
+		<pagelink title='单页管理' url='/admin/about/index' c='about'></pagelink> 
+		
 	</item>  
 	 
-	<item title='消息管理' class='si-envelope' url='/admin/message/index'>
-		<pagelink title='内部公告' url='/admin/message.note/index' c='message.note'></pagelink>
+	<item title='消息管理' class='si-envelope wi-reply' url='/admin/message/index'>
+		<pagelink title='内部公告' class="wi-reply" url='/admin/message.note/index' c='message.note'></pagelink>
 		<pagelink title='收件箱' url='/admin/inbox/index' c='inbox'></pagelink>
 		<pagelink title='发件箱' url='/admin/sendbox/index' c='sendbox'></pagelink>
 		<pagelink title='发送邮件' url='/admin/sendbox/send' c='sendbox'></pagelink> 

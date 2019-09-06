@@ -10,7 +10,7 @@ class Upload extends BaseController
 		if (empty($file)) {
 			return message('请选文件',false);
 		}
-		$oss=new Oss();
+		$oss=new Oss(); 
 		$msg=$oss->save($file); 
     	return json($msg);
     }

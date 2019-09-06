@@ -29,7 +29,7 @@ class Setting extends BaseController
 
 	public function config_post(){
 		if(request()->ispost()){  
-			$t=request();  
+			$t=request(); 
 			foreach ($t->param() as $key => $value) {
 	 
 				$config=ConfigModel::where([

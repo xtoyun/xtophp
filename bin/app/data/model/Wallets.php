@@ -18,6 +18,8 @@ class Wallets extends Model{
         }
     }
 
+    
+
 	static function usein($userid,$income=0,$expenses=0,$remark='',$tradetype=0){
 		$user=Users::getuser($userid,'',false);
 		$data=[

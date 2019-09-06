@@ -31,4 +31,8 @@ class Module extends IModule{
 	public function getIsShow(){
 		return true;
 	}
+
+	public function getClass(){
+		return 'wi-setting';
+	}
 }

@@ -22,7 +22,7 @@ namespace think;
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 define('WEB_PATH', __DIR__ . '/');
-
+define('DS', '/');  
 // 定义应用目录
 define('APP_PATH', WEB_PATH . '../bin/app/');
 

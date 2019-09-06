@@ -13,7 +13,7 @@ class Product extends BaseController{
 		if (!empty(input('field'))) {
 			$where=[[input('field'),'like',input('keyword').'%']];
 		}  
-		$list = ProductModel::selectpage(10,$where);//直接用selectpage，里面有相关联的表
+		$list = ProductModel::selectpage(10,$where,'pid desc');//直接用selectpage，里面有相关联的表
 		 
 		return $this->template
 				->TableTemplate 
@@ -51,12 +51,13 @@ class Product extends BaseController{
 		}
 		$fields=[['checkbox', 'selfin', '自定义', '',[
 							'推荐'=>'tj',
-							'置顶'=>'zd'
+							'置顶'=>'zd',
+							'热门'=>'rm'
 							
-						],'tj'],
+						],''],
 						['select','cateid','商品类别','',$data],
 						['text', 'title', '商品名称', ''],
-						['image', 'img', '图片', ''],
+						['image', 'img1', '缩图', ''],
 						['textarea', 'description', '商品描述', ''],
 						['ueditor', 'content', '商品介绍', ''],
 						['specs', 'spec', '商品规格', ''],
@@ -77,8 +78,6 @@ class Product extends BaseController{
 				->addFormItems($fields)
 				->submit(url('create_post'))
 				->setPid('nid',$nid)
-				->addFormItems([
-					])
 				->fetch();
 	}
 
@@ -92,12 +91,13 @@ class Product extends BaseController{
 		}
 		$fields=[['checkbox', 'selfin', '自定义', '',[
 							'推荐'=>'tj',
-							'置顶'=>'zd'
+							'置顶'=>'zd',
+							'热门'=>'rm'
 							
 						],'tj'],
 						['select','cateid','商品类别','',$data],
 						['text', 'title', '商品名称', ''],
-						['image', 'img', '图片', ''],
+						['image', 'img1', '图片', ''],
 						['textarea', 'description', '商品描述', ''],
 						['ueditor', 'content', '商品介绍', ''],
 						['specs', 'spec', '商品规格', ''],
@@ -130,7 +130,27 @@ class Product extends BaseController{
 				return message($validate->getError(),false);
 			}
 
+
 			$product = new ProductModel();
+			if (strstr($data['selfin'], 'tj')) {
+				$product->is_tui=true;
+			}
+			else{
+					$product->is_tui=false;
+				}
+			if (strstr($data['selfin'], 'rm')) {
+				$product->is_hot=true;
+			}
+			else{
+					$product->is_hot=false;
+				}
+			if (strstr($data['selfin'], 'zd')) {
+				$product->is_top=true;
+			}
+			else{
+					$product->is_top=false;
+				}
+			
 			$product->appid=appid();
 			$result = $product->save($data);
 			if ($result) {
@@ -161,7 +181,7 @@ class Product extends BaseController{
 
 	public function update_post(){
 		if (request()->ispost()) {
-			$data = $_POST;
+			$data = $_POST; 
 			$pid = input('pid');
 			$validate = new \app\admin\validate\Product;
 			if (!$validate->check($data)) {
@@ -169,6 +189,22 @@ class Product extends BaseController{
 			}
 			$product = ProductModel::find($pid);
 			if($product){
+				if (strstr($data['selfin'], 'tj')) {
+					$product->is_tui=true;
+				}else{
+					$product->is_tui=false;
+				}
+				if (strstr($data['selfin'], 'rm')) {
+					$product->is_hot=true;
+				}else{
+					$product->is_hot=false;
+				}
+				if (strstr($data['selfin'], 'zd')) {
+					$product->is_top=true;
+				}else{
+					$product->is_top=false;
+				}
+				
 				$result = $product->allowField(true)->save($data);
 				if ($result) {
 					$specs=json_decode($data['spec']);

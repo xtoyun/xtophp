@@ -65,9 +65,6 @@ class Category extends Controller{
 			if(empty($catename)){
 				return message('名称不能为空',false);
 			}
-			if (!is_numeric($order)) {
-				return message('is_numeric',false);
-			}
 
 			$category=new ArticleCategoryModel();
 			$category->catename=$catename;
@@ -130,12 +127,12 @@ class Category extends Controller{
 	public function delete_post(){
 		if(request()->ispost()){
 			$cateid=input('id');
-			$category_item=ArticleCategoryModel::get($cateid,'sublist');
-			if($category_item->articlecount()>0){
-				return message('articlecount',false);
-			}
+			$category_item=ArticleCategoryModel::get($cateid,'Articles');
+			// if($category_item->articlecount()>0){
+			// 	return message('articlecount',false);
+			// }
 			if ($category_item) {
-				$result=$category_item->together('sublist')->delete();
+				$result=$category_item->together('Articles')->delete();
 				if($result){
 					return message('删除成功',true);
 				}

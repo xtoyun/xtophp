@@ -30,6 +30,7 @@ class Oss {
     private function init(){
         if(empty($this->_osstype)){
             $this->_osstype=ConfigModel::find_value('osstype');
+
         } 
         if(empty($this->_osssender)){
             $this->_osssender=ConfigModel::find_value('osssender'); 
@@ -47,7 +48,12 @@ class Oss {
             if(!empty($result)){
                 return $result->save($file); 
             }else{
-                $info = $file->move(WEB_PATH . '/uploads');  
+                // return array(
+                //         'msg'       => '上传参数错误',
+                //         'success'   => false,
+                //         'path'      => ''
+                //     );
+                $info = $file->move(WEB_PATH . '/uploads/oss');  
                 if ($info) {
                     return array(
                         'msg'       => '上传成功',

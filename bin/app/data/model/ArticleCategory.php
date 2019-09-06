@@ -18,6 +18,11 @@ class ArticleCategory extends Model{
         return $this->hasMany('ArticleCategory','parent_cateid','cateid');
     }
 
+    public function Articles()
+    { 
+        return $this->hasMany('Article','cateid','cateid');
+    }
+
     public function ArticleCount(){
     	return Db::view('Article')->where('cateid',$this->cateid)->count(); 
     }

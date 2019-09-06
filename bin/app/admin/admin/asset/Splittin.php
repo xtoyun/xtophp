@@ -16,6 +16,10 @@ class Splittin extends Controller{
 				[input('field'),'like',input('keyword').'%'],
 			];
 		}   
+		$userid=input('userid');
+		if ($userid) {
+		  	$where['userid']=$userid;
+		  } 
 		$source=Splittins::selectpage(20,$where,'sid desc');//读取数据
 
 		return $this->template

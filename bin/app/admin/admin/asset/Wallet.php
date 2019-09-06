@@ -16,6 +16,10 @@ class Wallet extends Controller{
 				[input('field'),'like',input('keyword').'%'],
 			];
 		}   
+		$userid=input('userid');
+		if ($userid) {
+		  	$where['userid']=$userid;
+		  } 
 		$source=WalletsModel::selectpage(20,$where,'wid desc');//读取数据
 
 		return $this->template

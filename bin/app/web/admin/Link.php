@@ -62,6 +62,7 @@ class Link extends Base{
 			$category->title = $title;
 			$category->image = $image;
 			$category->url = $url;
+			$category->appid=appid();
 
 			$result = $category->save();
 			if ($result) {

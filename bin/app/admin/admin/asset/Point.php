@@ -10,12 +10,17 @@ class Point extends Controller{
 	 
 
 	public function index(){
+		
 		$where=[];
 		if (!empty(input('field'))) {
 			$where=[
 				[input('field'),'like',input('keyword').'%'],
 			];
-		}   
+		}
+		$userid=input('userid');
+		if ($userid) {
+		  	$where['userid']=$userid;
+		  }  
 		$source=Points::selectpage(20,$where,'pid desc');//读取数据
 
 		return $this->template

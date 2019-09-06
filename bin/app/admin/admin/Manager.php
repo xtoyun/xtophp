@@ -189,11 +189,9 @@ class Manager extends BaseController{
 			if (empty($email)) {
 				return message('邮箱不能为空',false);
 			}
-			if(!$is_admin){
-				if (empty($roleid)) {
+			if (empty($roleid)) {
 					return message('请至少选择一个角色',false);
-				}
-			}  
+				} 
 			$user=Users::getuser($userid,'','',false);
 
 			if (!empty($user) && !empty($user->manager)) {

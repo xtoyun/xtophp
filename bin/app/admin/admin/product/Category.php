@@ -69,9 +69,9 @@ class Category extends Controller{
 				return message('名称不能为空',false);
 			}
 
-			if(!is_numeric($order)){
-				return message('序列号不能为空',false);
-			}
+			// if(!is_numeric($order)){
+			// 	return message('序列号不能为空',false);
+			// }
 
 			$category = new ProductCategoryModel();
 			$category->catename = $catename;
@@ -130,13 +130,9 @@ class Category extends Controller{
 	public function delete_post(){
 		if (request()->ispost()) {
 			$cateid = input('id');
-			$category_item = ProductCategoryModel::get($cateid,'sublist');
-			//当存在上下级关系的时候所有删除失败
-			// if($category_item->articlecount()>0){
-			// 	return message('删除失败',false);
-			// }
+			$category_item = ProductCategoryModel::get($cateid,'Products');
 			if ($category_item) {
-				$result = $category_item->delete();
+				$result = $category_item->together('Products')->delete();
 				if($result){
 					return message('删除成功',true);
 				}

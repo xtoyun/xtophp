@@ -307,7 +307,7 @@ abstract class IModule{
 		     	if(file_exists($dir.$filename.'/Module.php')){
 		     		$url="\\app\\$filename\\Module";
 		        	$t=$url::instance();
-		        	$t->modulename=$filename;
+		        	$t->modulename=$filename; 
 		        	if(is_null($all)){
 		        		if($t->issys){
 			        		$mod[$filename]=$t;

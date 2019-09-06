@@ -14,9 +14,16 @@
 <item name="web_nav" title="导航条" type="textarea" tips="调用方法:{$config.web_nav|default=''}" sort="0" attr="" tab="web" group="网站"></item>
 	<item name="web_logo" title="LOGO" type="image" tips="调用方法:{$config.web_logo|default=''}" sort="1" attr="" tab="web" group="网站"></item>
 	<item name="web_phone" title="全国电话" type="text" tips="调用方法:{$config.web_phone|default=''}" sort="1" attr="" tab="web" group="网站"></item>
+	<item name="web_qrcode" title="客服微信码" type="image" tips="调用方法:{$config.web_qrcode|default=''}" sort="1" attr="" tab="web" group="网站"></item> <item name="web_qq" title="客服QQ" type="text" tips="调用方法:{$config.web_qq|default=''}" sort="1" attr="" tab="web" group="网站"></item>
 	
 
 	<item name="app_fpre" title="文件前头" type="text" tips="请输入完整的http://" sort="1" attr="" tab="file" group="文件" value=""></item>
 
 	<item name="sms_reg" title="注册验证信息" type="textarea" tips="调用方法:{$config.sms_reg|default=''}" sort="1" attr="" tab="sms" group="短信"></item>
+
+	<item name="com_name" title="公司名称" type="text" tips="" sort="1" attr="" tab="com" group="公司" value=""></item>
+	<item name="com_phone" title="公司电话" type="text" tips="" sort="1" attr="" tab="com" group="公司" value=""></item>
+	<item name="com_description" title="公司介绍" type="ueditor" tips="调用方法:{$config.com_description|default=''}" sort="1" attr="" tab="com" group="公司"></item>
+
+	<item name="com_img" title="公司形象图" type="image" tips="调用方法:{$config.com_img|default=''}" sort="1" attr="" tab="com" group="公司"></item>
 </config>

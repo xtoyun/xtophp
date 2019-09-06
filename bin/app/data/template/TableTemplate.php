@@ -255,7 +255,10 @@ abstract class TableTemplate  extends Template{
                 ];
                 break;
             case 'delete':
-                $key=url(strtolower($this->controller.'/delete_post'));
+                if (empty($href)) {
+                    $href='delete_post';
+                }
+                $key=url(strtolower($this->controller.'/'.$href));
                 $result = [
                     'title' => '删除',
                     'icon'  => 'fa fa-times',

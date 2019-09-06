@@ -61,6 +61,6 @@ class inithook{
               config('app.web.theme','yun');
               config('appid',10000); 
             } 
-        }
+        } 
 	}
 }

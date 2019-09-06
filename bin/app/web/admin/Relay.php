@@ -12,10 +12,10 @@ class Relay extends Base{
 		return $this->template
 				->TableTemplate 
 				->setData('modulename','内容管理')
-				->setTitle('放灯片')
+				->setTitle('幻灯片')
 				->setDataSource($list)
 				->addColumnButton('delete') 
-				->addNav('','放灯片',url('relay/index')) 
+				->addNav('','幻灯片',url('relay/index')) 
 				->addTopButton('','创建',url('relay/create'))
 				->addColumnButton('','修改',url('relay/edit').'?id=$rid','','fa fa-pencil')
 				->setQuickSearch('name','')
@@ -32,24 +32,57 @@ class Relay extends Base{
 	public function detail(){
 		$id=input('id'); 
 		$data=RelayDataModel::where('rid',$id)->select();
+		// return $this->template
+		// 		->TableTemplate 
+		// 		//->addColumnButton('delete')
+		// 		->setData('modulename','基础设置') 
+		// 		->setPid('id',$id) 
+		// 		//->setdata('demo_time',$this->request->time())
+		// 		//->setData('relay',RelaysModel::find($id))
+		// 		->addNav('','显示',url('relay/detail'))
+		// 		->addNav('','幻灯片',url('relay/index')) 
+		// 		->setTitle('显示幻灯片') 
+		// 		->setDataSource($data)
+		// 		->fetch('relay/detail');
 		return $this->template
-				->ShowTemplate 
-				->setData('modulename','基础设置') 
-				->setData('id',$id) 
-				->setdata('demo_time',$this->request->time())
-				->setData('relay',RelaysModel::find($id))
-				->addNav('','显示',url('relay/detail'))
-				->addNav('','放灯片',url('relay/index'))
-				->setTitle('显示放灯片') 
-				->setDataSource($data)
-				->fetch('relay/detail');
+				->TableTemplate 
+				->setData('modulename','内容管理')
+				->setTitle('幻灯片')
+				->setDataSource($data) 
+				->addNav('','幻灯片',url('detail')) 
+				->addTopButton('','创建',url('adddata')."?id=$id")
+				->addColumnButton('','修改',url('editdata').'?id=$rdid','','fa fa-pencil')
+				->addColumnButton('delete','删除',url('detail_delete_post')) 
+				->setQuickSearch('name','')
+				->setPid('rdid')
+				->setColumns([
+					['rdid', '编号'], 
+					['title', '名称','link',''],
+					['link', '地址','link',''],
+					['remark', '备注','',''], 
+                    ['button', '操作', 'btn']
+				])
+				->fetch();
+	}
+
+	public function detail_delete_post(){
+		if(request()->ispost()){
+			$rdid=input('id');
+			$info=RelayDataModel::find($rdid); 
+			if ($info) {
+				if($info->delete()){
+					return message('删除成功',true);
+				}
+			}
+		}
+		return message('删除失败',false);
 	}
 
 	public function adddata(){
 		$id=input('id');
 		return $this->template
 				->FormTemplate 
-				->setTitle('添加放灯片')
+				->setTitle('添加幻灯片')
 				->setblock(true)
 				->setnav(false)
 				->setlayout(false)
@@ -116,7 +149,7 @@ class Relay extends Base{
 		$data=RelayDataModel::find($id)->toarray();
 		return $this->template
 				->FormTemplate 
-				->setTitle('添加放灯片')
+				->setTitle('添加幻灯片')
 				->setblock(true)
 				->setnav(false)
 				->setlayout(false)
@@ -136,8 +169,8 @@ class Relay extends Base{
 				->FormTemplate 
 				->setData('modulename','基础设置') 
 				->addNav('','添加',url('relay/create'))
-				->addNav('','放灯片',url('relay/index'))
-				->setTitle('添加放灯片')
+				->addNav('','幻灯片',url('relay/index'))
+				->setTitle('添加幻灯片')
 				->addFormItems([ 
 						['text', 'title', '名称', ''],
 						['text', 'ename', '英文名称', ''],
@@ -194,8 +227,8 @@ class Relay extends Base{
 				->FormTemplate 
 				->setData('modulename','基础设置') 
 				->addNav('','编辑',url('relay/edit'),'?id='.$id)
-				->addNav('','放灯片',url('relay/index'))
-				->setTitle('编辑放灯片')
+				->addNav('','幻灯片',url('relay/index'))
+				->setTitle('编辑幻灯片')
 				->addFormItems([
 						['text', 'title', '名称', ''],
 						['textarea', 'remark', '备注', '格式：http://',''],
