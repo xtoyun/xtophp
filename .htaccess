@@ -1,0 +1,6 @@
+if (!-f $request_filename){
+	rewrite ^/index.php/(.*)$ /index.php?s=$1 last;
+	rewrite ^/admin.php/(.*)$ /admin.php?s=$1 last;
+	rewrite ^/wap.php/(.*)$ /wap.php?s=$1 last; 
+	rewrite ^/(.*)$ /index.php?s=/$1 last; 
+}

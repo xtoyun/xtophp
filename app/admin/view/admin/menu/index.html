@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>菜单管理</title>
+    <link rel="stylesheet" href="__STATIC__/libs/layui/css/layui.css"/>
+    <link rel="stylesheet" href="__STATIC__/module/admin.css?v=315"/>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        .ew-iframe-body {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body class="ew-iframe-body" id="app">
+
+<!-- 页面加载loading -->
+<div class="page-loading">
+    <div class="ball-loader">
+        <span></span><span></span><span></span><span></span>
+    </div>
+</div>
+
+<!-- 正文开始 -->
+<div class="layui-card"> 
+    <div class="layui-card-body">
+      <div class="layui-tab layui-tab-card">
+            <ul class="layui-tab-title">
+                <li class="layui-this"><a href="#">菜单管理</a></li>
+                <li><a href="{:__URL('system/bak')}">数据备份</a></li>
+                <li><a href="{:__URL('system/restore')}">数据恢复</a></li>
+                <li><a href="{:__URL('system/ucache')}">更新缓存</a></li>
+            </ul>
+            <div class="layui-tab-content" style="padding-top:5px;">
+                <div class="layui-form-item">
+                     <div class="layui-inline"> 
+                        <button id="btnAdd" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>
+                    </div>
+                </div> 
+                <table class="layui-table" id="tableUser" lay-filter="tableUser"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="tableBarUser">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script type="text/html" id="modelUser">
+    <form id="modelUserForm" lay-filter="modelUserForm" class="layui-form model-form">
+        <input name="menu_id" type="hidden"/>
+        <div class="layui-form-item" id="test">
+            <label class="layui-form-label">上级菜单</label>
+            <div class="layui-input-block"> 
+                <input name="parent_ids" id="parent_ids" placeholder="顶部菜单" class="layui-hide"/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">名称</label>
+            <div class="layui-input-block">
+                <input name="menu_name" placeholder="请输入名称" type="text" class="layui-input" maxlength="100"
+                       lay-verType="tips" lay-verify="required" required/>
+            </div>
+        </div> 
+        <div class="layui-form-item">
+            <label class="layui-form-label">模块名称</label>
+            <div class="layui-input-block">
+                <input id="module" name="module" placeholder="请输入模块名称" type="text" class="layui-input" maxlength="100"
+                       lay-verType="tips" lay-verify="required" required/>
+            </div>
+        </div> 
+        <div class="layui-form-item">
+            <label class="layui-form-label">控制器</label>
+            <div class="layui-input-block">
+                <input id="controller" name="controller" placeholder="请输入控制器" type="text" class="layui-input" maxlength="100"
+                       lay-verType="tips" lay-verify="required" required/>
+            </div>
+        </div> 
+        <div class="layui-form-item">
+            <label class="layui-form-label">方法</label>
+            <div class="layui-input-block">
+                <input id="method" name="method" placeholder="请输入方法" type="text" class="layui-input" maxlength="100"
+                       lay-verType="tips" lay-verify="required" required/>
+            </div>
+        </div>   
+        <div class="layui-form-item">
+            <label class="layui-form-label">路径</label>
+            <div class="layui-input-block">
+                <input id="url" name="url" placeholder="请输入路径" type="text" class="layui-input" maxlength="100"
+                       lay-verType="tips" lay-verify="required" required/>
+            </div>
+        </div>
+         <div class="layui-form-item">
+            <label class="layui-form-label">是否权限</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="is_control_auth" title="加入">
+            </div>
+        </div>  
+        <div class="layui-form-item">
+            <label class="layui-form-label">样式</label>
+            <div class="layui-input-block">
+                <input id="icon_class" name="icon_class" placeholder="请输入样式" type="text" class="layui-input" maxlength="100"
+                       lay-verType="tips" lay-verify="required" required/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-block">
+                <input type="number" name="sort" placeholder="请输入" class="layui-input inline-block"
+                               />
+            </div>
+        </div>
+        <input type="hidden" name="parent_id" id="parent_id" value=""/>
+    </form>
+</script>
+
+<!-- js部分 -->
+<script type="text/javascript" src="__STATIC__/libs/layui/layui.js"></script>
+<script type="text/javascript" src="__STATIC__/js/common.js?v=315"></script>
+<script type="text/javascript" src="__STATIC__/module/vue.js"></script>
+<script>
+    layui.use(['layer', 'form', 'table', 'util', 'admin','treetable','cascader'], function () {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+        var util = layui.util;
+        var admin = layui.admin;
+        var treetable = layui.treetable;
+        var cascader = layui.cascader;
+
+        function renderTable(){
+            var insTb=treetable.render({
+                treeColIndex: 1,
+                treeSpid: -1,
+                treeIdName: 'menu_id',
+                treePidName: 'parent_id',
+                elem: '#tableUser',
+                url: '{:url('data_list')}', 
+                cols: [[
+                    {type: 'numbers', title: '#'},
+                    {field: 'menu_name', title: '权限名称'},
+                    {field: 'controller', title: '控制器'},
+                    {field: 'method', title: '方法'},
+                    {field: 'url', title: '地址'}, 
+                    {
+                        field: 'is_control_auth', sort: true, templet: function (d) {
+
+                            if(d.is_control_auth){
+                                return "是"
+                            }else   {
+                                return "否"
+                            }
+                             
+                        }, title: '权限'
+                    },
+                    {field: 'sort', title: '排序'},
+                    {
+                        field: 'createTime', sort: true, templet: function (d) {
+                            return util.toDateString(d.create_time);
+                        }, title: '创建时间'
+                    },
+                    {templet: '#tableBarUser', title: '操作', align: 'center', minWidth: 120}
+                ]]
+            }); 
+        }
+        renderTable();
+        $('#btnAdd').click(function () {
+            showEditModel();
+        });
+
+        // 显示表单弹窗
+        function showEditModel(mUser) {
+            admin.open({
+                type: 1,
+                title: (mUser ? '修改' : '添加') + '菜单类别',
+                content: $('#modelUser').html(),
+                area:['600px','60%'],
+                btn:['保存','取消'],
+                success: function (layero, dIndex) {
+                    $('#controller,#method').change(function (c) {
+                        $("#url").val($('#controller').val()+'/'+$('#method').val())
+                    });
+                    //异步读取数据
+                    // var _specs = new Vue({
+                    //     el: '#test',
+                    //     data: {items:[]},
+                    //     created:function(){
+                    //         this.bind();                           
+                    //     },  
+                    //     updated:function(){
+                    //         if(mUser){
+                    //             $('#parent_id').val(mUser.parent_id); 
+                    //         }
+                    //         form.render(null,'modelUserForm');
+                    //     },
+                    //     methods:{ 
+                    //         bind:function(){ 
+                    //             $.get("{:url('cate_data')}", function(result){
+                    //                  _specs.items=result;
+                    //             }); 
+                    //         }
+                    //     } 
+                    // }); 
+                    if(mUser){
+                        $('#parent_ids').val(mUser.parent_ids); 
+                    }
+                     // 动态加载
+                    cascader.render({
+                        elem: '#parent_ids',
+                        changeOnSelect: true,
+                        reqData: function (values, callback, data) {
+                            callback(getData(data ? data.value : undefined,mUser));
+                        },
+                        onChange: function (values, data) { 
+                            $("#parent_ids").val(values);
+                            $('#parent_id').val(data.value); 
+                        }
+                    });
+                    // 回显数据
+                    form.val('modelUserForm', mUser); 
+                },
+                yes:function(layero, index){ 
+                    var url = mUser ? '{:url('menu/edit_post')}' : '{:url('menu/create_post')}';
+                    var data = $("#modelUserForm").serializeArray(); 
+                    layer.load(2); 
+                    $.post(url, data, function (res) {
+                        layer.closeAll('loading');
+                        if (res.code == 200) { 
+                            layer.close(layero);
+                            layer.msg(res.msg, {icon: 1}); 
+                            renderTable();
+                        } else {
+                            layer.msg(res.msg, {icon: 2});
+                        }
+                    }, 'json');
+                    return false;
+                }
+            });
+        } 
+
+         // 模拟网络请求加载数据
+        function getData(value,current) {
+            var data={};
+            data.id=value;
+            if(current){
+                data.current_id=current.menu_id;
+            }
+            
+            var result=[];
+            $.ajax({  
+                type : "post",  
+                url : "{:url('menu/menu_list')}",  
+                data : data,  
+                async : false,  
+                success : function(res){ 
+                    result = res 
+                }  
+            });  
+            return result;
+        }
+
+        // 工具条点击事件
+        table.on('tool(tableUser)', function (obj) {
+            var data = obj.data;
+            var layEvent = obj.event;
+            if (layEvent === 'edit') { // 修改
+                showEditModel(data);
+            } else if (layEvent === 'del') { // 删除
+
+                doDel(data.menu_id, data.menu_name);
+            }
+        }); 
+
+        // 删除
+        function doDel(menu_id, menu_name) {
+            layer.confirm('确定要删除“' + menu_name + '”吗？', {
+                skin: 'layui-layer-admin',
+                shade: .1
+            }, function (i) {
+                layer.close(i);
+                layer.load(2);
+                $.post('{:url('menu/delete_post')}', {
+                    menu_id: menu_id
+                }, function (res) {
+                    layer.closeAll('loading');
+                    if (res.code == 200) {
+                        layer.msg(res.msg, {icon: 1});
+                        renderTable();
+                    } else {
+                        layer.msg(res.msg, {icon: 2});
+                    }
+                }, 'json');
+            });
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -21,11 +21,13 @@
 namespace think;
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-define('WEB_PATH', __DIR__ . '/');
+define('WEB_PATH', __DIR__ . DIRECTORY_SEPARATOR);
 define('BIND', 'home');
+define('APP_PATH', dirname(realpath(__DIR__)) . DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR);
 
-// 定义应用目录
-define('APP_PATH', WEB_PATH . '../bin/app/');
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+header('Access-Control-Allow-Methods: GET, POST, PUT');
 
 // 加载框架引导文件
 require APP_PATH . '../thinkphp/base.php';

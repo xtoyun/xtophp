@@ -21,14 +21,11 @@
 namespace think;
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-define('WEB_PATH', __DIR__ . '/');
-define('DS', '/');  
-// 定义应用目录
-define('APP_PATH', WEB_PATH . '../bin/app/');
-
+define('WEB_PATH', __DIR__ . DIRECTORY_SEPARATOR);
 define('BIND', 'admin');
+// 定义应用目录
+define('APP_PATH', dirname(realpath(__DIR__)) . DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR);
+
 // 加载框架引导文件
 require APP_PATH . '../thinkphp/base.php';
-require APP_PATH . '../vendor/autoload.php';
-
 Container::get('app', [APP_PATH])->run()->send();

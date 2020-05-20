@@ -1,0 +1,142 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>设置短信</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="/assets/libs/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="/assets/module/admin.css" media="all">
+</head>
+<body>
+<div class="layui-card"> 
+    <div class="layui-card-body">
+      <div class="layui-tab layui-tab-card">
+      <ul class="layui-tab-title">
+        <li class="layui-this"><a href="#">基本设置</a></li>
+      </ul>
+      <div class="layui-tab-content">
+        <div class="layui-tab-item layui-show" style="padding-top:15px;">
+
+      <div class="layui-form" lay-filter="setsms">
+
+         
+        <div class="layui-form-item">
+          <label class="layui-form-label">网站名称</label>
+          <div class="layui-input-block">
+            <input type="text" name="web_title" value="{$config.web_title}" class="layui-input">
+          </div> 
+        </div> 
+        <div class="layui-form-item">
+          <label class="layui-form-label">网站域名</label>
+          <div class="layui-input-block">
+            <input type="text" name="web_domain" value="{$config.web_domain|default=''}" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-form-item">
+                <label class="layui-form-label">图片</label>
+                <div class="layui-input-inline">
+                  <input name="web_logo" placeholder="图片地址" value="{$config.web_logo|default=''}" class="layui-input">
+                </div>
+                <div class="layui-input-inline layui-btn-container" style="width: auto;">
+                  <button type="button" class="layui-btn layui-btn-primary" id="select_img">选择图片</button>
+                </div>
+                <div class="layui-input-inline layui-btn-container">
+                    <img class="layui-upload-img" id="view_img" style="width:35px;">
+                </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">META关键词</label>
+          <div class="layui-input-block">
+            <input type="text" name="web_keyword" value="{$config.web_keyword|default=''}" class="layui-input">
+          </div> 
+        </div> 
+
+        <div class="layui-form-item">
+          <label class="layui-form-label">描述</label>
+          <div class="layui-input-block">
+            <textarea name="web_description" class="layui-textarea">{$config.web_description|default=''}</textarea> 
+          </div> 
+        </div> 
+
+        <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">版权信息</label>
+                <div class="layui-input-block">
+                  <textarea name="web_copyright" class="layui-textarea">{$config.web_copyright|default=''}</textarea>
+                </div>
+              </div>
+        <div class="layui-form-item">
+                <label class="layui-form-label">电话</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="web_phone" value="{$config.web_phone|default=''}" class="layui-input">
+                </div>
+              </div>
+         <div class="layui-form-item">
+                <label class="layui-form-label">邮件</label>
+                <div class="layui-input-inline">
+                  <input type="text" name="web_email" value="{$config.web_email|default=''}" class="layui-input">
+                </div>
+              </div> 
+        <div class="layui-form-item">
+          <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="setsms">提交</button>
+          </div>
+        </div>
+      </div>
+
+        </div>
+        <div class="layui-tab-item">
+aasdf
+        </div>
+        <div class="layui-tab-item"></div>
+      </div>
+    </div>
+  </div> 
+</div>
+
+<script type="text/javascript" src="/assets/libs/layui/layui.js"></script>
+<script type="text/javascript" src="/assets/js/common.js?v=315"></script>
+<script>
+    layui.use(['layer', 'form','admin', 'fileChoose'], function () {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var fileChoose = layui.fileChoose;
+
+        // 添加
+        $('#select_img').click(function () {
+            fileChoose.open({
+                fileUrl: '',
+                listUrl: "{:url('/admin/files/load')}",
+                num: 3,
+                dialog: {
+                    offset: '60px'
+                },
+                onChoose: function (urls) {
+                    console.log(urls)
+                    $("[name='web_logo']").val(urls[0].url);
+                    $('#view_img').attr('src', urls[0].url); //图片链接（base64）
+                    //layer.msg('你选择了：' + JSON.stringify(urls), {icon: 1});
+                }
+            });
+        });
+
+        form.on('submit(setsms)', function (data) {
+            layer.load(2);
+            $.post('{:__URL('config/post')}', data.field, function (res) {
+                layer.closeAll('loading');
+                if (res.code == 200) {
+                    layer.msg(res.msg, {icon: 1});
+                } else {
+                    layer.msg(res.msg, {icon: 2});
+                }
+            }, 'json');
+            return false;
+        }); 
+    });
+</script>
+</body>
+</html>

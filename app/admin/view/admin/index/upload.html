@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="__STATIC__/images/favicon.ico" rel="icon">
+    <title>管理后台</title>
+    <link rel="stylesheet" href="__STATIC__/libs/layui/css/layui.css"/>
+    <link rel="stylesheet" href="__STATIC__/module/admin.css?v=315"/>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="layui-layout-body">
+<form class="layui-form" action="" id="feedBackForm">
+        <button type="button" class="layui-btn" id="test1">
+  <i class="layui-icon">&#xe67c;</i>上传图片
+</button> 
+            <div class="layui-upload-list"></div>
+            <div><button type="button" class="layui-btn-radius" id="save"><i class="layui-icon ">&#xe67c;</i>点击上传</button></div>
+        </form>
+
+<!-- js部分 -->
+<script type="text/javascript" src="__STATIC__/libs/layui/layui.js"></script>
+<script type="text/javascript" src="__STATIC__/js/common.js?v=315"></script>
+<script>
+    layui.use(['upload', 'jquery'], function () {
+        var upload = layui.upload;
+        var $ = layui.jquery;
+        var uploadInst = upload.render({
+            elem: '#test1', 
+            multiple: true,
+            auto: false,
+            acceptMime: 'image/*',
+            bindAction: "#save",
+            url: '/SendNotice/Upload',
+            choose: function (obj) {
+                files = obj.pushFile();
+                obj.preview(function (index, file, result) {
+                    $(".layui-upload-list").append('<img src="' + result + '" id="remove_' + index + '" title="双击删除该图片" style="width:200px;height:auto;">')
+                    $('#remove_' + index).bind('dblclick', function () {
+                        delete files[index];
+                        $(this).remove();
+                    })
+                })
+            },
+            done: function (res) {
+                imgs = imgs.concat(res.Data)
+                console.log(imgs)
+                if (res.Result) {
+                    layer.msg("图片上传成功！", { icon: 1, time: 1000 });
+                }
+            },
+            error: function () {
+                
+            }
+        }); 
+    });
+</script>
+</body>
+</html>

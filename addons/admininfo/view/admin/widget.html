@@ -1,0 +1,314 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>工作台</title>
+    <link rel="stylesheet" href="__STATIC__/libs/layui/css/layui.css"/>
+    <link rel="stylesheet" href="__STATIC__/module/admin.css?v=318"/>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        /** 应用快捷块样式 */
+        .console-app-group {
+            padding: 16px;
+            border-radius: 4px;
+            text-align: center;
+            background-color: #fff;
+            cursor: pointer;
+            display: block;
+        }
+
+        .console-app-group .console-app-icon {
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            margin-bottom: 6px;
+            display: inline-block;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            font-size: 32px;
+            color: #69c0ff;
+        }
+
+        .console-app-group:hover {
+            box-shadow: 0 0 15px rgba(0, 0, 0, .08);
+        }
+
+        /** //应用快捷块样式 */
+
+        /** 小组成员 */
+        .console-user-group {
+            position: relative;
+            padding: 10px 0 10px 60px;
+        }
+
+        .console-user-group .console-user-group-head {
+            width: 32px;
+            height: 32px;
+            position: absolute;
+            top: 50%;
+            left: 12px;
+            margin-top: -16px;
+            border-radius: 50%;
+        }
+
+        .console-user-group .layui-badge {
+            position: absolute;
+            top: 50%;
+            right: 8px;
+            margin-top: -10px;
+        }
+
+        .console-user-group .console-user-group-name {
+            line-height: 1.2;
+        }
+
+        .console-user-group .console-user-group-desc {
+            color: #8c8c8c;
+            line-height: 1;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        /** 卡片轮播图样式 */
+        .admin-carousel .layui-carousel-ind {
+            position: absolute;
+            top: -41px;
+            text-align: right;
+        }
+
+        .admin-carousel .layui-carousel-ind ul {
+            background: 0 0;
+        }
+
+        .admin-carousel .layui-carousel-ind li {
+            background-color: #e2e2e2;
+        }
+
+        .admin-carousel .layui-carousel-ind li.layui-this {
+            background-color: #999;
+        }
+
+        /** 广告位轮播图 */
+        .admin-news .layui-carousel-ind {
+            height: 45px;
+        }
+
+        .admin-news a {
+            display: block;
+            line-height: 70px;
+            text-align: center;
+        }
+
+        /** 最新动态时间线 */
+        .layui-timeline-dynamic .layui-timeline-item {
+            padding-bottom: 0;
+        }
+
+        .layui-timeline-dynamic .layui-timeline-item:before {
+            top: 16px;
+        }
+
+        .layui-timeline-dynamic .layui-timeline-axis {
+            width: 9px;
+            height: 9px;
+            left: 1px;
+            top: 7px;
+            background-color: #cbd0db;
+        }
+
+        .layui-timeline-dynamic .layui-timeline-axis.active {
+            background-color: #0c64eb;
+            box-shadow: 0 0 0 2px rgba(12, 100, 235, .3);
+        }
+
+        .dynamic-card-body {
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .dynamic-card-body:hover {
+            overflow-y: auto;
+            padding-right: 9px;
+        }
+
+        /** 优先级徽章 */
+        .layui-badge-priority {
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            padding: 0;
+            line-height: 18px;
+            border-width: 2px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+{php}
+$statis=new \addons\admininfo\core\Statics();
+$data=$statis->reports();
+
+$logs=\data\model\SysLogs::where('')->limit(20)->select();
+
+$addons=\data\model\SysAddons::where('')->select();
+{/php}
+<!-- 正文开始 -->
+<div class="layui-fluid ew-console-wrapper">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    访问量<span class="layui-badge layui-badge-green pull-right">日</span>
+                </div>
+                <div class="layui-card-body">
+                    <p class="lay-big-font">{$data.logs}</p>
+                    <p>总访问量<span class="pull-right">{$data.logs}</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    新增用户
+                    <span class="icon-text pull-right" lay-tips="指标说明" lay-direction="4" lay-offset="5px,5px">
+                        <i class="layui-icon layui-icon-tips"></i>
+                    </span>
+                </div>
+                <div class="layui-card-body">
+                    <p class="lay-big-font">{$data.members} <span style="font-size: 24px;line-height: 1;">位</span></p>
+                    <p>总用户<span class="pull-right">{$data.members} 人</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    应用数<span class="layui-badge layui-badge-blue pull-right">月</span>
+                </div>
+                <div class="layui-card-body">
+                    <p class="lay-big-font"><span style="font-size: 26px;line-height: 1;">{$data.addons}</p>
+                    <p>总应用数<span class="pull-right">{$data.addons}</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    在线数<span class="layui-badge layui-badge-red pull-right">周</span>
+                </div>
+                <div class="layui-card-body">
+                    <p class="lay-big-font">{$data.online}</p>
+                    <p>在线登数<span class="pull-right">60%</span></p>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <!-- 快捷方式 -->
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-sm6" style="padding-bottom: 0;">
+            <div class="layui-row layui-col-space15">
+                 {volist name="addons" id="item"}
+                <div class="layui-col-xs6 layui-col-sm3">
+                    <div class="console-app-group" ew-href="#" ew-title="{$item.title}">
+                        <i class="console-app-icon layui-icon {$item.icon|default='layui-icon-set'}"
+                           style="font-size: 26px;padding-top: 3px;margin-right: 6px;"></i>
+                        <div class="console-app-name">{$item.title}</div>
+                    </div>
+                </div>
+                {/volist} 
+            </div>
+        </div> 
+    </div>
+
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md8 layui-col-sm6">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header">登录日志</div>
+                        <div class="layui-card-body dynamic-card-body mini-bar" style="height: 265px;">
+                            <ul class="layui-timeline layui-timeline-dynamic">
+                                {volist name="logs" id="item"}
+                                <li class="layui-timeline-item">
+                                    <i class="layui-icon layui-timeline-axis"></i>
+                                    <div class="layui-timeline-content layui-text">
+                                        <div class="layui-timeline-title"> {$item.username}({$item.url})
+                                            <span class="pull-right"> {$item.createdate}</span></div>
+                                    </div>
+                                </li>
+                                {/volist} 
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md4 layui-col-sm6">
+            <div class="layui-card">
+                <div class="layui-card-header">版本信息</div>
+                <div class="layui-card-body">
+                    <table class="layui-table layui-text">
+                        <colgroup>
+                            <col width="90">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                        <script type="text/html" ew-tpl>
+                            <tr>
+                                <td>当前版本</td>
+                                <td>v1.0.1 &emsp; <a href="# target="_blank">更新日志</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>基于框架</td>
+                                <td>layui-v{{layui.v}}</td>
+                            </tr>
+                        </script>
+                        <tr>
+                            <td>当前版本</td>
+                            <td>v1.0.1</td>
+                        </tr> 
+                        <tr>
+                            <td>团队成员</td>
+                            <td>Xteam,woniu,uuwish</td>
+                        </tr> 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- js部分 -->
+<script type="text/javascript" src="__STATIC__/libs/layui/layui.js"></script>
+<script type="text/javascript" src="__STATIC__/js/common.js?v=318"></script>
+<script>
+    layui.use(['layer', 'carousel', 'element'], function () {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var carousel = layui.carousel;
+        var device = layui.device();
+
+        // 渲染轮播
+        carousel.render({
+            elem: '#workplaceNewsCarousel',
+            width: '100%',
+            height: '70px',
+            arrow: 'none',
+            autoplay: true,
+            trigger: device.ios || device.android ? 'click' : 'hover',
+            anim: 'fade'
+        });
+
+    });
+</script>
+</body>
+</html>

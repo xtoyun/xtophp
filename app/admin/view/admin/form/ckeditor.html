@@ -1,0 +1,15 @@
+<script src="/static/js/ckeditor/ckeditor.js"></script>
+ <div class="layui-form-item">
+    <label class="layui-form-label">{$form['title']}</label>
+    <div class="layui-input-inline" style="width:100%">
+      <textarea name="ck_{$form.name}">{$form.value}</textarea>
+      <textarea  name="{$form.name}" id="{$form.name}" style="display:none">{$form.value}</textarea>
+    </div> 
+ </div>
+<script>
+	CKEDITOR.replace('ck_{$form.name}', { "toolbar": "Basic",height: 360 });
+	CKEDITOR.instances.ck_{$form.name}.on('change', function (e) {
+       var tent = this.document.getBody().$.innerHTML;//获取当前内容
+       $("#{$form['name']}").val(tent); 
+    });
+</script>

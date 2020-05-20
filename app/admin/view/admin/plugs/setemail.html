@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>设置邮件</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="__STATIC__/libs/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="__STATIC__/module/admin.css" media="all">
+</head>
+<body>
+
+ <div class="layui-fluid">   
+    <div class="layui-card">
+        <div class="layui-tab layui-tab-card">
+        <ul class="layui-tab-title">
+            <li ><a href="{:__URL('setting/basic')}">站点配置</a></li>
+            <li ><a href="{:__URL('setting/system')}">系统配置</a></li>
+            <li><a href="{:__URL('setting/service')}">客服</a></li>
+            <li><a href="{:__URL('plugs/setsms')}">短信插件</a></li>
+            <li><a href="{:__URL('plugs/setoss')}">存储插件</a></li>
+            <li  class="layui-this"><a href="{:__URL('plugs/setemail')}">邮件插件</a></li>
+            <li><a href="{:__URL('setting/api')}">接口</a></li>
+        </ul>
+        <div class="layui-card-body table-tool-mini">
+           
+            <div class="layui-form" lay-filter="setsms">
+
+              <div class="layui-form-item">
+                <label class="layui-form-label">开启</label>
+                <div class="layui-input-block">
+                   <input type="checkbox" name="emailopen" title="是否开启" value="1" {if condition="$emailopen==1"}checked{/if}>
+                </div>
+              </div> 
+              <div class="layui-form-item">
+                <label class="layui-form-label">选择类型</label>
+                <div class="layui-input-inline">
+                  <div class="layui-input-inline" style="width:400px">
+                {foreach $plugins as $key=>&$value}
+                  <input type="radio" name="sex" lay-filter="test" value="{$key}" title="{$value['shortdescription']}"  {if condition="$key == $type"}checked{/if}>
+                  {/foreach}  
+                </div> 
+                </div>
+              </div>
+              {foreach $data as $key=>&$value} 
+              {if condition="$key!='图标'"}
+              <div class="layui-form-item">
+                <label class="layui-form-label">{$key}</label>
+                <div class="layui-input-inline">
+                  {switch $key}
+                      {case 描述}<p>{$value}</p>{/case}
+                      {case 类型}<p>{$value}</p>{/case}
+                      {case 图标}<img src="{$value|default=''}" />{/case}
+                      {default /}<input type="text" name="{$key}" value="{$value}" class="layui-input">
+                  {/switch} 
+                </div> 
+              </div>
+              {/if}
+              {/foreach}  
+              <div class="layui-form-item">
+                <div class="layui-input-block">
+                  <button class="layui-btn" lay-submit lay-filter="setsms">提交</button>
+                  <input type="hidden" name="type" value="{$type}">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> 
+      </div>
+    </div>
+  </div>
+
+<script type="text/javascript" src="__STATIC__/libs/layui/layui.js"></script>
+<script type="text/javascript" src="__STATIC__/js/common.js?v=315"></script>
+<script>
+    layui.use(['layer', 'form','admin'], function () {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+
+        form.on('radio(test)', function(data){
+            location.href='?type='+data.value; 
+        });  
+
+        form.on('submit(setsms)', function (data) {
+          
+            layer.load(2);
+            $.post('{:url("plugs/email_post")}', data.field, function (res) {
+                layer.closeAll('loading');
+                if (res.code == 200) {
+                    layer.msg(res.msg, {icon: 1});
+                } else {
+                    layer.msg(res.msg, {icon: 2});
+                }
+            }, 'json');
+            return false;
+        }); 
+
+    });
+</script>
+</body>
+</html>

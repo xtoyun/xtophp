@@ -1,0 +1,282 @@
+{php}
+$id=input('id');
+{/php}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>添加文章</title>
+    <link rel="stylesheet" href="__STATIC__/libs/layui/css/layui.css"/>
+    <link rel="stylesheet" href="__STATIC__/module/admin.css?v=316"/>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        [lay-filter="formQA"] .layui-form-item, .layui-inline {
+            margin-bottom: 0;
+            margin-top: 20px;
+        }
+
+        .qa-xx-item {
+            padding-left: 25px;
+            margin-bottom: 20px;
+        }
+
+        .qa-xx-item-title {
+            position: absolute;
+            left: 0;
+            line-height: 38px;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- 加载动画 -->
+<div class="page-loading">
+    <div class="ball-loader">
+        <span></span><span></span><span></span><span></span>
+    </div>
+</div>
+
+<!-- 正文开始 -->
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-card-header">请输入商品内容</div>
+        <div class="layui-card-body">
+            <form id="formSubmit" lay-filter="formSubmit" class="layui-form model-form" style="padding:0px;margin:0px;">
+        <div class="layui-layer-content">
+            <input name="arid" type="hidden"/>
+            <div class="layui-form-item">
+                <label class="layui-form-label">类型</label>
+                <div class="layui-input-block">
+                  <input type="checkbox" name="is_tui" title="推荐">
+                  <input type="checkbox" name="is_top" title="置顶">
+                  <input type="checkbox" name="is_home" title="推首">
+                  <input type="checkbox" name="is_hot" title="热门">
+                </div>
+              </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">类别</label>
+                <div class="layui-input-block" style="width:300px;">
+                    <input name="cates" id="cates" placeholder="请选择类别" class="layui-hide"/>
+                    <input name="cateid" id="cateid" class="layui-hide"/> 
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">标题</label>
+                <div class="layui-input-block">
+                    <input name="title" placeholder="请输入标题" type="text" class="layui-input" maxlength="100"
+                           lay-verType="tips" lay-verify="required" required/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">描述</label>
+                <div class="layui-input-block">
+                    <textarea placeholder="请输入描述" name="description" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">图片</label>
+                <div class="layui-input-inline">
+                  <input name="img1" placeholder="图片地址" class="layui-input">
+                </div>
+                <div class="layui-input-inline layui-btn-container" style="width: auto;">
+                  <button type="button" class="layui-btn layui-btn-primary uploader" id="upload_img">
+                    <i class="layui-icon">&#xe67c;</i>上传图片
+                    
+                  </button> 
+
+                  <button type="button" class="layui-btn layui-btn-primary" id="select_img">选择图片</button>
+                </div>
+                <div class="layui-input-inline layui-btn-container">
+                    <img class="layui-upload-img" id="view_img" style="width:35px;">
+                </div>
+             </div>
+             
+            <div class="layui-form-item">
+                <label class="layui-form-label">正文</label>
+                <div class="layui-input-block">
+                    <textarea id="content" name="content"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">作者</label>
+                <div class="layui-input-block">
+                    <input name="author" placeholder="请输入关键字" type="text" class="layui-input"  lay-verType="tips" />
+                </div>
+            </div> 
+            <div class="layui-form-item">
+                <label class="layui-form-label">零售价</label>
+                <div class="layui-input-inline">
+                  <input name="market_price" placeholder="请输入零售价" class="layui-input">
+                </div> 
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">会员价</label>
+                <div class="layui-input-inline">
+                  <input name="member_price" placeholder="请输入会员价" class="layui-input">
+                </div> 
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">库存</label>
+                <div class="layui-input-inline">
+                  <input name="stock" placeholder="请输入库存" class="layui-input">
+                </div> 
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">单位</label>
+                <div class="layui-input-inline">
+                  <input name="unit" placeholder="请输入单位" class="layui-input">
+                </div> 
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">关键字</label>
+                <div class="layui-input-block"> 
+                    <input name="keywords" placeholder="请输入关键字" type="text" class="layui-input" lay-verType="tips" />
+                </div>
+            </div>  
+
+            <div class="layui-form-item text-keft layui-footer" style="padding:5px;">
+                <div class="layui-input-block"> 
+                    <button class="layui-btn" lay-filter="formSubmit" lay-submit>保存</button>
+                </div>
+            </div>
+        </div>
+        
+    </form>
+        </div>
+    </div>
+</div>
+
+<!-- js部分 -->
+<script type="text/javascript" src="__STATIC__/libs/layui/layui.js"></script>
+<script type="text/javascript" src="__STATIC__/js/common.js?v=316"></script>
+<script>
+    layui.use(['layer', 'form', 'layedit','upload','CKEDITOR','cascader', 'fileChoose'], function () {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form; 
+        var layedit = layui.layedit;
+        var upload = layui.upload;
+        var ck = layui.CKEDITOR;
+        var cascader = layui.cascader;
+        var fileChoose = layui.fileChoose;
+
+        var id={$id|default=0};
+
+        //默认加载
+        if(id>0){
+            var result=[];
+            var info_data={};
+            info_data.id=id;
+            $.ajax({  
+                type : "post",  
+                url : "{:url('product/get_product')}",  
+                data : info_data,  
+                async : false,  
+                success : function(res){  
+                    console.log(res)
+                    form.val('formSubmit', res); 
+                }  
+            }); 
+        }
+
+        // 添加
+        $('#select_img').click(function () {
+            fileChoose.open({
+                fileUrl: '',
+                listUrl: "{:url('/admin/files/load')}",
+                num: 3,
+                dialog: {
+                    offset: '60px'
+                },
+                onChoose: function (urls) {
+                    console.log(urls)
+                    $("[name='img1']").val(urls[0].url);
+                    $('#view_img').attr('src', urls[0].url); //图片链接（base64）
+                    //layer.msg('你选择了：' + JSON.stringify(urls), {icon: 1});
+                }
+            });
+        });
+
+        upload.render({
+            url: "{:url('upload/img')}",
+            elem: "#upload_img",
+            done: function(res, index, upload) {
+                layer.msg('上传成功', {icon: 1});
+                $("[name='img1']").val(res.path);
+            },
+            before: function(obj){
+              //预读本地文件示例，不支持ie8
+              obj.preview(function(index, file, result){
+                $('#view_img').attr('src', result); //图片链接（base64）
+              });
+            }
+        })  
+
+        cascader.render({
+            elem: '#cates',
+            changeOnSelect: true,
+            reqData: function (values, callback, data) {
+                callback(getData(data ? data.value : undefined));
+            },
+            onChange: function (values, data) { 
+                 $("#cateid").val(data.value);
+            }
+        });
+
+        function getData(value,current) {
+            var data={};
+            data.cateid=value;
+            if(current){
+                data.current_id=current.menu_id;
+            }
+            
+            var result=[];
+            $.ajax({  
+                type : "post",  
+                url : "{:url('product/get_product_category_data')}",  
+                data : data,  
+                async : false,  
+                success : function(res){ 
+                    result = res 
+                }  
+            });  
+            return result;
+        }
+
+        //var editIndex = layedit.build('content'); // 建立编辑器
+        ck.replace('content');
+        //CKEDITOR.instances.content.on('change', function (e) {
+           //var tent = this.document.getBody().$.innerHTML;//获取当前内容
+            
+        //});
+
+        // 表单提交事件
+        form.on('submit(formSubmit)', function (data) {
+            var result=data.field;
+            var url = "{:url('product/product_create')}"; 
+            if(id>0){
+                url = "{:url('product/product_update')}"; 
+            }
+            result.content = ck.instances.content.getData();
+ 
+            $.post(url, result, function (res) {
+                if (res.code == 200) {
+                    history.go(-1)  
+                    layer.msg(res.msg, {icon: 1});
+ 
+                } else {
+                    layer.msg(res.msg, {icon: 2});
+                }
+            }, 'json'); 
+            return false;
+        });
+    });
+</script>
+</body>
+</html>
