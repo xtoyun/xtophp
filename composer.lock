@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "cc73584e569bb7eb93b0769382853555",
@@ -415,107 +415,6 @@
                 "url"
             ],
             "time": "2018-12-04T20:46:45+00:00"
-        },
-        {
-            "name": "ircmaxell/random-lib",
-            "version": "v1.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ircmaxell/RandomLib.git",
-                "reference": "e9e0204f40e49fa4419946c677eccd3fa25b8cf4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ircmaxell/RandomLib/zipball/e9e0204f40e49fa4419946c677eccd3fa25b8cf4",
-                "reference": "e9e0204f40e49fa4419946c677eccd3fa25b8cf4",
-                "shasum": ""
-            },
-            "require": {
-                "ircmaxell/security-lib": "^1.1",
-                "php": ">=5.3.2"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^1.11",
-                "mikey179/vfsstream": "^1.6",
-                "phpunit/phpunit": "^4.8|^5.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "RandomLib": "lib"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Anthony Ferrara",
-                    "email": "ircmaxell@ircmaxell.com",
-                    "homepage": "http://blog.ircmaxell.com"
-                }
-            ],
-            "description": "A Library For Generating Secure Random Numbers",
-            "homepage": "https://github.com/ircmaxell/RandomLib",
-            "keywords": [
-                "cryptography",
-                "random",
-                "random-numbers",
-                "random-strings"
-            ],
-            "time": "2016-09-07T15:52:06+00:00"
-        },
-        {
-            "name": "ircmaxell/security-lib",
-            "version": "v1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ircmaxell/SecurityLib.git",
-                "reference": "f3db6de12c20c9bcd1aa3db4353a1bbe0e44e1b5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ircmaxell/SecurityLib/zipball/f3db6de12c20c9bcd1aa3db4353a1bbe0e44e1b5",
-                "reference": "f3db6de12c20c9bcd1aa3db4353a1bbe0e44e1b5",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.2"
-            },
-            "require-dev": {
-                "mikey179/vfsstream": "1.1.*"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "SecurityLib": "lib"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Anthony Ferrara",
-                    "email": "ircmaxell@ircmaxell.com",
-                    "homepage": "http://blog.ircmaxell.com"
-                }
-            ],
-            "description": "A Base Security Library",
-            "homepage": "https://github.com/ircmaxell/SecurityLib",
-            "time": "2015-03-20T14:31:23+00:00"
         },
         {
             "name": "khanamiryan/qrcode-detector-decoder",
@@ -1607,16 +1506,16 @@
         },
         {
             "name": "topthink/framework",
-            "version": "v5.1.32",
+            "version": "v5.1.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/top-think/framework.git",
-                "reference": "88a2ab625b35e047896718db320e08375cf021da"
+                "reference": "ecf1a90d397d821ce2df58f7d47e798c17eba3ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/top-think/framework/zipball/88a2ab625b35e047896718db320e08375cf021da",
-                "reference": "88a2ab625b35e047896718db320e08375cf021da",
+                "url": "https://api.github.com/repos/top-think/framework/zipball/ecf1a90d397d821ce2df58f7d47e798c17eba3ad",
+                "reference": "ecf1a90d397d821ce2df58f7d47e798c17eba3ad",
                 "shasum": ""
             },
             "require": {
@@ -1654,7 +1553,11 @@
                 "orm",
                 "thinkphp"
             ],
-            "time": "2018-12-23T13:42:11+00:00"
+            "support": {
+                "issues": "https://github.com/top-think/framework/issues",
+                "source": "https://github.com/top-think/framework/tree/v5.1.42"
+            },
+            "time": "2022-10-25T15:04:49+00:00"
         },
         {
             "name": "topthink/think-captcha",
@@ -1697,23 +1600,23 @@
         },
         {
             "name": "topthink/think-installer",
-            "version": "v2.0.0",
+            "version": "v2.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/top-think/think-installer.git",
-                "reference": "f5400a12c60e513911aef41fe443fa6920952675"
+                "reference": "38ba647706e35d6704b5d370c06f8a160b635f88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/top-think/think-installer/zipball/f5400a12c60e513911aef41fe443fa6920952675",
-                "reference": "f5400a12c60e513911aef41fe443fa6920952675",
+                "url": "https://api.github.com/repos/top-think/think-installer/zipball/38ba647706e35d6704b5d370c06f8a160b635f88",
+                "reference": "38ba647706e35d6704b5d370c06f8a160b635f88",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^1.0"
+                "composer-plugin-api": "^1.0||^2.0"
             },
             "require-dev": {
-                "composer/composer": "1.0.*@dev"
+                "composer/composer": "^1.0||^2.0"
             },
             "type": "composer-plugin",
             "extra": {
@@ -1734,130 +1637,11 @@
                     "email": "448901948@qq.com"
                 }
             ],
-            "time": "2018-05-11T06:45:42+00:00"
-        },
-        {
-            "name": "xtoyun/membership",
-            "version": "1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/xtoyun/membership.git",
-                "reference": "349274bc8524ce1fe57c7c819993d7023dda5d27"
+            "support": {
+                "issues": "https://github.com/top-think/think-installer/issues",
+                "source": "https://github.com/top-think/think-installer/tree/v2.0.5"
             },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/xtoyun/membership/zipball/349274bc8524ce1fe57c7c819993d7023dda5d27",
-                "reference": "349274bc8524ce1fe57c7c819993d7023dda5d27",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.6"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "xto\\membership\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "authors": [
-                {
-                    "name": "xtoyun",
-                    "email": "yun@xtocn.com"
-                }
-            ],
-            "time": "2019-01-04T06:20:33+00:00"
-        },
-        {
-            "name": "xtoyun/plugins",
-            "version": "1.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/xtoyun/plugins.git",
-                "reference": "23903c0b31a4f686a7d1b6370ae349825975fbe6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/xtoyun/plugins/zipball/23903c0b31a4f686a7d1b6370ae349825975fbe6",
-                "reference": "23903c0b31a4f686a7d1b6370ae349825975fbe6",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.6"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "xto\\plugins\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "authors": [
-                {
-                    "name": "xtoyun",
-                    "email": "yun@xtocn.com"
-                }
-            ],
-            "description": "plugin class",
-            "time": "2019-01-04T03:40:25+00:00"
-        },
-        {
-            "name": "xtoyun/template",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/xtoyun/template.git",
-                "reference": "859e8642d4e0a58be970389642a70e435148213c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/xtoyun/template/zipball/859e8642d4e0a58be970389642a70e435148213c",
-                "reference": "859e8642d4e0a58be970389642a70e435148213c",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.6"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "xto\\template\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "authors": [
-                {
-                    "name": "xtoyun",
-                    "email": "yun@xtocn.com"
-                }
-            ],
-            "time": "2019-01-04T06:53:47+00:00"
-        },
-        {
-            "name": "xtoyun/xtotest",
-            "version": "1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/xtoyun/xtotest.git",
-                "reference": "6f17f2eb3d37bfe6f6c4cdccd2d59376ed21adae"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/xtoyun/xtotest/zipball/6f17f2eb3d37bfe6f6c4cdccd2d59376ed21adae",
-                "reference": "6f17f2eb3d37bfe6f6c4cdccd2d59376ed21adae",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.6"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "HelloWorld\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "time": "2018-12-25T00:44:33+00:00"
+            "time": "2021-01-14T12:12:14+00:00"
         }
     ],
     "packages-dev": [],
@@ -1869,5 +1653,6 @@
     "platform": {
         "php": ">=5.6.0"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
 }
